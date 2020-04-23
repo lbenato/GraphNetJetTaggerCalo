@@ -1,0 +1,17 @@
+#Undesired root files
+*.root
+*/*.root
+
+#Undesired h5 files
+*.h5
+*/*.h5
+
+#Undesired png files
+*.png
+*/*.png
+
+#Compiled python stuff
+*.pyc
+*.py~
+
+*.md~
