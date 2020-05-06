@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 from tensorflow import keras
 
 
@@ -12,6 +13,18 @@ def batch_distance_matrix_general(A, B):
         D = r_A - 2 * m + tf.transpose(r_B, perm=(0, 2, 1))
         return D
 
+# Implemented by Tobias Loesche
+# this function gets an uncorrected delta_phi_squared distance matrix and computes and returns the correct one
+def correct_phi(D_phi):
+    dmask = tf.cast(tf.greater(D_phi, np.pi**2), dtype='float32')
+    #set points where delta_phi**2 > pi**2 to zero
+    current_D_phi = tf.multiply(D_phi, tf.cast(tf.equal(dmask, 0), dtype='float32'))
+        
+    corr_D_phi = D_phi-(4*np.pi*tf.sqrt(D_phi))+(4*(np.pi**2))
+    corr_D_phi_full = tf.multiply(corr_D_phi, dmask)
+        
+    final_D_phi = tf.add(corr_D_phi_full, current_D_phi)
+    return final_D_phi
 
 def knn(num_points, k, topk_indices, features):
     # topk_indices: (N, P, K)
@@ -24,7 +37,7 @@ def knn(num_points, k, topk_indices, features):
         return tf.gather_nd(features, indices)
 
 
-def edge_conv(points, features, num_points, K, channels, with_bn=True, activation='relu', pooling='average', name='edgeconv'):
+def edge_conv(points, features, num_points, K, channels, with_bn=True, activation='relu', pooling='average', name='edgeconv', contains_angle=False):
     """EdgeConv
     Args:
         K: int, number of neighbors
@@ -41,7 +54,28 @@ def edge_conv(points, features, num_points, K, channels, with_bn=True, activatio
     with tf.name_scope('edgeconv'):
 
         # distance
-        D = batch_distance_matrix_general(points, points)  # (N, P, P)
+
+        # if distance contains angular variable, we need to make sure the distances are calculated correctly:
+        if contains_angle:
+            # calculate distance for non-angular variable
+            D_eta = batch_distance_matrix_general(points[:, :, 0:1], points[:, :, 0:1])
+            # calculate distance for angular variable
+            # TODO: implement feature that one can choose at which points in input angular variables are used
+            D_phi = batch_distance_matrix_general(points[:, :, 1:2], points[:, :, 1:2])
+            D_phi_corrected = correct_phi(D_phi)
+            
+            D = tf.add(D_eta, D_phi_corrected)
+            #Tobias:
+            #fun_D = tf.add(D_eta, D_phi_corrected)
+            #D = tf.identity(fun_D, name='D_matrix_{}'.format(index)) # give tensor a name for better identification
+        else:
+            D = batch_distance_matrix_general(points, points)  # (N, P, P)
+
+            #Tobias:
+            #fun_D = batch_distance_matrix_general(points, points)  # (N, P, P)
+            #D = tf.identity(fun_D, name='D_matrix_{}'.format(index)) # give tensor a name for better identification
+
+        #D = batch_distance_matrix_general(points, points)  # (N, P, P)
         _, indices = tf.nn.top_k(-D, k=K + 1)  # (N, P, K+1)
         indices = indices[:, :, 1:]  # (N, P, K)
 
@@ -77,7 +111,7 @@ def edge_conv(points, features, num_points, K, channels, with_bn=True, activatio
             return sc + fts
 
 
-def _particle_net_base(points, features=None, mask=None, setting=None, name='particle_net'):
+def _particle_net_base(points, features=None, mask=None, setting=None, name='particle_net', contains_angle=False):
     # points : (N, P, C_coord)
     # features:  (N, P, C_features), optional
     # mask: (N, P, 1), optinal
@@ -96,8 +130,11 @@ def _particle_net_base(points, features=None, mask=None, setting=None, name='par
         for layer_idx, layer_param in enumerate(setting.conv_params):
             K, channels = layer_param
             pts = tf.add(coord_shift, points) if layer_idx == 0 else tf.add(coord_shift, fts)
+            if layer_idx != 0 and contains_angle:
+                contains_angle = False
+
             fts = edge_conv(pts, fts, setting.num_points, K, channels, with_bn=True, activation='relu',
-                            pooling=setting.conv_pooling, name='%s_%s%d' % (name, 'EdgeConv', layer_idx))
+                            pooling=setting.conv_pooling, name='%s_%s%d' % (name, 'EdgeConv', layer_idx),contains_angle=contains_angle)
 
         if mask is not None:
             fts = tf.multiply(fts, mask)
@@ -121,7 +158,7 @@ class _DotDict:
     pass
 
 
-def get_particle_net(num_classes, input_shapes):
+def get_particle_net(num_classes, input_shapes, contains_angle=False):
     r"""ParticleNet model from `"ParticleNet: Jet Tagging via Particle Clouds"
     <https://arxiv.org/abs/1902.08570>`_ paper.
     Parameters
@@ -150,10 +187,10 @@ def get_particle_net(num_classes, input_shapes):
     mask = keras.Input(name='mask', shape=input_shapes['mask']) if 'mask' in input_shapes else None
     outputs = _particle_net_base(points, features, mask, setting, name='ParticleNet')
 
-    return keras.Model(inputs=[points, features, mask], outputs=outputs, name='ParticleNet')
+    return keras.Model(inputs=[points, features, mask], outputs=outputs, name='ParticleNet', contains_angle=contains_angle)
 
 
-def get_particle_net_lite(num_classes, input_shapes):
+def get_particle_net_lite(num_classes, input_shapes, contains_angle=False):
     r"""ParticleNet-Lite model from `"ParticleNet: Jet Tagging via Particle Clouds"
     <https://arxiv.org/abs/1902.08570>`_ paper.
     Parameters
@@ -179,7 +216,7 @@ def get_particle_net_lite(num_classes, input_shapes):
     points = keras.Input(name='points', shape=input_shapes['points'])
     features = keras.Input(name='features', shape=input_shapes['features']) if 'features' in input_shapes else None
     mask = keras.Input(name='mask', shape=input_shapes['mask']) if 'mask' in input_shapes else None
-    outputs = _particle_net_base(points, features, mask, setting, name='ParticleNetLite')
+    outputs = _particle_net_base(points, features, mask, setting, name='ParticleNetLite', contains_angle=contains_angle)
 
     return keras.Model(inputs=[points, features, mask], outputs=outputs, name='ParticleNetLite')
 
