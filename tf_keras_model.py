@@ -87,8 +87,10 @@ def _particle_net_base(points, features=None, mask=None, setting=None, name='par
             features = points
 
         if mask is not None:
-            mask = tf.cast(tf.not_equal(mask, 0), dtype='float32')  # 1 if valid
-            coord_shift = tf.multiply(999., tf.cast(tf.equal(mask, 0), dtype='float32'))  # make non-valid positions to 99
+            #Important! Our mask value is pt, that is padded as -1 for empty points.
+            #Instead of comparing if mask is equal to 0, compare if it's larger than 0.
+            mask = tf.cast(tf.greater(mask, 0), dtype='float32')  # 1 if valid
+            coord_shift = tf.multiply(999., tf.cast(tf.less_equal(mask, 0), dtype='float32'))  # make non-valid positions to 99
 
         fts = tf.squeeze(keras.layers.BatchNormalization(name='%s_fts_bn' % name)(tf.expand_dims(features, axis=2)), axis=2)
         for layer_idx, layer_param in enumerate(setting.conv_params):
