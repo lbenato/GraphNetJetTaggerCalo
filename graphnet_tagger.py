@@ -7,7 +7,6 @@ import uproot_methods
 import os.path
 from datetime import datetime
 from collections import defaultdict
-# Needed libraries
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
@@ -17,104 +16,63 @@ from dnn_functions import *
 from samplesAOD2017 import *
 from tf_keras_model import *
 
-# Configure parameters
-##pd_folder = 'dataframes/v2_calo_AOD_2017_test/'
-graphnet_pd_folder = 'dataframes_graphnet/v2_calo_AOD_2017_test/'
-##result_folder = 'model_weights/v2_calo_AOD_2017_test/'
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_test/'
-
-sgn = ['SUSY_mh400_pl1000']#,'SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-bkg = ['VV']
-
-# define your variables here
-var_list = []
-
-event_list = [
-            'EventNumber',
-            'RunNumber','LumiNumber','EventWeight','isMC',
-            #'isVBF','HT','MEt_pt','MEt_phi','MEt_sign','MinJetMetDPhi',
-            'nCHSJets',
-            #'nElectrons','nMuons','nPhotons','nTaus','nPFCandidates','nPFCandidatesTrack',
-            'ttv','is_signal',
-            ]
-
-###########################
-### Define jet features ###
-###########################
-
-nj=10
-
-j_gen = ['isGenMatched']
-j_nottrain = [
-'pt','eta','phi','mass',
-]
-
-# These are the variables we will use for training
-j_features = [
-'nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
-'muEFrac','eleEFrac','photonEFrac',
-'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti',
-'nHitsMedian','nPixelHitsMedian',
-'dRSVJet', 'nVertexTracks', 'CSV', 'SV_mass',
-]
-jet_features_list = []
-for f in j_features:
-    jet_features_list.append("Jet_"+f)
-
-# These are all the jet variables we want to save in the final output root file; needed to fully reconstruct the event
-j_var = j_gen+j_features+j_nottrain
-jet_list = []
-for v in j_var:
-    jet_list.append("Jet_"+v)
-print(jet_list)
-
-
-###################################
-### Define PFCandidate features ###
-###################################
-
-npf=20#100
-pf_nottrain = [
-    #'energy','px','py','pz',
-    'pt',
-    'pdgId','isTrack','hasTrackDetails', 'dxy', 'dz', 'POCA_x', 'POCA_y', 'POCA_z', 'POCA_phi',
-    'ptError', 'etaError', 'phiError', 'dxyError', 'dzError', 'theta', 'thetaError','chi2', 'ndof', 'normalizedChi2',
-    'nHits', 'nPixelHits', 'lostInnerHits', 'jetIndex',
-]
-pf_features = [
-    'energy','px','py','pz',
-    #'pt',
-    #'pdgId','isTrack','hasTrackDetails', 'dxy', 'dz', 'POCA_x', 'POCA_y', 'POCA_z', 'POCA_phi',
-    #'ptError', 'etaError', 'phiError', 'dxyError', 'dzError', 'theta', 'thetaError','chi2', 'ndof', 'normalizedChi2',
-    #'nHits', 'nPixelHits', 'lostInnerHits',
-]
-pf_features_list = []
-for n in range(npf):
-    for f in pf_features:
-        pf_features_list.append(f+str(n))
-
-# These are all the pf variables we want to save in the final output root file; needed to fully reconstruct the event
-pf_var = pf_features+pf_nottrain
-pf_list = []
-for n in range(npf):
-    for v in pf_var:
-        pf_list.append(v+str(n))
-print(pf_features_list)
-print(pf_list)
-
-
-##Time stamp for saving model
-dateTimeObj = datetime.now()
-timestampStr = dateTimeObj.strftime("%d%b%Y_%H_%M_%S")
-print("Time:", timestampStr)
-print("\n")
-
-
-def _col_list(prefix):
+def _col_list(prefix,npf):
     return ['%s_%d'%(prefix,i) for i in range(npf)]
 
 
-def fit_model(model_def,n_class,folder,result_folder,points,features,mask,is_signal,weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    if ignore_empty_jets:
+        #print("\n")
+        #print("    Ignore empty jets!!!!!!")
+        #print("\n")
+        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+
+    X = dataframe[features].values
+    y = dataframe[is_signal].values
+    w = dataframe[weight].values
+        
+    return X, y, w
+
+
+def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    if ignore_empty_jets:
+        #print("\n")
+        #print("    Ignore empty jets!!!!!!")
+        #print("\n")
+        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+        
+    points_arr = []
+    features_arr = []
+    mask_arr = []
+    
+    for p_var in points_var:
+        points_arr.append(dataframe[_col_list(p_var,n_points)].values)
+    points = np.stack(points_arr,axis=-1)
+
+    for f_var in features_var:
+        features_arr.append(dataframe[_col_list(f_var,n_points)].values)
+    features = np.stack(features_arr,axis=-1)
+    
+    for m_var in mask_var:
+        mask_arr.append(dataframe[_col_list(m_var,n_points)].values)
+    mask = np.stack(mask_arr,axis=-1)
+
+    input_shapes = defaultdict()
+    input_shapes['points'] = points.shape[1:]
+    input_shapes['features'] = features.shape[1:]
+    input_shapes['mask'] = mask.shape[1:]
+
+
+    X = [points,features,mask]
+    y = dataframe[is_signal].values
+    w = dataframe[weight].values
+        
+    return X, y, w, input_shapes
+
+
+def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
 
     ##Read train/validation sample
     store_train = pd.HDFStore(folder+"train.h5")
@@ -127,11 +85,11 @@ def fit_model(model_def,n_class,folder,result_folder,points,features,mask,is_sig
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
     elif(model_def=="particle_net_lite"):
-        X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_particle_net_lite(n_class, input_shapes) 
     else:
-        print("  Model not recognized, abort . . .")
+        print("    Model not recognized, abort . . .")
         exit()
 
     model.summary()
@@ -139,13 +97,15 @@ def fit_model(model_def,n_class,folder,result_folder,points,features,mask,is_sig
     if model_label=="":
         model_label=model_def+"_"+timestampStr
         
+    if not use_weight: model_label+="_no_weights"
+
     if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
         os.mkdir(result_folder+'/model_'+model_def+"_"+model_label)
-        
+
     result_folder += 'model_'+model_def+"_"+model_label+"/"
     
     print("\n")
-    print("   Fitting model.....   ")
+    print("    Fitting model.....   ")
     print("\n")
     
     ##Compile
@@ -161,28 +121,29 @@ def fit_model(model_def,n_class,folder,result_folder,points,features,mask,is_sig
 
     ##Fit model
     #train is 60%, test is 20%, val is 20%
-    print(" WITHOUT WEIGHTS!! ")
-    histObj = model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch_size, validation_split=val_split, validation_data=None if val_split>0 else (X_val, y_val), callbacks=[early_stop, checkpoint])
+    if use_weight:
+        histObj = model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch_size, sample_weight=w_train, validation_split=val_split, validation_data=None if val_split>0 else (X_val, y_val, w_val), callbacks=[early_stop, checkpoint])
+    else:
+        histObj = model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch_size, validation_split=val_split, validation_data=None if val_split>0 else (X_val, y_val), callbacks=[early_stop, checkpoint])
 
-    #print(" WITH WEIGHTS!! ")
-    #histObj = model.fit(df_train[features].values, df_train[is_signal].values, epochs=n_epochs, batch_size=n_batch_size, sample_weight=df_train[weight].values, validation_split=val_split, validation_data=None if val_split>0 else (df_val[features].values, df_val[is_signal].values, df_val[weight].values), callbacks=[early_stop, checkpoint])
-    #validation_data=(df_val[features].values, df_val["is_signal"].values, df_val["EventWeight"].values))#, batch_size=128) 
     histObj.name='model_'+model_def+model_label # name added to legend
     plot = plotLearningCurves(histObj)# the above defined function to plot learning curves
     plot.savefig(result_folder+'loss_accuracy_'+model_label+'.png')
     plot.savefig(result_folder+'loss_accuracy_'+model_label+'.pdf')
-    print("Plot saved in: ", result_folder+'loss_accuracy_'+model_label+'.png')
+    print("\n")
+    print("    Plot saved in: ", result_folder+'loss_accuracy_'+model_label+'.png')
     output_file = 'model_'+model_label
     model.save(result_folder+output_file+'.h5')
     del model
-    print("Model saved in ", result_folder+output_file+'.h5')
+    print("    Model saved in ", result_folder+output_file+'.h5')
+    print("\n")
     #plot.show()
 
-def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,is_signal,weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
+
+def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
 
     print("\n")
-    print("   Evaluating performances of the model.....   ")
-    print("\n")
+    print("    Evaluating performances of the model.....   ")
 
     ##Read test sample
     store = pd.HDFStore(folder+"test.h5")
@@ -193,35 +154,37 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
 
     add_string = ""
     if ignore_empty_jets_test:
-        print("\n")
-        print("    Ignore empty jets at testing!!!!!!")
-        print("\n")
+        #print("\n")
+        #print("    Ignore empty jets at testing!!!!!!")
+        #print("\n")
         df_test = df_test.loc[df_test["Jet_isGenMatched"]!=-1]
         add_string+="_ignore_empty_jets"
 
     if signal_match_test:
-        print("\n")
-        print("    Ignore not matched jets in signal at testing!!!!!!")
-        print("\n")
+        #print("\n")
+        #print("    Ignore not matched jets in signal at testing!!!!!!")
+        #print("\n")
         df_s = df_test.loc[df_test[is_signal]==1]
         df_b = df_test.loc[df_test[is_signal]==0]
         df_s = df_s.loc[df_s["Jet_isGenMatched"]==1]
         df_test = pd.concat([df_b,df_s])
-        print(df_test.shape[0],df_s.shape[0],df_b.shape[0])
+        #print(df_test.shape[0],df_s.shape[0],df_b.shape[0])
         add_string+="_signal_matched"
 
     
     if(model_def=="LEADER"):
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite"):
-        X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     else:
-        print("  Model not recognized, abort . . .")
+        print("    Model not recognized, abort . . .")
         exit()
 
 
     if model_label=="":
         model_label=model_def+"_"+timestampStr
+
+    if not use_weight: model_label+="_no_weights"
 
     result_folder += 'model_'+model_def+"_"+model_label+"/"
     output_file = 'model_'+model_label
@@ -230,10 +193,12 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     #    print("Result folder ",result_folder, " does not exist! Have you trained the model? Aborting . . .")
     #    exit()
 
-    print("Loading model... ", result_folder+output_file+'.h5')
+    print("    Loading model... ", result_folder+output_file+'.h5')
+    print("\n")
     model = keras.models.load_model(result_folder+output_file+'.h5')
     model.summary()
-    print("Running on test sample. This may take a moment. . .")
+    print("\n")
+    print("    Running on test sample. This may take a moment. . .")
 
 
     probs = model.predict(X_test)#predict probability over test sample
@@ -242,17 +207,18 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     #df_test = df_test[df_test[weight]>=0]
     #print(df_test)
 
-    print(" WITHOUT WEIGHTS!! ")
-    AUC = roc_auc_score(y_test, probs[:,1])
+    if use_weight:
+        AUC = roc_auc_score(y_test, probs[:,1], sample_weight=w_test)        
+    else:
+        AUC = roc_auc_score(y_test, probs[:,1])
 
-    #print(" WITH WEIGHTS!! ")
-    #AUC = roc_auc_score(df_test[is_signal], probs[:,1],sample_weight=df_test[weight])
-    print("Test Area under Curve = {0}".format(AUC))
-    #exit()
+    print("\n")
+    print("    Test Area under Curve = {0}".format(AUC))
+    print("\n")
     df_test["sigprob"] = probs[:,1]
 
     df_test.to_hdf(result_folder+'test_score_'+model_label+add_string+'.h5', 'df', format='fixed')
-    print("   "+result_folder+"test_score_"+model_label+add_string+".h5 stored")
+    print("    "+result_folder+"test_score_"+model_label+add_string+".h5 stored")
 
     back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
     sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
@@ -266,13 +232,13 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     # * 50 bins
     # * alpha: filling color transparency
     # * density: it should normalize the histograms to unity
-    print(" WITHOUT WEIGHTS!! ")
-    plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-    plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
 
-    #print(" WITH WEIGHTS!! ")
-    #plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-    #plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+    if use_weight:
+        plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+    else:
+        plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
 
     plt.xlim([0.0, 1.05])
     plt.xlabel('Event probability of being classified as signal')
@@ -281,13 +247,11 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     plt.grid(True)
     plt.savefig(result_folder+'probability_'+output_file+add_string+'.png')
     plt.savefig(result_folder+'probability_'+output_file+add_string+'.pdf')
-    #plt.show()
 
-    print(" WITHOUT WEIGHTS!! ")
-    fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"])
-
-    #print(" WITH WEIGHTS!! ")
-    #fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=df_test[weight]) #extract true positive rate and false positive rate
+    if use_weight:
+        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"])
+    else:
+        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=w_test)
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
@@ -302,7 +266,8 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'.pdf')
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'.png')
     #plt.show()
-    print("   Plots printed in "+result_folder)
+    print("    Plots printed in "+result_folder)
+    print("\n")
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
@@ -319,6 +284,10 @@ def evaluate_model(model_def,n_class,folder,result_folder,points,features,mask,i
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'_logx.png')
     #plt.show()
 
+
+# # # # # # # # # #
+# These functions must be tested for graphnet:
+'''
 def write_discriminator_output(folder,result_folder,features,is_signal,weight,n_batch_size,model_label,sample_list=[]):
     if model_label=="":
         model_label=timestampStr
@@ -368,7 +337,9 @@ def write_discriminator_output(folder,result_folder,features,is_signal,weight,n_
             df_test.to_hdf(result_folder+sample+'_score_'+model_label+'.h5', 'df', format='table')
             print("   "+result_folder+sample+"_score_"+model_label+".h5 stored")
 
+'''
 
+'''
 def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,model_label,sample_list=[]):
 
     if not os.path.isdir(output_root_folder+'/model_'+model_label): os.mkdir(output_root_folder+'/model_'+model_label)
@@ -489,119 +460,14 @@ def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,mod
 
             
             print("  Root file written : ", output_root_folder+'/model_'+model_label+'/'+sample+'.root')
+'''
 
-
-def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
-
-    if ignore_empty_jets:
-        print("\n")
-        print("    Ignore empty jets!!!!!!")
-        print("\n")
-        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
-
-    X = dataframe[features].values
-    y = dataframe[is_signal].values
-    w = dataframe[weight].values
-        
-    return X, y, w
-
-def get_particle_net_dataset(dataframe,points_var,features_var,mask_var,weight,is_signal="is_signal",ignore_empty_jets=True):
-
-    if ignore_empty_jets:
-        print("\n")
-        print("    Ignore empty jets!!!!!!")
-        print("\n")
-        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
-        
-    points_arr = []
-    features_arr = []
-    mask_arr = []
     
-    for p_var in points_var:
-        points_arr.append(dataframe[_col_list(p_var)].values)
-    points = np.stack(points_arr,axis=-1)
-
-    for f_var in features_var:
-        features_arr.append(dataframe[_col_list(f_var)].values)
-    features = np.stack(features_arr,axis=-1)
-    
-    for m_var in mask_var:
-        mask_arr.append(dataframe[_col_list(m_var)].values)
-    mask = np.stack(mask_arr,axis=-1)
-
-    input_shapes = defaultdict()
-    input_shapes['points'] = points.shape[1:]
-    input_shapes['features'] = features.shape[1:]
-    input_shapes['mask'] = mask.shape[1:]
-
-
-    X = [points,features,mask]
-    y = dataframe[is_signal].values
-    w = dataframe[weight].values
-        
-    return X, y, w, input_shapes
-    
-# # # # # #
-
-
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.allow_growth = True
-tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config)) 
-
-### Here we need a switch between jet features and pf features
-cols = jet_features_list
-print("\n")
-print(cols)
-print(len(cols)," training features!")
-print("\n")
-
-###Here we must get the different models and the different training features
-n_class=2
-
-#####################
-
-### FCN works fine!!!
-#fit_model("LEADER", n_class, graphnet_pd_folder, graphnet_result_folder,[],cols,[],"Jet_isGenMatched","EventWeightNormalized",n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
-
-#evaluate_model("LEADER", n_class, graphnet_pd_folder, graphnet_result_folder,[],cols,[],"Jet_isGenMatched","EventWeightNormalized",n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
-
 ###
-
-####################
-### now graph net
-pf_features = [
-    'energy','px','py','pz',
-    #'pt',
-    #'pdgId',
-    'isTrack',
-    #'hasTrackDetails',
-    'dxy', 'dz',
-    #'POCA_x', 'POCA_y', 'POCA_z', 'POCA_phi',
-    #'ptError', 'etaError', 'phiError', 'dxyError', 'dzError', 'theta', 'thetaError','chi2', 'ndof', 'normalizedChi2',
-    'nHits', 'nPixelHits',
-    #'lostInnerHits',
-]
-
-fit_model("particle_net_lite", n_class, graphnet_pd_folder, graphnet_result_folder,['eta', 'phi'],pf_features,['pt'],"Jet_isGenMatched","EventWeightNormalized",n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
-
-evaluate_model("particle_net_lite", n_class, graphnet_pd_folder, graphnet_result_folder,['eta', 'phi'],pf_features,['pt'],"Jet_isGenMatched","EventWeightNormalized",n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
-###
-
-####################
-
-###
-exit()
-
-##write_discriminator_output(graphnet_pd_folder,graphnet_result_folder,cols,"Jet_isGenMatched","EventWeightNormalized",n_batch_size=2000,model_label="graph_0",sample_list=sgn+bkg)
-##var = cols + ["EventNumber","RunNumber","LumiNumber","EventWeight","isMC","Jet_isGenMatched","Jet_sigprob","Jet_index"]
-##output_root_files = "root_files_tagger/v2_calo_AOD_2017/"
-##var+= ["nDTSegments","nStandAloneMuons","nDisplacedStandAloneMuons"]
-##test_to_root(graphnet_pd_folder,graphnet_result_folder,output_root_files,event_list+jvar,"is_signal",model_label="graph_0",sample_list=sgn+bkg)
-
-
+# At the moment, this function is not needed. We might restore it later for relative eta/phi.
+# Taken form ParticleNet notebooks
 
 '''
-At the moment, this function is not needed. We might restore it later for relative eta/phi
 
 def transform(dataframe, max_particles=10, start=0, stop=-1):
     from collections import OrderedDict
