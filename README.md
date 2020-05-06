@@ -9,6 +9,11 @@ Input and output root files are designed to be compatible with LLP repository.
 ## Preliminary naf gpu setup
 See: https://github.com/lbenato/ParticleNet-LLP-fork
 
+Once in your environment folder, install the additional package:
+```
+pip install GPUtil
+```
+
 ## Prepare folders
 ```
 mkdir dataframes
@@ -36,8 +41,11 @@ Original ParticleNet functions and architectures, added FCN jet tagger architect
 - Transform them into train, validation, test h5
 
 ## graphnet_tagger.py
-= Load FCN or ParticleNet models
+- Load FCN or ParticleNet models
 - Training function
 - Calculate performances
 - Write the output scores of test samples
 - Convert h5 back to root files, compatible with any macro of LLP repository
+
+## training_script.py
+- Define parameters and submits routines defined in graphnet_tagger.py 
