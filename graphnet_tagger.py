@@ -87,12 +87,12 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
     elif(model_def=="particle_net_lite"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        model = get_particle_net_lite(n_class, input_shapes)
+        model = get_particle_net_lite(n_class, input_shapes, contains_angle = True if 'phi' in points else False)
 # Julia: add particle_net        
     elif(model_def=="particle_net"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        model = get_particle_net(n_class, input_shapes) 
+        model = get_particle_net(n_class, input_shapes, contains_angle = True if 'phi' in points else False) 
         
     else:
         print("    Model not recognized, abort . . .")
