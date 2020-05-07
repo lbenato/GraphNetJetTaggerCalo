@@ -177,8 +177,9 @@ print("\n")
 n_class=2
 
 ### Here we need a switch between jet features and pf features
-TRAIN_MODEL = "LEADER"
+#TRAIN_MODEL = "LEADER"
 #TRAIN_MODEL = "particle_net_lite"
+TRAIN_MODEL = "particle_net"
 
 if TRAIN_MODEL == "LEADER":
     print("\n")
@@ -212,7 +213,23 @@ elif TRAIN_MODEL == "particle_net_lite":
 
     evaluate_model("particle_net_lite", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
 
+elif TRAIN_MODEL == "particle_net":
+    print("\n")
+    print("   Training ParticleNet on ", npf, "jet constituents features (particle_net)    ")
+    print("\n")
+    print(pf_features)
+    print(len(pf_features)," training features")
+    print("\n")
+    print(pf_points)
+    print(len(pf_points)," points coordinates")
+    print("\n")
+    print(pf_mask)
+    print(len(pf_mask)," mask")
+    print("\n")
 
+    fit_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points, pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
+
+    evaluate_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
 
 ####################
 ###To be tested:
