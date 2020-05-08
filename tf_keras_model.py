@@ -185,9 +185,9 @@ def get_particle_net(num_classes, input_shapes, contains_angle=False):
     points = keras.Input(name='points', shape=input_shapes['points'])
     features = keras.Input(name='features', shape=input_shapes['features']) if 'features' in input_shapes else None
     mask = keras.Input(name='mask', shape=input_shapes['mask']) if 'mask' in input_shapes else None
-    outputs = _particle_net_base(points, features, mask, setting, name='ParticleNet')
+    outputs = _particle_net_base(points, features, mask, setting, name='ParticleNet', contains_angle=contains_angle)
 
-    return keras.Model(inputs=[points, features, mask], outputs=outputs, name='ParticleNet', contains_angle=contains_angle)
+    return keras.Model(inputs=[points, features, mask], outputs=outputs, name='ParticleNet')
 
 
 def get_particle_net_lite(num_classes, input_shapes, contains_angle=False):
