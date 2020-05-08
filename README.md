@@ -33,7 +33,7 @@ Same as LLP repo; used to load sample names.
 Simple function to draw training and validation losses and accuracies.
 
 ## tf_keras_model.py
-Original ParticleNet functions and architectures, added FCN jet tagger architecture (https://github.com/lbenato/LEADER).
+Original ParticleNet functions and architectures, added FCN jet tagger architecture (https://github.com/lbenato/LEADER). Added some modifications to take into account angular variables for matrix distance.
 
 ## prepare_dataset_graphnet.py
 - Convert per-event into per-jet dataframes
