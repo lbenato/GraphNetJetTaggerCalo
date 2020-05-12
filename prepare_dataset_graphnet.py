@@ -50,10 +50,16 @@ event_list = [
 #jets variables
 nj = 10
 jtype = ['Jet']
-jvar = [
-       'pt','eta','phi','mass','nConstituents',
-       'nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE', 'muEFrac','eleEFrac','photonEFrac', 'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti', 'nHitsMedian','nPixelHitsMedian', 'dRSVJet', 'nVertexTracks', 'CSV', 'SV_mass',#FCN tagger
-       ]
+jvar = ['pt','eta','phi','mass','nConstituents','nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
+        'muEFrac','eleEFrac','photonEFrac', 'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti',
+        'nHitsMedian','nPixelHitsMedian', 'dRSVJet', 'nVertexTracks', 'CSV', 'SV_mass',
+        #new
+        'nRecHits', 'timeRecHits', 'timeRMSRecHits', 'energyRecHits', 'energyErrorRecHits',
+        'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax', 'medianIP2D', 
+        #'medianTheta2D',#currently empty
+        'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
+        'dzMedian', 'dxyMedian',
+]
 jvar+=['isGenMatched']
 jet_list = []
 
