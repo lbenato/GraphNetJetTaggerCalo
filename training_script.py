@@ -116,7 +116,7 @@ for v in j_var:
 ###################################
 
 # Number of pf candidates used in the model
-npf=20 #npf are 100 at maximum
+npf=50 #npf are 100 at maximum
 
 #PF features we have in the dataset but that we don't use for training
 pf_nottrain = [
@@ -177,9 +177,10 @@ print("\n")
 n_class=2
 
 ### Here we need a switch between jet features and pf features
+TRAIN_MODEL = "BDT"
 #TRAIN_MODEL = "LEADER"
 #TRAIN_MODEL = "particle_net_lite"
-TRAIN_MODEL = "particle_net"
+#TRAIN_MODEL = "particle_net"
 
 if TRAIN_MODEL == "LEADER":
     print("\n")
@@ -194,6 +195,20 @@ if TRAIN_MODEL == "LEADER":
 
     #evaluate performances
     evaluate_model("LEADER", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
+
+elif TRAIN_MODEL == "BDT":
+    print("\n")
+    print("   Training BDT on jet features (same as LEADER)    ")
+    print("\n")
+    print("   WARNING! Taking event weight NOT normalized!    ")
+    print(jet_features_list)
+    print(len(jet_features_list)," training features!")
+    print("\n")
+
+    fit_BDT("BDT", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeight",use_weight=False,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
+
+    evaluate_BDT("BDT", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeight",use_weight=True,n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
+
 
 elif TRAIN_MODEL == "particle_net_lite":
     print("\n")
@@ -227,9 +242,9 @@ elif TRAIN_MODEL == "particle_net":
     print(len(pf_mask)," mask")
     print("\n")
 
-    fit_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points, pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
+    fit_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points, pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
 
-    evaluate_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
 
 ####################
 ###To be tested:
