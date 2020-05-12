@@ -3,6 +3,7 @@ from tensorflow import keras
 import tensorflow as tf
 import numpy as np
 import awkward
+import pickle
 import uproot_methods
 import os.path
 from datetime import datetime
@@ -31,6 +32,20 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
     X = dataframe[features].values
     y = dataframe[is_signal].values
     w = dataframe[weight].values
+        
+    return X, y, w
+
+def get_BDT_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    if ignore_empty_jets:
+        #print("\n")
+        #print("    Ignore empty jets!!!!!!")
+        #print("\n")
+        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+
+    X = dataframe[features]
+    y = dataframe[is_signal]
+    w = dataframe[weight]
         
     return X, y, w
 
@@ -70,6 +85,150 @@ def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var
     w = dataframe[weight].values
         
     return X, y, w, input_shapes
+
+
+def fit_prova(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+
+    print("GENERATOR???")
+    print("\n")
+    
+    ##Read train/validation sample
+    store_train = pd.HDFStore(folder+"train.h5")
+    #df_train = store_train.select("df")
+    store_val = pd.HDFStore(folder+"val.h5")
+    #df_val = store_val.select("df")
+
+    #Here: generator
+    size = store_train.get_storer('df').shape[0]
+    print(size)
+    verbose=True
+    i_start = 0
+    step = 0
+    print(" AAAAAHHSSMDLDSMD ")
+    
+    print("start: ", i_start)
+    
+    while True:
+      if size >= i_start+n_batch_size:            
+        print("Step n. ",step)
+        foo = store_train.select('df',
+                               #columns = features,
+                               start = i_start,
+                               stop  = i_start + n_batch_size)
+        print(foo)
+        #yield foo
+        i_start += n_batch_size
+        step += 1
+
+        if size < i_start+n_batch_size:
+            if verbose:
+                print("Closing " + folder+"train.h5")
+            store_train.close()
+            if verbose:
+                print("Closed " + folder+"train.h5")
+
+      else:
+        if verbose:
+            print("Opening " + folder+"train.h5")
+        store_train = pd.HDFStore(folder+"train.h5")
+        size = store_train.get_storer('df').shape[0]   
+        if verbose:
+            print("Opened " + folder+"train.h5")
+
+        i_start = 0
+                    
+    '''
+    verbose=True
+    i_start = 0
+    step = 0
+    print(" AAAAAHHSSMDLDSMD ")
+    while True:
+            
+        if size >= i_start+n_batch_size:            
+            print("Step n. ",step)
+            foo = store.select('df',
+                               columns = features,
+                               start = i_start,
+                               stop  = i_start + batch_size)
+            print(foo)
+            yield foo
+            i_start += batch_size
+            step += 1
+
+            if size < i_start+batch_size:
+                if verbose:
+                    print("Closing " + folder+"train.h5")
+                store.close()
+                if verbose:
+                    print("Closed " + folder+"train.h5")
+
+        else:
+            if verbose:
+                print("Opening " + folder+"train.h5")
+            store = pandas.HDFStore(folder+"train.h5")
+            size = store.get_storer('df').shape[0]   
+            if verbose:
+                print("Opened " + folder+"train.h5")
+
+            i_start = 0
+
+    
+    exit()
+    if(model_def=="LEADER"):
+        X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])        
+    else:
+        print("    Model not recognized, abort . . .")
+        exit()
+
+    model.summary()
+
+    if model_label=="":
+        model_label=model_def+"_"+timestampStr
+        
+    if not use_weight: model_label+="_no_weights"
+
+    if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
+        os.mkdir(result_folder+'/model_'+model_def+"_"+model_label)
+
+    result_folder += 'model_'+model_def+"_"+model_label+"/"
+    
+    print("\n")
+    print("    Fitting model.....   ")
+    print("\n")
+    
+    ##Compile
+    model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
+    #custom_adam:
+    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+
+    ##Callbacks
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
+    checkpoint = keras.callbacks.ModelCheckpoint(filepath=result_folder+'best_model_'+model_label+'.h5', monitor='val_loss', save_best_only=True)
+
+
+    ##Fit model
+    #train is 60%, test is 20%, val is 20%
+    if use_weight:
+        histObj = model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch_size, sample_weight=w_train, validation_split=val_split, validation_data=None if val_split>0 else (X_val, y_val, w_val), callbacks=[early_stop, checkpoint])
+    else:
+        histObj = model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch_size, validation_split=val_split, validation_data=None if val_split>0 else (X_val, y_val), callbacks=[early_stop, checkpoint])
+
+    histObj.name='model_'+model_def+model_label # name added to legend
+    plot = plotLearningCurves(histObj)# the above defined function to plot learning curves
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.png')
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.pdf')
+    print("\n")
+    print("    Plot saved in: ", result_folder+'loss_accuracy_'+model_label+'.png')
+    output_file = 'model_'+model_label
+    model.save(result_folder+output_file+'.h5')
+    del model
+    print("    Model saved in ", result_folder+output_file+'.h5')
+    print("\n")
+    #plot.show()
+    '''
 
 
 def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
@@ -145,6 +304,79 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
     print("\n")
     #plot.show()
 
+def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+
+    ##Read train/validation sample
+    store_train = pd.HDFStore(folder+"train.h5")
+    df_train = store_train.select("df")
+    store_val = pd.HDFStore(folder+"val.h5")
+    df_val = store_val.select("df")
+    
+    if(model_def=="BDT"):
+        X_train, y_train, w_train = get_BDT_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val   = get_BDT_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        model = get_BDT(n_epochs,features)##num_classes=n_class, input_shapes=X_train.shape[1:])
+    else:
+        print("    Model not recognized, abort . . .")
+        exit()
+
+    print(model)
+    if model_label=="":
+        model_label=model_def+"_"+timestampStr
+        
+    if not use_weight: model_label+="_no_weights"
+
+    if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
+        os.mkdir(result_folder+'/model_'+model_def+"_"+model_label)
+
+    result_folder += 'model_'+model_def+"_"+model_label+"/"
+
+    print("\n")
+    print("    Fitting model.....   ")
+    print("\n")
+    
+    
+    ##Compile
+    ##model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
+    ##custom_adam:
+    ##custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+
+    ###Callbacks
+    #early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
+    #checkpoint = keras.callbacks.ModelCheckpoint(filepath=result_folder+'best_model_'+model_label+'.h5', monitor='val_loss', save_best_only=True)
+
+
+    ##Fit model
+    #train is 60%, test is 20%, val is 20%
+    if use_weight:
+        print("yes weight")
+        eval_set = [(X_train, y_train), (X_val, y_val)]
+        sample_w = [w_train,w_val]
+        model.fit(X_train, y_train, sample_weight=w_train, eval_set = eval_set, sample_weight_eval_set=sample_w, eval_metric=["error","logloss"], early_stopping_rounds = patience_val)
+        histObj = model.evals_result()
+
+    else:
+        print("no weight")
+        eval_set = [(X_train, y_train), (X_val, y_val)]
+        model.fit(X_train, y_train, eval_set = eval_set, eval_metric=["error","logloss"], early_stopping_rounds = patience_val)
+        histObj = model.evals_result()
+
+    histObj_name='model_'+model_def+model_label # name added to legend
+    plot = plotLearningCurvesBDT(histObj,histObj_name)# the above defined function to plot learning curves
+    #plot.show()
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.png')
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.pdf')
+    print("\n")
+    print("    Plot saved in: ", result_folder+'loss_accuracy_'+model_label+'.png')
+    output_file = 'model_'+model_label
+    pickle.dump(model, open(result_folder+output_file+".dat", "wb"))
+    ####model.save_model(result_folder+output_file)
+    del model
+    print("    Model saved in ", result_folder+output_file+".dat")
+    print("\n")
+    #plot.show()
+
 
 def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
 
@@ -208,6 +440,159 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
 
 
     probs = model.predict(X_test)#predict probability over test sample
+    #print("Negative weights?")
+    #print(df_test[df_test[weight]<0])
+    #df_test = df_test[df_test[weight]>=0]
+    #print(df_test)
+
+    if use_weight:
+        AUC = roc_auc_score(y_test, probs[:,1], sample_weight=w_test)        
+    else:
+        AUC = roc_auc_score(y_test, probs[:,1])
+
+    print("\n")
+    print("    Test Area under Curve = {0}".format(AUC))
+    print("\n")
+    df_test["sigprob"] = probs[:,1]
+
+    df_test.to_hdf(result_folder+'test_score_'+model_label+add_string+'.h5', 'df', format='fixed')
+    print("    "+result_folder+"test_score_"+model_label+add_string+".h5 stored")
+
+    back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
+    sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
+    back_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==0].values)
+    sign_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==1].values)
+    #saves the df_test["sigprob"] column when the event is signal or background
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    #Let's plot an histogram:
+    # * y-values: back/sign probabilities
+    # * 50 bins
+    # * alpha: filling color transparency
+    # * density: it should normalize the histograms to unity
+
+    if use_weight:
+        plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+    else:
+        plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+
+    plt.xlim([0.0, 1.05])
+    plt.xlabel('Event probability of being classified as signal')
+    plt.legend(loc="upper right")
+    plt.yscale('log')
+    plt.grid(True)
+    plt.savefig(result_folder+'probability_'+output_file+add_string+'.png')
+    plt.savefig(result_folder+'probability_'+output_file+add_string+'.pdf')
+
+    if use_weight:
+        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"])
+    else:
+        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=w_test)
+
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    plt.plot(fpr, tpr, color='crimson', lw=2, label='ROC curve (area = {0:.4f})'.format(AUC))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.05])
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.savefig(result_folder+'ROC_'+output_file+add_string+'.pdf')
+    plt.savefig(result_folder+'ROC_'+output_file+add_string+'.png')
+    #plt.show()
+    print("    Plots printed in "+result_folder)
+    print("\n")
+
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    plt.plot(fpr, tpr, color='crimson', lw=2, label='ROC curve (area = {0:.4f})'.format(AUC))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.xlim([0.0001, 1.05])
+    plt.xscale('log')
+    plt.savefig(result_folder+'ROC_'+output_file+add_string+'_logx.pdf')
+    plt.savefig(result_folder+'ROC_'+output_file+add_string+'_logx.png')
+    #plt.show()
+
+
+def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
+
+    print("\n")
+    print("    Evaluating performances of the model.....   ")
+
+    ##Read test sample
+    store = pd.HDFStore(folder+"test.h5")
+    df_test = store.select("df")
+
+    print("    Remove negative weights at testing!!!!!!")
+    df_test = df_test.loc[df_test['EventWeight']>=0]
+
+    add_string = ""
+    if ignore_empty_jets_test:
+        #print("\n")
+        #print("    Ignore empty jets at testing!!!!!!")
+        #print("\n")
+        df_test = df_test.loc[df_test["Jet_isGenMatched"]!=-1]
+        add_string+="_ignore_empty_jets"
+
+    if signal_match_test:
+        #print("\n")
+        #print("    Ignore not matched jets in signal at testing!!!!!!")
+        #print("\n")
+        df_s = df_test.loc[df_test[is_signal]==1]
+        df_b = df_test.loc[df_test[is_signal]==0]
+        df_s = df_s.loc[df_s["Jet_isGenMatched"]==1]
+        df_test = pd.concat([df_b,df_s])
+        #print(df_test.shape[0],df_s.shape[0],df_b.shape[0])
+        add_string+="_signal_matched"
+
+    
+    if(model_def=="BDT"):
+        X_test, y_test, w_test = get_BDT_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    else:
+        print("    Model not recognized, abort . . .")
+        exit()
+
+
+    if model_label=="":
+        model_label=model_def+"_"+timestampStr
+
+    if not use_weight: model_label+="_no_weights"
+
+    result_folder += 'model_'+model_def+"_"+model_label+"/"
+    output_file = 'model_'+model_label
+
+    #if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
+    #    print("Result folder ",result_folder, " does not exist! Have you trained the model? Aborting . . .")
+    #    exit()
+
+    print("    Loading model... ", result_folder+output_file)
+    print("\n")
+    # load model from file
+    model = pickle.load(open(result_folder+output_file+".dat", "rb"))
+    print(model)
+    
+    print("\n")
+    print("    Running on test sample. This may take a moment. . .")
+
+    #model.get_booster().feature_names = features
+    #print(model.get_booster().feature_names)
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+    xgb.plot_importance(model, max_num_features=len(features), xlabel="F score (weight)",ax=ax)
+    plt.savefig(result_folder+'feature_importance_'+output_file+add_string+'.pdf')
+    plt.savefig(result_folder+'feature_importance_'+output_file+add_string+'.png')
+
+    probs = model.predict_proba(X_test)#predict probability over test sample
+    #print("BDT probs: ", probs[:,1])
     #print("Negative weights?")
     #print(df_test[df_test[weight]<0])
     #df_test = df_test[df_test[weight]>=0]
