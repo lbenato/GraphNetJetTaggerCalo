@@ -9,9 +9,10 @@ Input and output root files are designed to be compatible with LLP repository.
 ## Preliminary naf gpu setup
 See: https://github.com/lbenato/ParticleNet-LLP-fork
 
-Once in your environment folder, install the additional package:
+Once in your environment folder, install the additional packages:
 ```
 pip install GPUtil
+pip install xgboost
 ```
 
 ## Prepare folders
