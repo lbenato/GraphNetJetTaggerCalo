@@ -35,6 +35,22 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         
     return X, y, w
 
+def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    while True:
+        df = next(dataframe)
+        if ignore_empty_jets:
+            #print("\n")
+            #print("    Ignore empty jets!!!!!!")
+            #print("\n")
+            df = df[ df["Jet_isGenMatched"]!=-1 ]
+
+        X = df[features].values
+        y = df[is_signal].values
+        w = df[weight].values
+        
+        yield X, y, w
+
 def get_BDT_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
 
     if ignore_empty_jets:
@@ -87,93 +103,292 @@ def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var
     return X, y, w, input_shapes
 
 
-def fit_prova(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
-
-    print("GENERATOR???")
-    print("\n")
-    
-    ##Read train/validation sample
-    store_train = pd.HDFStore(folder+"train.h5")
-    #df_train = store_train.select("df")
-    store_val = pd.HDFStore(folder+"val.h5")
-    #df_val = store_val.select("df")
-
-    #Here: generator
-    size = store_train.get_storer('df').shape[0]
-    print(size)
-    verbose=True
+def generator_batch(file_name,b_size):
+    #print(file_name)
+    batch_size = b_size
+    store = pd.HDFStore(file_name)
+    size = store.get_storer('df').shape
+    print("Size: ",size)
+    #print("\n")
     i_start = 0
     step = 0
-    print(" AAAAAHHSSMDLDSMD ")
-    
-    print("start: ", i_start)
-    
+
     while True:
-      if size >= i_start+n_batch_size:            
-        print("Step n. ",step)
-        foo = store_train.select('df',
-                               #columns = features,
-                               start = i_start,
-                               stop  = i_start + n_batch_size)
-        print(foo)
-        #yield foo
-        i_start += n_batch_size
-        step += 1
-
-        if size < i_start+n_batch_size:
-            if verbose:
-                print("Closing " + folder+"train.h5")
-            store_train.close()
-            if verbose:
-                print("Closed " + folder+"train.h5")
-
-      else:
-        if verbose:
-            print("Opening " + folder+"train.h5")
-        store_train = pd.HDFStore(folder+"train.h5")
-        size = store_train.get_storer('df').shape[0]   
-        if verbose:
-            print("Opened " + folder+"train.h5")
-
-        i_start = 0
-                    
-    '''
-    verbose=True
-    i_start = 0
-    step = 0
-    print(" AAAAAHHSSMDLDSMD ")
-    while True:
-            
-        if size >= i_start+n_batch_size:            
-            print("Step n. ",step)
+        #print("while true, size-start-step: ", size, i_start, step)
+        if size >= i_start+batch_size:
+            #print("before yield, size-start-step: ", size, i_start, step)
             foo = store.select('df',
-                               columns = features,
                                start = i_start,
                                stop  = i_start + batch_size)
-            print(foo)
+                        
             yield foo
             i_start += batch_size
             step += 1
+            #print("after yield, size-start-step: ", size, i_start, step)
 
             if size < i_start+batch_size:
-                if verbose:
-                    print("Closing " + folder+"train.h5")
+                #print("after yield, second if, i_start has incremented, size-start-step: ", size, i_start, step)
+                #print("Closing " + file_name)
+                print("\n")
+                print("EOF, closing! ", file_name)
                 store.close()
-                if verbose:
-                    print("Closed " + folder+"train.h5")
+                #print("Closed " + file_name)
 
         else:
-            if verbose:
-                print("Opening " + folder+"train.h5")
-            store = pandas.HDFStore(folder+"train.h5")
-            size = store.get_storer('df').shape[0]   
-            if verbose:
-                print("Opened " + folder+"train.h5")
+            #print("yield failed, size-start-step: ", size, i_start, step)
+            #print("Opening " + file_name)
+            print("\n")
+            print("opening from scratch! ", file_name)
+            store = pd.HDFStore(file_name)
+            size = store.get_storer('df').shape
+            #print("Opened " + file_name)
 
             i_start = 0
+            #print("i_start back to zero, size-start-step: ", size, i_start, step)
 
+def check(gen_s):
+    s = next(gen_s)
+    yield s
+
+def concat_generators(gen_s, gen_b):
+    s = next(gen_s)
+    b = next(gen_b)
+    df = pd.concat([s,b])
+    yield df.sample(frac=1).reset_index(drop=True)
+
+def concat_generators_list(gen_list):
+    while True:
+        next_list = []
+        for gen in gen_list:
+            next_list.append(next(gen))
+        df = pd.concat(next_list)
+        #normalize separately signal and background
+        df['EventWeightNormalized'] = df['EventWeight']
+        norm_s = df['EventWeight'][df['is_signal']==1].sum(axis=0)
+        df.loc[df['is_signal']==1,'EventWeightNormalized'] = (df['EventWeight'][df['is_signal']==1]).div(norm_s)
+        norm_b = df['EventWeight'][df['is_signal']==0].sum(axis=0)
+        df.loc[df['is_signal']==0,'EventWeightNormalized'] = (df['EventWeight'][df['is_signal']==0]).div(norm_b)
+        df['EventWeight2'] = df['EventWeight']
+        yield df.sample(frac=1).reset_index(drop=True)
+
+    '''
+    Usage of generator:
+
+    batch_size = 3
+    df_chunck = gen('output.h5',batch_size)
+    store = pd.HDFStore('output.h5')
+    size = store.get_storer('df').shape[0]
+    print("size: ", size)
+    n_batches = int(size/batch_size)
+    if(size%batch_size>0): n_batches+=1
+    print("n. batches", n_batches)
+    for n in range(n_batches):
+    print("\n")
+    print("Batch n. ", n)
+    print(next(df_chunck))
+    '''
+
+##Please note!! This is work in progress!! Do NOT use yet!
+def fit_generator(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+
+    file_train = folder+"train.h5"
+    file_val = folder+"val.h5"
+
+    store_train = pd.HDFStore(file_train)
+    size_train = store_train.get_storer('df').shape
+    store_train.close()
+
+    store_val = pd.HDFStore(file_val)
+    size_val = store_val.get_storer('df').shape
+    store_val.close()
+
+    print("Size train: ", size_train)
+    print("Size val: ", size_val)
+
+    n_steps_train = 1000#int(size_train/batch_size)
+    n_steps_val = 1000#int(size_val/batch_size)
     
+    print("steps train: ", n_steps_train)
+    print("steps val: ", n_steps_val)
+
+    #to create a generator:
+    #generator_batch(s,n_batch_sampling)
+
+    #Mixed background and signal, and shuffled
+    df_gen_train = generator_batch(file_train,batch_size)
+    df_gen_val   = generator_batch(file_val,batch_size)
+
+    if model_label=="":
+        model_label=model_def+"_"+timestampStr
+        
+    if not use_weight: model_label+="_no_weights"
+
+    if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
+        os.mkdir(result_folder+'/model_'+model_def+"_"+model_label)
+
+    result_folder += 'model_'+model_def+"_"+model_label+"/"
+    
+    print("\n")
+    print("    Fitting model.....   ")
+    print("\n")
+
+    if(model_def=="LEADER"):
+        train_gen = get_FCN_jets_dataset_generator(df_gen_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        train_val = get_FCN_jets_dataset_generator(df_gen_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        model = get_FCN_jets(num_classes=n_class, input_shapes=(len(features),))
+    else:
+        print("    Model not recognized, abort . . .")
+        exit()
+
+    model.summary()
+
+    ##Compile
+    model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
+    #custom_adam:
+    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+
+    ##Callbacks
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
+    checkpoint = keras.callbacks.ModelCheckpoint(filepath=result_folder+'best_model_'+model_label+'.h5', monitor='val_loss', save_best_only=True)
+
+    histObj = model.fit(train_gen, epochs=50, steps_per_epoch = n_steps_train, validation_data = train_val, validation_steps = n_steps_val, callbacks=[early_stop, checkpoint])##, use_multiprocessing=True, workers=6 )
+
+    histObj.name='model_'+model_def+model_label # name added to legend
+    plot = plotLearningCurves(histObj)# the above defined function to plot learning curves
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.png')
+    plot.savefig(result_folder+'loss_accuracy_'+model_label+'.pdf')
+    print("\n")
+    print("    Plot saved in: ", result_folder+'loss_accuracy_'+model_label+'.png')
+    output_file = 'model_'+model_label
+    model.save(result_folder+output_file+'.h5')
+    del model
+    print("    Model saved in ", result_folder+output_file+'.h5')
+    print("\n")
+    #plot.show()
+
+
+def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+
+    '''
+    filename = "provetta.h5"
+    batch_size = 5
+    n_events = 20
+    n_steps = int(n_events/batch_size)
+    gen = generator_batch(filename,batch_size)
+    #print(next(gen))
+    for n in range(n_steps):
+        print("Step n. ", n)
+        print(next(gen))
+
     exit()
+    '''
+    #####
+
+    print("GENERATOR???")
+    print("\n")
+    #features=["Jet_pt"]
+    signal = []
+    background = []
+    signal_train = []
+    background_train = []
+    signal_val = []
+    background_val = []
+    for a in sign:
+        signal += samples[a]['files']
+
+    for b in back:
+        background += samples[b]['files']
+
+    for s in signal:
+        signal_train.append(folder+s+"_train.h5")
+        signal_val.append(folder+s+"_val.h5")
+
+    for b in background:
+        background_train.append(folder+b+"_train.h5")
+        background_val.append(folder+b+"_val.h5")
+    print(signal_train)
+    print(background_train)
+
+    n_batch_size = 500
+    n_batch_sampling = int(n_batch_size/2)
+    print("batch size: ", n_batch_size)
+    print("batch sampling: ", n_batch_sampling)
+    print("num of bkg: ", len(background_train))
+    generator_list_train = []
+    generator_list_val = []
+    for s in signal_train:
+        #df_gen_s = generator_batch(s,n_batch_size)
+        generator_list_train.append(generator_batch(s,n_batch_sampling))
+    for n,b in enumerate(background_train):
+        #If more than one background, sample through backgrounds the same number of events
+        print("\n")
+        print("background: ", b)
+        n_back = int(n_batch_sampling/len(background_train))
+        if n==len(background_train)-1 and (n_batch_sampling%len(background_train)!=0):#add lefotver events
+            n_back = int(n_batch_sampling/len(background_train)) + n_batch_sampling%len(background_train)
+        print("sampled events per bkg: ", n_back)
+        print("\n")
+        #df_gen_b = generator_batch(b,n_back)
+        generator_list_train.append(generator_batch(b,n_back))
+
+    for s in signal_val:
+        generator_list_val.append(generator_batch(s,n_batch_sampling))
+    for n,b in enumerate(background_val):
+        #If more than one background, sample through backgrounds the same number of events
+        n_back = int(n_batch_sampling/len(background_val))
+        if n==len(background_val)-1 and (n_batch_sampling%len(background_val)!=0):#add lefotver events
+            n_back = int(n_batch_sampling/len(background_val)) + n_batch_sampling%len(background_val)
+        generator_list_val.append(generator_batch(b,n_back))
+
+    #Mixed background and signal, and shuffled
+    df_gen_train = concat_generators_list(generator_list_train)
+    df_gen_val   = concat_generators_list(generator_list_val)
+    print("check gen train shape: ", next(df_gen_train).shape)
+
+    #df_gen_s = generator_batch(signal_train[0],n_batch_size)
+    #test = check(df_gen_s)
+    #wait for that
+    #X_train_gen, y_train_gen, w_train_gen =
+
+    train_gen = get_FCN_jets_dataset_generator(concat_generators_list(generator_list_train),features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    train_val = get_FCN_jets_dataset_generator(concat_generators_list(generator_list_val),features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+
+    model = get_FCN_jets(num_classes=n_class, input_shapes=(len(features),))        
+    model.summary()
+    ##Compile
+    model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
+    #custom_adam:
+    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+
+    ##Callbacks
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
+    checkpoint = keras.callbacks.ModelCheckpoint(filepath=result_folder+'best_model_'+model_label+'.h5', monitor='val_loss', save_best_only=True)
+
+    train_steps = 100000/n_batch_size
+    histObj = model.fit(train_gen, epochs=50, steps_per_epoch = train_steps, validation_data = train_val, validation_steps = int(train_steps*0.2), callbacks=[early_stop, checkpoint])##, use_multiprocessing=True, workers=6 )
+    plot = plotLearningCurves(histObj)# the above defined function to plot learning curves
+    plot.show()
+    for a in range(1):
+        print("This is the loop number ",a, "!")
+        #print( next( concat_generators_list(generator_list_train) ) )
+        ###print(next(df_gen_s))
+        ###print(next(df_gen_b))
+        #a = next(df_gen_train)
+        #print(a)
+
+        #wait for that
+        #X_train, y_train, w_train = get_FCN_jets_dataset( a ,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_train, y_train, w_train = next(train_gen)
+        print("X_train: ", X_train)
+        print("y_train: ", y_train)
+        print("w_train: ", w_train)
+        print(X_train.shape[1:])
+        print(np.array(len(features)))
+        #X_train_gen, y_train_gen, w_train_gen = get_FCN_jets_dataset_generator( concat_generators_list(generator_list_train) ,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    exit()
+
     if(model_def=="LEADER"):
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -228,7 +443,7 @@ def fit_prova(model_def,n_class,folder,result_folder,n_points,points,features,ma
     print("    Model saved in ", result_folder+output_file+'.h5')
     print("\n")
     #plot.show()
-    '''
+    
 
 
 def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
@@ -425,7 +640,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     if not use_weight: model_label+="_no_weights"
 
     result_folder += 'model_'+model_def+"_"+model_label+"/"
-    output_file = 'model_'+model_label
+    output_file = 'best_model_'+model_label
 
     #if not os.path.isdir(result_folder+'/model_'+model_def+"_"+model_label):
     #    print("Result folder ",result_folder, " does not exist! Have you trained the model? Aborting . . .")
@@ -480,7 +695,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
 
     plt.xlim([0.0, 1.05])
     plt.xlabel('Event probability of being classified as signal')
-    plt.legend(loc="upper right")
+    plt.legend(loc="upper right", title=model_label)
     plt.yscale('log')
     plt.grid(True)
     plt.savefig(result_folder+'probability_'+output_file+add_string+'.png')
@@ -493,13 +708,13 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
-    plt.plot(fpr, tpr, color='crimson', lw=2, label='ROC curve (area = {0:.4f})'.format(AUC))
+    plt.plot(fpr, tpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.xlim([0.0, 1.05])
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower right", title=model_label)
     plt.grid(True)
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'.pdf')
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'.png')
@@ -509,12 +724,12 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
-    plt.plot(fpr, tpr, color='crimson', lw=2, label='ROC curve (area = {0:.4f})'.format(AUC))
+    plt.plot(fpr, tpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower right", title=model_label)
     plt.grid(True)
     plt.xlim([0.0001, 1.05])
     plt.xscale('log')
@@ -674,6 +889,121 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'_logx.pdf')
     plt.savefig(result_folder+'ROC_'+output_file+add_string+'_logx.png')
     #plt.show()
+
+
+
+def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,model_labels,signal_match_test,ignore_empty_jets_test):
+
+    sigprob = {}
+    target = {}
+    weight = {}
+    AUC = {}
+    fpr = {}
+    tpr = {}
+    add_string = ""
+
+    if ignore_empty_jets_test:
+        add_string+="_ignore_empty_jets"
+
+    if signal_match_test:
+        add_string+="_signal_matched"
+
+    orig_result = result_folder
+    for i,m in enumerate(model_list):
+        if not use_weight: model_labels[i]+="_no_weights"
+        result_folder = orig_result + 'model_'+m+"_"+model_labels[i]+"/"
+        print(result_folder+'test_score_'+model_labels[i]+add_string+'.h5')
+        store = pd.HDFStore(result_folder+'test_score_'+model_labels[i]+add_string+'.h5')
+        df = store.select("df")
+        print(df)
+        print(df[is_signal])
+        print(df["sigprob"])
+        print(df[weight_list[i]].values)
+        print(df[weight_list[i]].values.shape)
+        #print( "AUC: ",roc_auc_score(df[is_signal], df["sigprob"],sample_weight = df[weight]) )
+        sigprob[i] = df["sigprob"].values
+        target[i] = df[is_signal].values
+        weight[i] = df[weight_list[i]].values
+        if use_weight:
+            AUC[i] = roc_auc_score(target[i], sigprob[i], sample_weight=weight[i])        
+            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i], sample_weight=weight[i])
+        else:
+            AUC[i] = roc_auc_score(target[i], sigprob[i])
+            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i])
+
+        del df
+        store.close()
+        del store
+
+    colors = ['crimson','green','skyblue','chocolate','orange']
+    linestyles = ['-', '--', '-.', ':']
+
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    for i,m in enumerate(model_list):
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=m+' (AUC = {0:.4f})'.format(AUC[i]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.05])
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'.pdf')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'.png')
+    #plt.show()
+    print("    Plots printed in "+orig_result)
+    print("\n")
+
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    for i,m in enumerate(model_list):
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=m+' (AUC = {0:.4f})'.format(AUC[i]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.xlim([0.0001, 1.05])
+    plt.xscale('log')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.pdf')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.png')
+    #plt.show()
+
+
+    '''
+    back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
+    sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
+    back_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==0].values)
+    sign_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==1].values)
+    #saves the df_test["sigprob"] column when the event is signal or background
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    #Let's plot an histogram:
+    # * y-values: back/sign probabilities
+    # * 50 bins
+    # * alpha: filling color transparency
+    # * density: it should normalize the histograms to unity
+
+    if use_weight:
+        plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+    else:
+        plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+
+    plt.xlim([0.0, 1.05])
+    plt.xlabel('Event probability of being classified as signal')
+    plt.legend(loc="upper right")
+    plt.yscale('log')
+    plt.grid(True)
+    plt.savefig(result_folder+'probability_'+output_file+add_string+'.png')
+    plt.savefig(result_folder+'probability_'+output_file+add_string+'.pdf')
+    '''
+
 
 
 # # # # # # # # # #
