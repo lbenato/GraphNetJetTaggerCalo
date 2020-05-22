@@ -223,10 +223,35 @@ def get_particle_net_lite(num_classes, input_shapes, contains_angle=False):
 
 def get_FCN_jets(num_classes, input_shapes):
 
+    #original:
+    #model 0
     model = keras.models.Sequential(name="LEADER")
     model.add(keras.layers.Dense(16, input_shape = input_shapes, activation='relu'))
     model.add(keras.layers.Dropout(rate=0.3))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+    #more complex:
+    #model 1
+    #model = keras.models.Sequential(name="LEADER")
+    #model.add(keras.layers.Dense(32, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(16, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+    #model 2, accuracy of training drops for some reasons...
+    #model = keras.models.Sequential(name="LEADER")
+    #model.add(keras.layers.Dense(64, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(32, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(16, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     return model
 
