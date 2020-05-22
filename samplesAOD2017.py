@@ -271,43 +271,43 @@ sample = {
         'kfactor' : 1.,
     },
 
-    'SUSY_mh400_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh400_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh300_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh300_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh250_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh250_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh200_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh200_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh175_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh175_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh150_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh150_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
         'kfactor' : 1.,
     },
-    'SUSY_mh127_pl1000' : {
+    'n3n2-n1-hbb-hbb_mh127_pl1000' : {
         'nevents' : 1,
         'xsec'    : 1.,
         'matcheff': 1.,
@@ -351,15 +351,16 @@ samples = {
     #QCD
     'QCD' : {
         'files' : [
-             #'QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
-             'QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8-v2',
+             ##'QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             ##'QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8-v2',#Tape
              'QCD_HT200to300_TuneCP5_13TeV-madgraph-pythia8-v1',
              'QCD_HT300to500_TuneCP5_13TeV-madgraph-pythia8-v1', 
              'QCD_HT500to700_TuneCP5_13TeV-madgraph-pythia8-v2', 
              'QCD_HT700to1000_TuneCP5_13TeV-madgraph-pythia8-v1', 
              'QCD_HT1000to1500_TuneCP5_13TeV-madgraph-pythia8-v1', 
              'QCD_HT1500to2000_TuneCP5_13TeV-madgraph-pythia8-v2', 
-             'QCD_HT2000toInf_TuneCP5_13TeV-madgraph-pythia8-v2'],
+             'QCD_HT2000toInf_TuneCP5_13TeV-madgraph-pythia8-v2',
+        ],
         'fillcolor' : 920,
         'fillstyle' : 1001,
         'linecolor' : 920,
@@ -409,8 +410,8 @@ samples = {
             'ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1', 
             'ZJetsToNuNu_HT-600To800_13TeV-madgraph-v1', 
             'ZJetsToNuNu_HT-800To1200_13TeV-madgraph-v1', 
-            'ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-v1', 
-            'ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-v1'
+            ##'ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-v1', 
+            ###'ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-v1'
             ],  
         'fillcolor' : 856,
         'fillstyle' : 1001,
@@ -456,7 +457,7 @@ samples = {
     #HT binned
     'WJetsToLNu' : { 
         'files' : [
-            'WJetsToLNu_HT-70To100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            ##'WJetsToLNu_HT-70To100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
             'WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v2',
             'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
             'WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
@@ -477,9 +478,9 @@ samples = {
     #Dibosons
     'VV' : {
         'files' : [
-            #'WW_TuneCP5_13TeV-pythia8-v1', 
+            'WW_TuneCP5_13TeV-pythia8-v1', 
             'WZ_TuneCP5_13TeV-pythia8-v1', 
-            #'ZZ_TuneCP5_13TeV-pythia8-v1'
+            ##'ZZ_TuneCP5_13TeV-pythia8-v1'
             ],  
         'fillcolor' : 602,
         'fillstyle' : 1001,
