@@ -1,0 +1,17 @@
+executable   = <path_here>/job.sh 
+output       = <path_here>/out.txt 
+error        = <path_here>/error.txt
+log          = <path_here>/log.txt
+ 
+#Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" 
+Request_GPUs = 1 
+ 
+## uncomment this if you want to use the job specific variables $CLUSTER and $PROCESS inside your batchjob 
+##environment = "CLUSTER=$(Cluster) PROCESS=$(Process)" 
+ 
+## uncomment this to specify a runtime longer than 3 hours (time in seconds) 
+Request_Cpus = 1 
+Request_Memory = 1500 
++RequestRuntime = 14400 
+batch_name = test_job 
+queue 1 
