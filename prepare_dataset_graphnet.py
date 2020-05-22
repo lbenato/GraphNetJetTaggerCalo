@@ -19,18 +19,19 @@ from samplesAOD2017 import *
 #tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
 
 # Configure parameters
-pd_folder = 'dataframes/v2_calo_AOD_2017/'
-graphnet_pd_folder = 'dataframes_graphnet/v2_calo_AOD_2017_test/'
-result_folder = 'model_weights/v2_calo_AOD_2017/'
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017/'
+pd_folder = ''#'dataframes/v2_calo_AOD_2017/'
+graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+result_folder = 'model_weights/v2_calo_AOD_2017_condor/'
+graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor/'
 
 
 print("\n")
 print("\n")
 
 #sgn = ['ggH_MH1000_MS150_ctau1000']#,'ggH_MH1000_MS400_ctau1000']
-sgn = ['SUSY_mh400_pl1000']
-bkg = ['VV']
+sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
+#sgn = ['SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
+bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
 #bkg = ['ZJetsToNuNuRed']
 #bkg = []
 
@@ -168,7 +169,6 @@ def convert_dataset(folder,graphnet_folder,sgn,bkg):
         df_pre_test_s[s]  = store_pre_test_s.select("df",start=0,stop=-1)#
         store_pre_val_s   = pd.HDFStore(folder+s+"_val.h5")
         df_pre_val_s[s]   = store_pre_val_s.select("df",start=0,stop=-1)#
-        
         #print(df_pre_test_s[s])
         
     df_temp_train_s = defaultdict()
@@ -346,7 +346,7 @@ def convert_dataset(folder,graphnet_folder,sgn,bkg):
         
 
 
-def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=True):
+def prepare_dataset(folder,sgn,bkg,downsample_background,upsample_signal_factor=0,signal_match_train=True):
     print("   Preparing input dataset.....   ")
     print("\n")
     #if model_label=="":
@@ -383,6 +383,9 @@ def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=T
             df_train_s = pd.concat([df_train_s,df_temp_train_s])
             df_test_s = pd.concat([df_test_s,df_temp_test_s])
             df_val_s = pd.concat([df_val_s,df_temp_val_s])
+        store_temp_train_s.close()
+        store_temp_test_s.close()
+        store_temp_val_s.close()
 
     if signal_match_train:
         print("  -------------------   ")
@@ -447,15 +450,22 @@ def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=T
         if not os.path.isfile(folder+b+"_train.h5"):
             print("!!!File ", folder+b+"_train.h5", " does not exist! Continuing")
             continue
+        print("\n")
+        print("   ---- dataset too large, consider only 50% of background ------ ")
         #load train tables
+        if not downsample_background>0:
+            downsample_background = 1.
         store_temp_train_b = pd.HDFStore(folder+b+"_train.h5")
-        df_temp_train_b = store_temp_train_b.select("df")
+        stop_train = int(downsample_background*store_temp_train_b.get_storer('df').shape)
+        df_temp_train_b = store_temp_train_b.select("df",start=0,stop=stop_train)
         #load test tables
         store_temp_test_b = pd.HDFStore(folder+b+"_test.h5")
-        df_temp_test_b = store_temp_test_b.select("df")
+        stop_test = int(downsample_background*store_temp_test_b.get_storer('df').shape)
+        df_temp_test_b = store_temp_test_b.select("df",start=0,stop=stop_test)
         #load val tables
         store_temp_val_b = pd.HDFStore(folder+b+"_val.h5")
-        df_temp_val_b = store_temp_val_b.select("df")
+        stop_val = int(downsample_background*store_temp_val_b.get_storer('df').shape)
+        df_temp_val_b = store_temp_val_b.select("df",start=0,stop=stop_val)
         if n==0:
             df_train_b = df_temp_train_b
             df_test_b = df_temp_test_b
@@ -464,6 +474,9 @@ def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=T
             df_train_b = pd.concat([df_train_b,df_temp_train_b])
             df_test_b = pd.concat([df_test_b,df_temp_test_b])
             df_val_b = pd.concat([df_val_b,df_temp_val_b])
+        store_temp_train_b.close()
+        store_temp_test_b.close()
+        store_temp_val_b.close()
 
 
     print("Remove background empty jets from training/validation!")
@@ -473,6 +486,7 @@ def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=T
     df_train_b = df_train_b[ df_train_b["Jet_pt"] >-1 ]
     df_val_b = df_val_b[ df_val_b["Jet_pt"] >-1 ]
     df_test_b = df_test_b[ df_test_b["Jet_pt"] >-1 ]
+
 
     ##Remove negative weights for training/validation!
     print("----Background training shape before removing negative weights: ")
@@ -529,7 +543,7 @@ def prepare_dataset(folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=T
 
     print("train: ", df_train['Jet_pt'])
     print("test: ", df_test['is_signal'])
-    print("val: ", df_val['energy_0'])
+    #print("val: ", df_val['energy_0'])
     
     df_train.to_hdf(folder+'train.h5', 'df', format='table' if (len(var_list)<=2000) else 'fixed')
     df_test.to_hdf(folder+'test.h5', 'df', format='table' if (len(var_list)<=2000) else 'fixed')
@@ -548,5 +562,5 @@ print("\n")
 print(" ~~~~ For top tagging exercise recasted on LL: removing empty jets and events with negative weights also from test data!!! ~~~")
 print("\n")
 
-convert_dataset(pd_folder,graphnet_pd_folder,sgn,bkg)
-prepare_dataset(graphnet_pd_folder,sgn,bkg,upsample_signal_factor=0,signal_match_train=True)#
+#convert_dataset(pd_folder,graphnet_pd_folder,sgn,bkg)#done via condor
+prepare_dataset(graphnet_pd_folder,sgn,bkg,downsample_background = 0.2,upsample_signal_factor=100,signal_match_train=True)#
