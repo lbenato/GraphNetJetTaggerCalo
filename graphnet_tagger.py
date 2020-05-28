@@ -27,7 +27,7 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         #print("\n")
         #print("    Ignore empty jets!!!!!!")
         #print("\n")
-        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
 
     X = dataframe[features].values
     y = dataframe[is_signal].values
@@ -43,7 +43,7 @@ def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signa
             #print("\n")
             #print("    Ignore empty jets!!!!!!")
             #print("\n")
-            df = df[ df["Jet_isGenMatched"]!=-1 ]
+            df = df[ df["Jet_pt"]>-1 ]
 
         X = df[features].values
         y = df[is_signal].values
@@ -57,7 +57,7 @@ def get_BDT_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty
         #print("\n")
         #print("    Ignore empty jets!!!!!!")
         #print("\n")
-        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
 
     X = dataframe[features]
     y = dataframe[is_signal]
@@ -72,7 +72,7 @@ def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var
         #print("\n")
         #print("    Ignore empty jets!!!!!!")
         #print("\n")
-        dataframe = dataframe[ dataframe["Jet_isGenMatched"]!=-1 ]
+        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
         
     points_arr = []
     features_arr = []
@@ -232,7 +232,7 @@ def fit_generator(model_def,n_class,folder,result_folder,n_points,points,feature
     print("    Fitting model.....   ")
     print("\n")
 
-    if(model_def=="LEADER"):
+    if(model_def=="FCN"):
         train_gen = get_FCN_jets_dataset_generator(df_gen_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         train_val = get_FCN_jets_dataset_generator(df_gen_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=(len(features),))
@@ -389,7 +389,7 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
         #X_train_gen, y_train_gen, w_train_gen = get_FCN_jets_dataset_generator( concat_generators_list(generator_list_train) ,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     exit()
 
-    if(model_def=="LEADER"):
+    if(model_def=="FCN"):
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])        
@@ -454,7 +454,7 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
     store_val = pd.HDFStore(folder+"val.h5")
     df_val = store_val.select("df")
     
-    if(model_def=="LEADER"):
+    if(model_def=="FCN"):
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
@@ -610,8 +610,8 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
         #print("\n")
         #print("    Ignore empty jets at testing!!!!!!")
         #print("\n")
-        df_test = df_test.loc[df_test["Jet_isGenMatched"]!=-1]
-        add_string+="_ignore_empty_jets"
+        df_test = df_test.loc[df_test["Jet_pt"]>-1]
+        #add_string+="_ignore_empty_jets"
 
     if signal_match_test:
         #print("\n")
@@ -625,7 +625,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
         add_string+="_signal_matched"
 
     
-    if(model_def=="LEADER"):
+    if(model_def=="FCN"):
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite" or model_def=="particle_net"):
         X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -669,15 +669,24 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     print("    Test Area under Curve = {0}".format(AUC))
     print("\n")
     df_test["sigprob"] = probs[:,1]
+    print(" ... x-check, probs size: \n", df_test["sigprob"])
 
     df_test.to_hdf(result_folder+'test_score_'+model_label+add_string+'.h5', 'df', format='fixed')
     print("    "+result_folder+"test_score_"+model_label+add_string+".h5 stored")
 
     back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
     sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
-    back_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==0].values)
-    sign_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==1].values)
+    back_w = np.array(df_test[weight].loc[df_test[is_signal]==0].values)
+    sign_w = np.array(df_test[weight].loc[df_test[is_signal]==1].values)
     #saves the df_test["sigprob"] column when the event is signal or background
+    print(" ... x-check, back size: ", len(back))
+    print(" ... x-check, sign size: ", len(sign))
+    print(" ... x-check, back naive integral: ", sum(back))
+    print(" ... x-check, sign naive integral: ", sum(sign))
+    print(" ... x-check, back weight integral: ", sum(back_w))
+    print(" ... x-check, sign weight integral: ", sum(sign_w))
+    print(" ... x-check, back comb integral: ", sum(back_w*back))
+    print(" ... x-check, sign comb integral: ", sum(sign_w*sign))
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     #Let's plot an histogram:
@@ -687,11 +696,18 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     # * density: it should normalize the histograms to unity
 
     if use_weight:
-        plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-        plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+        nb, binsb, _ = plt.hist(back, np.linspace(0,1,50), weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        ns, binss, _ = plt.hist(sign, np.linspace(0,1,50), weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
     else:
-        plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-        plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+        nb, binsb, _ = plt.hist(back, np.linspace(0,1,50), color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        ns, binss, _ = plt.hist(sign, np.linspace(0,1,50), color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+
+    bin_widthb = binsb[1] - binsb[0]
+    bin_widths = binss[1] - binss[0]
+    integrals = bin_widths * sum(ns)
+    integralb = bin_widthb * sum(nb)
+    print("Integral S: ",integrals)
+    print("Integral B: ",integralb)
 
     plt.xlim([0.0, 1.05])
     plt.xlabel('Event probability of being classified as signal')
@@ -745,37 +761,29 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
 
     ##Read test sample
     store = pd.HDFStore(folder+"test.h5")
-    df_test = store.select("df")
+    df_test_pre = store.select("df")
 
     print("    Remove negative weights at testing!!!!!!")
-    df_test = df_test.loc[df_test['EventWeight']>=0]
+    df_test_pre = df_test_pre.loc[(df_test_pre['EventWeight']>=0) & (df_test_pre['Jet_pt']>-1)]
 
     add_string = ""
-    if ignore_empty_jets_test:
-        #print("\n")
-        #print("    Ignore empty jets at testing!!!!!!")
-        #print("\n")
-        df_test = df_test.loc[df_test["Jet_isGenMatched"]!=-1]
-        add_string+="_ignore_empty_jets"
 
     if signal_match_test:
-        #print("\n")
-        #print("    Ignore not matched jets in signal at testing!!!!!!")
-        #print("\n")
-        df_s = df_test.loc[df_test[is_signal]==1]
-        df_b = df_test.loc[df_test[is_signal]==0]
-        df_s = df_s.loc[df_s["Jet_isGenMatched"]==1]
+        print("\n")
+        print("    Ignore not matched jets in signal at testing!!!!!!")
+        print("\n")
+        df_s = df_test_pre.loc[(df_test_pre[is_signal]==1) & (df_test_pre["Jet_isGenMatched"]==1)]
+        df_b = df_test_pre.loc[df_test_pre[is_signal]==0]
         df_test = pd.concat([df_b,df_s])
-        #print(df_test.shape[0],df_s.shape[0],df_b.shape[0])
         add_string+="_signal_matched"
+    else:
+        df_test = df_test_pre
 
-    
     if(model_def=="BDT"):
         X_test, y_test, w_test = get_BDT_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     else:
         print("    Model not recognized, abort . . .")
         exit()
-
 
     if model_label=="":
         model_label=model_def+"_"+timestampStr
@@ -822,14 +830,23 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
     print("    Test Area under Curve = {0}".format(AUC))
     print("\n")
     df_test["sigprob"] = probs[:,1]
+    print(" ... x-check, probs size: \n", df_test["sigprob"])
 
     df_test.to_hdf(result_folder+'test_score_'+model_label+add_string+'.h5', 'df', format='fixed')
     print("    "+result_folder+"test_score_"+model_label+add_string+".h5 stored")
 
     back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
     sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
-    back_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==0].values)
-    sign_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==1].values)
+    back_w = np.array(df_test[weight].loc[df_test[is_signal]==0].values)
+    sign_w = np.array(df_test[weight].loc[df_test[is_signal]==1].values)
+    print(" ... x-check, back size: ", len(back))
+    print(" ... x-check, sign size: ", len(sign))
+    print(" ... x-check, back naive integral: ", sum(back))
+    print(" ... x-check, sign naive integral: ", sum(sign))
+    print(" ... x-check, back weight integral: ", sum(back_w))
+    print(" ... x-check, sign weight integral: ", sum(sign_w))
+    print(" ... x-check, back comb integral: ", sum(back_w*back))
+    print(" ... x-check, sign comb integral: ", sum(sign_w*sign))
     #saves the df_test["sigprob"] column when the event is signal or background
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
@@ -840,13 +857,19 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
     # * density: it should normalize the histograms to unity
 
     if use_weight:
-        plt.hist(back, 50, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-        plt.hist(sign, 50, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+        nb, binsb, _ = plt.hist(back, np.linspace(0,1,50), weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        ns, binss, _ = plt.hist(sign, np.linspace(0,1,50), weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
     else:
-        plt.hist(back, 50, weights=back_w, color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
-        plt.hist(sign, 50, weights=sign_w, color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
+        nb, binsb, _ = plt.hist(back, np.linspace(0,1,50), color='blue', edgecolor='blue', lw=2, label='background', alpha=0.3)#, density=True)
+        ns, binss, _ = plt.hist(sign, np.linspace(0,1,50), color='red', edgecolor='red', lw=2, label='signal', alpha=0.3)#, density=True)
 
-    plt.xlim([0.0, 1.05])
+    bin_widthb = binsb[1] - binsb[0]
+    bin_widths = binss[1] - binss[0]
+    integrals = bin_widths * sum(ns)
+    integralb = bin_widthb * sum(nb)
+    print("Integral S: ",integrals)
+    print("Integral B: ",integralb)
+    plt.xlim([-0.05, 1.05])
     plt.xlabel('Event probability of being classified as signal')
     plt.legend(loc="upper right")
     plt.yscale('log')
@@ -902,8 +925,8 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     tpr = {}
     add_string = ""
 
-    if ignore_empty_jets_test:
-        add_string+="_ignore_empty_jets"
+    #if ignore_empty_jets_test:
+    #    add_string+="_ignore_empty_jets"
 
     if signal_match_test:
         add_string+="_signal_matched"
@@ -912,7 +935,7 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     for i,m in enumerate(model_list):
         if not use_weight: model_labels[i]+="_no_weights"
         result_folder = orig_result + 'model_'+m+"_"+model_labels[i]+"/"
-        print(result_folder+'test_score_'+model_labels[i]+add_string+'.h5')
+        print("Opening: ", result_folder+'test_score_'+model_labels[i]+add_string+'.h5')
         store = pd.HDFStore(result_folder+'test_score_'+model_labels[i]+add_string+'.h5')
         df = store.select("df")
         print(df)
@@ -941,7 +964,8 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=m+' (AUC = {0:.4f})'.format(AUC[i]))
+        lab = m if not m=="LEADER" else "FCN"
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.xlim([0.0, 1.05])
@@ -959,7 +983,8 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=m+' (AUC = {0:.4f})'.format(AUC[i]))
+        lab = m if not m=="LEADER" else "FCN"
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.ylim([0.0, 1.05])
