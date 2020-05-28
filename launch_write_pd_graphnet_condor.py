@@ -22,15 +22,17 @@ graphnet_out_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_A
 graphnet_out_folder_SMALL = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_SMALL/'
 #sgn = ['ggH_MH1000_MS150_ctau1000']#,'ggH_MH1000_MS400_ctau1000'']
 sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-#sgn = ['SUSY_mh300_pl1000',]
-sgn = ['SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
+#sgn = ['SUSY_mh250_pl1000','SUSY_mh200_pl1000',]
+#sgn = ['SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
 #sgn = ['SUSY_mh400_pl1000']
-bkg = ['VV']
+#bkg = ['VV']
 bkg = ['ZJetsToNuNu']
 #bkg = ['WJetsToLNu']
 bkg = ['ZJetsToNuNu','WJetsToLNu','VV']
 #bkg = ['QCD']
-#bkg = []
+#bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD']
+bkg = []
+#bkg = ['ZJetsToNuNu','QCD','VV']
 #sgn = []
 
 from samplesAOD2017 import *
@@ -50,11 +52,13 @@ event_var_in_tree = ['EventNumber',
                      'RunNumber','LumiNumber','EventWeight','isMC',
                      'isVBF','HT','MEt.pt','MEt.phi','MEt.sign','MinJetMetDPhi',
                      'nCHSJets',
-                     'nElectrons','nMuons','nPhotons','nTaus','nPFCandidates','nPFCandidatesTrack'
+                     'nElectrons','nMuons','nPhotons','nTaus','nPFCandidates','nPFCandidatesTrack',
+                     #new for signal
+                     #'nLLPInCalo',
                  ]
 
 ## Per-jet variables
-nj = 1#10
+nj = 10
 jtype = ['Jet']
 jvar = ['pt','eta','phi','mass','nConstituents','nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
         'muEFrac','eleEFrac','photonEFrac', 'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti',
@@ -65,7 +69,11 @@ jvar = ['pt','eta','phi','mass','nConstituents','nTrackConstituents','nSelectedT
         #'medianTheta2D',#currently empty
         'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
         'dzMedian', 'dxyMedian',
-        'isGenMatched']
+        'isGenMatched',
+        #new for signal
+        'isGenMatchedCaloCorr', 'isGenMatchedLLPAccept',
+        'isGenMatchedCaloCorrLLPAccept'
+]
 
 ## Per-jet PF candidates variables
 npf = 50#100#50#100#20
@@ -182,8 +190,8 @@ MEt = MEtType()
 
 from write_pd_condor import *
 NCPUS   = 1
-MEMORY  = 5000#1500 orig#2000#10000#tried 10 GB for a job killed by condor automatically
-RUNTIME = 3600*6#4 #4 hours
+MEMORY  = 8000#1500 orig#2000#10000#tried 10 GB for a job killed by condor automatically
+RUNTIME = 3600*24#4 #4 hours
 
 def do_write(in_folder, out_folder, cols=var_list_tree):
     for a in sgn+bkg:
@@ -303,7 +311,7 @@ def do_convert(inp,out,nj,npf,event_list,cols):
             for n, f in enumerate(skim_list):
             #for n, f in enumerate([skim_list[0]]):
                 ###convert_dataset_condor(IN,OUT,f)
-                os.chdir('condor_conv/'+s+'/')
+                os.chdir('condor_conv_partnet/'+s+'/')
                 print("Loop n. ", n)
                 print(f)  
 
@@ -333,16 +341,16 @@ def do_convert(inp,out,nj,npf,event_list,cols):
                     fout.write('export PATH=/nfs/dust/cms/user/lbenato/anaconda2/bin:$PATH \n')
                     fout.write('cd /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/ \n')
                     fout.write('source activate /nfs/dust/cms/user/lbenato/anaconda2/envs/particlenet \n')
-                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv/'+s+'/convert_macro_'+str(n)+'.py'  +' \n')
+                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/convert_macro_'+str(n)+'.py'  +' \n')
                 os.system('chmod 755 job_convert_'+str(n)+'.sh')
                 ###os.system('sh job_convert_'+str(n)+'.sh')
     
                 #write submit config
                 with open('submit_convert_'+str(n)+'.submit', 'w') as fout:
-                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv/'+s+'/job_convert_'+ str(n) + '.sh \n')
-                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv/'+s+'/out_convert_'+ str(n) + '.txt \n')
-                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv/'+s+'/error_convert_'+ str(n) + '.txt \n')
-                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv/'+s+'/log_convert_'+ str(n) + '.txt \n')
+                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/job_convert_'+ str(n) + '.sh \n')
+                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/out_convert_'+ str(n) + '.txt \n')
+                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/error_convert_'+ str(n) + '.txt \n')
+                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/log_convert_'+ str(n) + '.txt \n')
                     fout.write(' \n')
                     fout.write('#Requirements = OpSysAndVer == "CentOS7" \n')
                     fout.write('##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" \n')
@@ -360,7 +368,7 @@ def do_convert(inp,out,nj,npf,event_list,cols):
             
                 ##submit condor
                 os.chdir('../../.')
-                os.system('condor_submit condor_conv/'+s+'/submit_convert_'+str(n)+'.submit' + ' \n')
+                os.system('condor_submit condor_conv_partnet/'+s+'/submit_convert_'+str(n)+'.submit' + ' \n')
 
 '''
 jet_cols = []
@@ -433,6 +441,7 @@ def do_merge(type_dataset,inp,out,cols,max_n_jets=10):
             print("  * * * * * * * * * * * * * * * * * * * * * * *")
             print("\n")
             final_df = pd.concat(df_list,ignore_index=True)
+            final_df = final_df.loc[:,~final_df.columns.duplicated()]#remove duplicates
             print("  * * * * * * * * * * * * * * * * * * * * * * *")
             print("  Time needed to concatenate: %.2f seconds" % (time.time() - time_open))
             print("  * * * * * * * * * * * * * * * * * * * * * * *")
@@ -481,7 +490,7 @@ def do_merge_partnet(type_dataset,inp,out,cols,max_n_jets=10):
             #    max_n = 300
             #    print("Problematic sample, too large!!!")
             #    print("Max number of root files considered: ", max_n)
-            max_n = 20
+            max_n = 50#20
             max_loop = min(max_n,len(files_list))
             
             #for n, f in enumerate(files_list):
@@ -491,7 +500,8 @@ def do_merge_partnet(type_dataset,inp,out,cols,max_n_jets=10):
                 store = pd.HDFStore(IN+files_list[n])
                 df = store.select("df",start=0,stop=-1)
                 #Already JJ preselections
-                df_list.append(df[cols][(df["Jet_pt"]>0) & (df["Jet_index"]<max_jetindex) & (df["EventWeight"]>0) & (df["Jet_eta"]<1.48) & (df["Jet_eta"]>-1.48) & (df["Jet_timeRecHits"]>-99.) ])
+                #cols+=["Jet_isGenMatchedCaloCorrLLPAccept"]
+                df_list.append(df[cols][(df["Jet_pt"]>0) & (df["Jet_index"]<max_jetindex) & (df["EventWeight"]>0) & (df["Jet_eta"]<1.48) & (df["Jet_eta"]>-1.48) & (df["Jet_timeRecHits"]>-99.) & (df["MEt_pt"]>200) ])
                 if(n % 100 == 0):
                     print("  * * * * * * * * * * * * * * * * * * * * * * *")
                     print("  Time needed to open file n. %s: %.2f seconds" % (str(n), time.time() - startTime))
@@ -521,7 +531,7 @@ def do_merge_partnet(type_dataset,inp,out,cols,max_n_jets=10):
             del df_list
 
 
-def do_mix_background(type_dataset,folder):
+def do_mix_background(type_dataset,folder,cols):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -539,7 +549,7 @@ def do_mix_background(type_dataset,folder):
         print("Adding... ", f)
         store = pd.HDFStore(IN+f)
         df = store.select("df",start=0,stop=-1)
-        df_list.append(df)
+        df_list.append(df[cols])
         store.close()
         del df
         del store
@@ -559,9 +569,10 @@ def do_mix_background(type_dataset,folder):
     #Retain only valid jets and non negative weights
     df_b = df_b.loc[:,~df_b.columns.duplicated()]#remove duplicates
     ##df_b = df_b[  (df_b["EventWeight"]>0) ]
-    df_b = df_b[ (df_b["Jet_pt"] >-1) & (df_b["EventWeight"]>0) & (df_b["Jet_index"]<1) ]
+    ##df_b = df_b[ (df_b["Jet_pt"] >-1) & (df_b["EventWeight"]>0) & (df_b["Jet_index"]<1) ]
     ##JJ
-    ##df_b = df_b[ (df_b["Jet_pt"] >-1) & (df_b["EventWeight"]>0) & (df_b["Jet_index"]<1) & (df_b["Jet_eta"]<1.48) & (df_b["Jet_eta"]>-1.48) & (df_b["Jet_timeRecHits"]>-99.) ]
+    #already done in partnet
+    #df_b = df_b[ (df_b["Jet_pt"] >-1) & (df_b["EventWeight"]>0) & (df_b["Jet_index"]<1) & (df_b["Jet_eta"]<1.48) & (df_b["Jet_eta"]>-1.48) & (df_b["Jet_timeRecHits"]>-99.) & (df_b["MEt_pt"]>200)]
 
     #Normalize later!
     
@@ -574,7 +585,7 @@ def do_mix_background(type_dataset,folder):
     del df_b
     del df_list
 
-def do_mix_signal(type_dataset,folder,upsample_factor=0):
+def do_mix_signal(type_dataset,folder,cols,upsample_factor=0):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -591,7 +602,7 @@ def do_mix_signal(type_dataset,folder,upsample_factor=0):
     for n, f in enumerate(files_to_mix):
         store = pd.HDFStore(IN+f)
         df = store.select("df",start=0,stop=-1)
-        df_list.append(df)
+        df_list.append(df[cols])
         store.close()
         del df
         del store
@@ -617,9 +628,9 @@ def do_mix_signal(type_dataset,folder,upsample_factor=0):
 
     #Retain only valid jets and non negative weights, plus optional cuts if needed
     df_s = df_s.loc[:,~df_s.columns.duplicated()]#remove duplicates
-    df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) ]
+    ##df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) ]
     ##JJ
-    ##df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) & (df_s["Jet_eta"]<1.48) & (df_s["Jet_eta"]>-1.48) & (df_s["Jet_timeRecHits"]>-99.) ]
+    df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) & (df_s["Jet_eta"]<1.48) & (df_s["Jet_eta"]>-1.48) & (df_s["Jet_timeRecHits"]>-99.) ]
 
     ##Normalize weights
     #norm_s = df_s['EventWeight'].sum(axis=0)
@@ -634,7 +645,80 @@ def do_mix_signal(type_dataset,folder,upsample_factor=0):
     del df_s
     del df_list
 
-def do_mix_s_b(type_dataset,folder,upsample_signal_factor=0,fraction_of_background=1):
+def do_mix_signal_new(type_dataset,folder,cols,gen_matched,upsample_factor=0):
+    if "Jet_isGenMatched" in cols:
+        cols.remove("Jet_isGenMatched")
+    if "Jet_isGenMatchedCaloCorrLLPAccept" not in cols:
+        cols.append("Jet_isGenMatchedCaloCorrLLPAccept")
+    print(cols)
+    print(len(cols))
+    #for a in bkg+sgn:
+    IN  = folder+ '/'
+    OUT = folder+'/'
+    if not(os.path.exists(OUT)):
+        os.mkdir(OUT)
+
+    files_to_mix = []
+    for b in sgn:
+        for i, s in enumerate(samples[b]['files']):
+            files_to_mix.append(s+"_"+type_dataset+".h5")
+
+    startTime = time.time()
+    df_list = []
+    for n, f in enumerate(files_to_mix):
+        store = pd.HDFStore(IN+f)
+        df = store.select("df",start=0,stop=-1)
+        df_list.append(df[cols])
+        store.close()
+        del df
+        del store
+                
+    time_open = time.time()
+    print("  * * * * * * * * * * * * * * * * * * * * * * *")
+    print("  Time needed to open datasets: %.2f seconds" % (time.time() - startTime))
+    print("  * * * * * * * * * * * * * * * * * * * * * * *")
+    print("\n")
+
+    if upsample_factor>0:
+        print("\n")
+        print("   Upsampling signal by a factor: ", upsample_factor)
+        print("\n")
+        df_s = pd.concat(df_list * upsample_factor,ignore_index=True)
+    else:
+        df_s = pd.concat(df_list,ignore_index=True)
+        
+    print("  * * * * * * * * * * * * * * * * * * * * * * *")
+    print("  Time needed to concatenate: %.2f seconds" % (time.time() - time_open))
+    print("  * * * * * * * * * * * * * * * * * * * * * * *")
+    print("\n")
+
+    #Retain only valid jets and non negative weights, plus optional cuts if needed
+    ##df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) ]
+    df_s = df_s.loc[:,~df_s.columns.duplicated()]#remove duplicates
+    ##JJ
+    #df_s = df_s[ (df_s["Jet_pt"] >-1) & (df_s["EventWeight"]>0) & (df_s["Jet_eta"]<1.48) & (df_s["Jet_eta"]>-1.48) & (df_s["Jet_timeRecHits"]>-99.) & (df_s["MEt_pt"]>200)]
+    df_s.rename(columns={"Jet_isGenMatchedCaloCorrLLPAccept": "Jet_isGenMatched"},inplace=True)
+    df_s = df_s.loc[:,~df_s.columns.duplicated()]#remove duplicates
+    if gen_matched:
+        print("\n")
+        print("  accept only gen matched jets!!! ")
+        print("\n")
+        df_s = df_s[ df_s["Jet_isGenMatched"]==1 ]
+
+    ##Normalize weights
+    #norm_s = df_s['EventWeight'].sum(axis=0)
+    #df_s['EventWeightNormalized'] = df_s['EventWeight'].div(norm_s)
+
+    #Shuffle later
+    #df_s = df_s.sample(frac=1).reset_index(drop=True)
+    print(df_s)
+
+    df_s.to_hdf(OUT+'sign_'+type_dataset+'.h5', 'df', format='fixed')
+    print("  Saving full sign dataset: "+OUT+"sign_"+type_dataset+".h5 stored")
+    del df_s
+    del df_list
+
+def do_mix_s_b(type_dataset,folder,cols,upsample_signal_factor=0,fraction_of_background=1):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -649,9 +733,9 @@ def do_mix_s_b(type_dataset,folder,upsample_signal_factor=0,fraction_of_backgrou
 
     if upsample_signal_factor>1:
         print("Upsample signal by a factor: ", upsample_signal_factor)
-        df_s = pd.concat([df_pre] * upsample_signal_factor,ignore_index=True)
+        df_s = pd.concat([df_pre[cols]] * upsample_signal_factor,ignore_index=True)
     else:
-        df_s = df_pre
+        df_s = df_pre[cols]
 
     store_s.close()
     del store_s
@@ -670,6 +754,7 @@ def do_mix_s_b(type_dataset,folder,upsample_signal_factor=0,fraction_of_backgrou
         stop = int(size*fraction_of_background)
 
     df_b = store_b.select("df",start=0,stop=stop)
+    df_b = df_b[cols]
     store_b.close()
     del store_b
 
@@ -680,6 +765,7 @@ def do_mix_s_b(type_dataset,folder,upsample_signal_factor=0,fraction_of_backgrou
     print("Ratio nB/nS: ", df_b.shape[0]/df_s.shape[0])
 
     df = pd.concat([df_s,df_b],ignore_index=True)
+    df = df.loc[:,~df.columns.duplicated()]#remove duplicates
     del df_s, df_b
         
     print("  * * * * * * * * * * * * * * * * * * * * * * *")
@@ -690,7 +776,7 @@ def do_mix_s_b(type_dataset,folder,upsample_signal_factor=0,fraction_of_backgrou
 
     #Shuffle
     df = df.sample(frac=1).reset_index(drop=True)
-    print(df[ ["Jet_index","is_signal"] ])
+    print(df[ ["Jet_isGenMatched","is_signal"] ])
             
     df.to_hdf(OUT+type_dataset+'.h5', 'df', format='fixed')
     print("  Saving full sign dataset: "+OUT+type_dataset+".h5 stored")
@@ -708,7 +794,7 @@ out_partnet_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_20
 # REMEBER TO MODIFY!!!
 ##NJ  = 1
 ##NPF = 50
-#do_convert(write_folder,out_partnet,nj,npf,event_list,pf_list_h5)
+#do_convert(write_folder,out_partnet_JJ,nj,npf,event_list,pf_list_h5)
 #exit()
 
 ###out = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_graphnet/"
@@ -721,21 +807,26 @@ var_list_per_jet+= per_pf_list_h5
 
 #print(var_list_per_jet)
 #exit()
-'''
+
 ### These are faster operations, do not require condor:
+'''
 for a in ["train","test","val"]:      
-#for a in ["val"]:
+#for a in ["test","val"]:
     print("Preparing: ", a)
     #do_merge(a,out_leader,out_leader,var_list_per_jet)
-    #do_mix_background(a,out_leader)
-    #do_mix_signal(a,out_leader,0)
-    #do_mix_s_b(a,out_leader,10,0.3)
+    #do_mix_background(a,out_leader,var_list_per_jet)
+    #do_mix_signal_new(a,out_leader,var_list_per_jet,False if a=="test" else True, 0)
+    do_mix_s_b(a,out_leader,var_list_per_jet,50 if a=="val" else 10,1.0)
+    #do_mix_s_b(a,out_leader,var_list_per_jet,10,1.0)
 '''
+
 
 for a in ["train","test","val"]:      
 #for a in ["val","test"]:
     print("Preparing: ", a)
-    do_merge_partnet(a,out_partnet,out_partnet_JJ,var_list_per_jet)
-    do_mix_background(a,out_partnet_JJ)
-    do_mix_signal(a,out_partnet_JJ,0)
-    do_mix_s_b(a,out_partnet_JJ,1,1)
+    #do_merge_partnet(a,out_partnet_JJ,out_partnet_JJ,var_list_per_jet+["Jet_isGenMatchedCaloCorrLLPAccept"],5)#5 max jets this time
+    #do_mix_background(a,out_partnet_JJ,var_list_per_jet)
+    #do_mix_signal_new(a,out_partnet_JJ,var_list_per_jet,False if a=="test" else True, 0)
+    ##do_mix_signal(a,out_partnet_JJ,var_list_per_jet,50)
+    do_mix_s_b(a,out_partnet_JJ,var_list_per_jet,10,1)
+
