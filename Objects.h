@@ -109,8 +109,11 @@ PUId(-1), PUIdLoose(false), PUIdMedium(false), PUIdTight(false), PUDiscriminant(
 //isMatched(false), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000),
 matchBquark(-1), matchLL(-1),
 //original_jet_index(-1),
-    isGenMatched(0), isVBFGenMatched(0),
-    alphaMax(-100.), ptAllTracks(-1.), betaMax(-100.), gammaMax(-100.), gammaMaxEM(-100.), gammaMaxHadronic(-100.), gammaMaxET(-100.), minDeltaRAllTracks(999.), minDeltaRPVTracks(999.), minDeltaRAllTracksInJet(999.), minDeltaRPVTracksInJet(999.), sigIP2DMedian(-10000.), theta2DMedian(-100.), POCA_theta2DMedian(-100.), nPixelHitsMedian(-1.0), nHitsMedian(-1.0),
+    isGenMatched(0), isGenMatchedCaloCorr(0), isGenMatchedLLPAccept(0), isGenMatchedCaloCorrLLPAccept(0), isVBFGenMatched(0),
+    //track variables, old implementation
+    alphaMaxOld(-100.), sumPtJetOld(-1.), betaMaxOld(-100.), gammaMaxOld(-100.), gammaMaxEMOld(-100.), gammaMaxHadronicOld(-100.), gammaMaxETOld(-100.), sigIP2DMedianOld(-10000.), theta2DMedianOld(-100.), POCA_theta2DMedianOld(-100.), nPixelHitsMedianOld(-1.0), nHitsMedianOld(-1.0), dxyMedianOld(-9999.), dzMedianOld(-9999.),//minDeltaRAllTracksOld(999.), minDeltaRPVTracksOld(999.), minDeltaRAllTracksInJetOld(999.), minDeltaRPVTracksInJetOld(999.),
+    //track variables, new implementation
+    ptAllTracks(-1.), ptAllPVTracks(-1.), ptPVTracksMax(-1.), nTracksAll(-1), nTracksPVMax(-1), medianIP2D(-10000.), medianTheta2D(-100.), alphaMax(-100.), betaMax(-100.), gammaMax(-100.), gammaMaxEM(-100.), gammaMaxHadronic(-100.), gammaMaxET(-100.), minDeltaRAllTracks(999.), minDeltaRPVTracks(999.), nPixelHitsMedian(-1.0), nHitsMedian(-1.0), dzMedian(-9999.), dxyMedian(-9999.),
     hcalE(-100.), ecalE(-100.), FracCal(-100.), flightDist2d(-100.), flightDist2dError(-100.), flightDist3d(-100.), flightDist3dError(-100.), nSV(-1), nSVCand(-1), nVertexTracks(-1), nSelectedTracks(-1), dRSVJet(-100.), SV_x(-1000.), SV_y(-1000.), SV_z(-1000.), SV_dx(-100.), SV_dy(-100.), SV_dz(-100.), nTracksSV(-1), SV_mass(-100.),  isCaloTag(0),
 //VBF_DisplacedJet40_VTightID_Hadronic_match(0), VBF_DisplacedJet40_VVTightID_Hadronic_match(0),
     ptJESUp (-1.), ptJESDown (-1.), ptJERUp (-1.), ptJERDown (-1.), tau1(-1.), tau2(-1.), tau3(-1.), nSubJets(-1), tau21(-1.), tau31(-1.), tau32(-1.), tau1_neutral(-1.), tau2_neutral(-1.), tau21_neutral(-1.), tau1_charged(-1.), tau2_charged(-1.), tau21_charged(-1.), 
@@ -225,10 +228,39 @@ matchBquark(-1), matchLL(-1),
     int matchBquark;
     int matchLL;
   //int original_jet_index;
-    int isGenMatched;
+    int isGenMatched;    
+    int isGenMatchedCaloCorr;
+    int isGenMatchedLLPAccept;
+    int isGenMatchedCaloCorrLLPAccept;
     int isVBFGenMatched;
-    float alphaMax;
+    //track, old implementation
+    float alphaMaxOld;
+    float sumPtJetOld;
+    float betaMaxOld;
+    float gammaMaxOld;
+    float gammaMaxEMOld;
+    float gammaMaxHadronicOld;
+    float gammaMaxETOld;
+    //float minDeltaRAllTracksOld;
+    //float minDeltaRPVTracksOld;
+    //float minDeltaRAllTracksInJetOld;
+    //float minDeltaRPVTracksInJetOld;
+    float sigIP2DMedianOld;
+    float theta2DMedianOld;
+    float POCA_theta2DMedianOld;
+    float nPixelHitsMedianOld;
+    float nHitsMedianOld;
+    float dxyMedianOld;
+    float dzMedianOld;
+    //track, new implementation
     float ptAllTracks;
+    float ptAllPVTracks;
+    float ptPVTracksMax;
+    int   nTracksAll;
+    int   nTracksPVMax;
+    float medianIP2D;
+    float medianTheta2D;
+    float alphaMax;
     float betaMax;
     float gammaMax;
     float gammaMaxEM;
@@ -236,13 +268,10 @@ matchBquark(-1), matchLL(-1),
     float gammaMaxET;
     float minDeltaRAllTracks;
     float minDeltaRPVTracks;
-    float minDeltaRAllTracksInJet;
-    float minDeltaRPVTracksInJet;
-    float sigIP2DMedian;
-    float theta2DMedian;
-    float POCA_theta2DMedian;
     float nPixelHitsMedian;
     float nHitsMedian;
+    float dzMedian;
+    float dxyMedian;
     float hcalE;
     float ecalE;
     float FracCal;
@@ -616,7 +645,7 @@ struct EventType {
 };
 
 struct GenPType {
-GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1.), charge(0), pdgId(0), status(0), radius(-1), radius2D(-1), motherid(0) {}
+GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1.), charge(0), pdgId(0), status(0), radius(-1), radius2D(-1), motherid(0), travelTime(-1.), travelRadius(-1000.), beta(-1.), corrCaloEta(-9.), corrCaloPhi(-9.), isLLPInCaloAcceptance(false) {}
     float pt;
     float eta;
     float rapidity;
@@ -632,6 +661,12 @@ GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1
     float vx;
     float vy;
     float vz;
+    float travelTime;
+    float travelRadius;
+    float beta;
+    float corrCaloEta;
+    float corrCaloPhi;
+    bool isLLPInCaloAcceptance;
 };
 
 struct TriggerObjectType {
@@ -813,11 +848,11 @@ CaloJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), emEnergyFrac
 struct PFCandidateType {
 PFCandidateType():
     charge(-99), pt(-1.), eta(-9.), phi(-9.),
-    energy(-1.), mass(-1.), px(-99.), py(-99.), pz(-99.),
+    energy(-1.), mass(-1.), px(-9999.), py(-9999.), pz(-9999.),
     pdgId(0), isTrack(false), jetIndex (-1), fatJetIndex(-1), pvIndex(-1), hasTrackDetails(false), trackHighPurity(false),
-    dxy(-99.), dz(-99.), POCA_x(-99.), POCA_y(-99.), POCA_z(-99.), POCA_phi(-9.),
+    dxy(-9999.), dz(-9999.), POCA_x(-9999.), POCA_y(-9999.), POCA_z(-9999.), POCA_phi(-9.),
     ptError(-1.), etaError(-1.), phiError(-1.), dxyError(-99.), dzError(-99.), theta(-9.), thetaError(-1.),
-    chi2(-1.), ndof(-1), normalizedChi2(-1.), nHits(-1), nPixelHits(-1), lostInnerHits(-9) {}
+    chi2(-1.), ndof(-1), normalizedChi2(-1.), nHits(-1), nPixelHits(-1), lostInnerHits(-1) {}
     //hcalFraction(-1.), longLived(-1)
     //innerDetId(-1), innerPosition_x(-9999.), innerPosition_y(-9999.), innerPosition_z(-9999.),
     //innerMomentum_x(-9999.), innerMomentum_y(-9999.), innerMomentum_z(-9999.),
