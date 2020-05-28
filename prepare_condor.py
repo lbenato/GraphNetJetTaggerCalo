@@ -63,6 +63,9 @@ def convert_dataset_condor(folder,graphnet_folder,file_name,nj,npf,event_list,co
             temp_list.append("Jet_"+str(j)+"_eta")
         if "Jet_"+str(j)+"_timeRecHits" not in temp_list:
             temp_list.append("Jet_"+str(j)+"_timeRecHits")
+
+        if "Jet_"+str(j)+"_isGenMatchedCaloCorrLLPAccept" not in temp_list:
+            temp_list.append("Jet_"+str(j)+"_isGenMatchedCaloCorrLLPAccept")
         #print(temp_list)
 
 
