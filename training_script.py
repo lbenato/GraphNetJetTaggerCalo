@@ -91,23 +91,24 @@ j_nottrain = [
 # These are the variables we will use for training
 j_features = [
 #Lisa, old:
-'nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
-'muEFrac','eleEFrac','photonEFrac',
-'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti',
-'nHitsMedian','nPixelHitsMedian',
-'dRSVJet', 'nVertexTracks',
+#'nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
+#'muEFrac','eleEFrac','photonEFrac',
+#'eleMulti','muMulti','photonMulti','cHadMulti','nHadMulti',
+#'nHitsMedian','nPixelHitsMedian',
+#'dRSVJet', 'nVertexTracks',
 ##'CSV',
-'SV_mass',
+#'SV_mass',
 ###JiaJing uses only:
-###'timeRecHits', 
-###'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
-###'gammaMaxET','minDeltaRPVTracks',
+'timeRecHits', 
+'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+'gammaMaxET','minDeltaRPVTracks',
+
 #new:
-'nRecHits', 'timeRecHits', #'timeRMSRecHits', 
-'energyRecHits', #'energyErrorRecHits',
-'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax', 'medianIP2D',
-'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
-'dzMedian', 'dxyMedian',
+#'nRecHits', 'timeRecHits', #'timeRMSRecHits', 
+#'energyRecHits', #'energyErrorRecHits',
+#'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax', 'medianIP2D',
+#'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
+#'dzMedian', 'dxyMedian',
 ]
 '''
 j_features = [
@@ -196,9 +197,9 @@ n_class=2
 
 
 
-compare_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_JJ_preselections/'
-compare_models(["BDT","LEADER","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["more_var_SampleWeight","more_var_0_SampleWeight_200epochs_10patience","more_var_1_SampleWeight","SampleWeight"],signal_match_test=True,ignore_empty_jets_test=True)
-exit()
+#compare_folder = 'model_weights_graphnet/compare_folder/'
+#compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
+#exit()
 
 graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
 graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
@@ -209,6 +210,8 @@ graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_
 graphnet_pd_partnet = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
 graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
+graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
+graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -219,42 +222,52 @@ bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
 ##############################################################
 ### Here we need a switch between jet features and pf features
 TRAIN_MODEL = "BDT"
-TRAIN_MODEL = "LEADER"
+TRAIN_MODEL = "FCN"
 TRAIN_MODEL = "particle_net_lite"
 #TRAIN_MODEL = "particle_net"
 
-if TRAIN_MODEL == "LEADER":
+if TRAIN_MODEL == "FCN":
     print("\n")
-    print("   Training FCN on jet features (LEADER)    ")
+    print("   Training FCN on jet features (FCN)    ")
     print("\n")
     print(jet_features_list)
     print(len(jet_features_list)," training features!")
     print("\n")
     
     #Test generator!
-    #fit_generator("LEADER", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,batch_size=2000,patience_val=5,val_split=0.0,model_label="more_var_2_generator",ignore_empty_jets_train=True)
+    #fit_generator("FCN", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,batch_size=2000,patience_val=5,val_split=0.0,model_label="more_var_2_generator",ignore_empty_jets_train=True)
 
     #evaluate performances
-    #evaluate_model("LEADER", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="more_var_2_generator",signal_match_test=True,ignore_empty_jets_test=True)
+    #evaluate_model("FCN", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="more_var_2_generator",signal_match_test=True,ignore_empty_jets_test=True)
+
+
+    name = "1_EventWeightNormalized"
 
     #fit function
-    fit_model("LEADER", n_class, graphnet_pd_JJ, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=10,val_split=0.0,model_label="more_var_0_SampleWeight_200epochs_10patience",ignore_empty_jets_train=True)
+    fit_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=10,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    evaluate_model("LEADER", n_class, graphnet_pd_JJ, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","SampleWeight",use_weight=True,n_batch_size=2000,model_label="more_var_0_SampleWeight_200epochs_10patience",signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+
+    evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 elif TRAIN_MODEL == "BDT":
     print("\n")
-    print("   Training BDT on jet features (same as LEADER)    ")
+    print("   Training BDT on jet features (same as FCN)    ")
     print("\n")
     print("   WARNING! Taking event weight NOT normalized!    ")
     print(jet_features_list)
     print(len(jet_features_list)," training features!")
     print("\n")
 
-    fit_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeight",use_weight=False,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="more_var",ignore_empty_jets_train=True)
+    name = "SampleWeight"
 
-    evaluate_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeight",use_weight=False,n_batch_size=2000,model_label="more_var",signal_match_test=True,ignore_empty_jets_test=True)
+
+    fit_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+
+    evaluate_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+
+    evaluate_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 
 elif TRAIN_MODEL == "particle_net_lite":
@@ -271,9 +284,13 @@ elif TRAIN_MODEL == "particle_net_lite":
     print(len(pf_mask)," mask")
     print("\n")
 
-    fit_model("particle_net_lite", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"Jet_isGenMatched","SampleWeight",use_weight=True,n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label="SampleWeight",ignore_empty_jets_train=True)
+    name = "EventWeightNormalized"
 
-    evaluate_model("particle_net_lite", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","SampleWeight",use_weight=True,n_batch_size=2000,model_label="SampleWeight",signal_match_test=True,ignore_empty_jets_test=True)
+    fit_model("particle_net_lite", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+
+    evaluate_model("particle_net_lite", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+
+    evaluate_model("particle_net_lite", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 elif TRAIN_MODEL == "particle_net":
     print("\n")
@@ -289,9 +306,13 @@ elif TRAIN_MODEL == "particle_net":
     print(len(pf_mask)," mask")
     print("\n")
 
-    fit_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points, pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=5,val_split=0.0,model_label="0",ignore_empty_jets_train=True)
+    name = "test"
 
-    evaluate_model("particle_net", n_class, graphnet_pd_folder, graphnet_result_folder, npf, pf_points,pf_features, pf_mask,"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label="0",signal_match_test=True,ignore_empty_jets_test=True)
+    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+
+    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+
+    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 ####################
 ###To be tested:
