@@ -449,9 +449,9 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
 def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
 
     ##Read train/validation sample
-    store_train = pd.HDFStore(folder+"train.h5")
+    store_train = pd.HDFStore(folder+"trainptnorm.h5")
     df_train = store_train.select("df")
-    store_val = pd.HDFStore(folder+"val.h5")
+    store_val = pd.HDFStore(folder+"valptnorm.h5")
     df_val = store_val.select("df")
     
     if(model_def=="FCN"):
@@ -599,7 +599,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     print("    Evaluating performances of the model.....   ")
 
     ##Read test sample
-    store = pd.HDFStore(folder+"test.h5")
+    store = pd.HDFStore(folder+"testptnorm.h5")
     df_test = store.select("df")
 
     print("    Remove negative weights at testing!!!!!!")

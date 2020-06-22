@@ -782,14 +782,33 @@ def do_mix_s_b(type_dataset,folder,cols,upsample_signal_factor=0,fraction_of_bac
     print("  Saving full sign dataset: "+OUT+type_dataset+".h5 stored")
     del df
     
+def do_pt_norm(type_dataset, folder):
 
+    IN  = folder+ '/'
+    OUT = folder+'/'
+    if not(os.path.exists(OUT)):
+        os.mkdir(OUT)
+    
+    store_l = pd.HDFStore(IN+type_dataset+'.h5')
+    df = store_l.select('df')                      
+     
+    for i in range(npf):
+        df["pt_norm_"+str(i)] = df["pt_"+str(i)]/df["Jet_pt"]        
+    
+    df.to_hdf(OUT+type_dataset+'ptnorm'+'.h5', 'df', format='fixed')
+                          
+    del df
+    del store_l                      
+    
+    
 #do_write(in_folder, out_folder, cols=var_list_tree)
 #exit()
-write_folder = '/nfs/dust/cms/group/cms-llp/dataframes/v2_calo_AOD_2017_condor_graphnet/'#first test
-out_leader = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/"
-out_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ/"
-out_partnet = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet/"
-out_partnet_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/"
+#write_folder = '/nfs/dust/cms/group/cms-llp/dataframes/v2_calo_AOD_2017_condor_graphnet/'#first test
+#out_leader = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/"
+#out_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ/"
+#out_partnet = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet/"
+#out_partnet_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/"
+out_julia = "/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/"
 #do_convert(write_folder,out_leader,nj,npf,event_list,jet_list_h5)
 # REMEBER TO MODIFY!!!
 ##NJ  = 1
@@ -803,7 +822,7 @@ out_partnet_JJ = "/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_20
 
 #Here: specify if you want LEADER features or GraphNet features
 #var_list_per_jet+= per_jet_list_h5
-var_list_per_jet+= per_pf_list_h5
+#var_list_per_jet+= per_pf_list_h5
 
 #print(var_list_per_jet)
 #exit()
@@ -828,5 +847,6 @@ for a in ["train","test","val"]:
     #do_mix_background(a,out_partnet_JJ,var_list_per_jet)
     #do_mix_signal_new(a,out_partnet_JJ,var_list_per_jet,False if a=="test" else True, 0)
     ##do_mix_signal(a,out_partnet_JJ,var_list_per_jet,50)
-    do_mix_s_b(a,out_partnet_JJ,var_list_per_jet,10,1)
+    #do_mix_s_b(a,out_partnet_JJ,var_list_per_jet,10,1)
+    do_pt_norm(a, out_julia)
 

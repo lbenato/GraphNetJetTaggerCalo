@@ -1,7 +1,7 @@
-executable   = <path_here>/job.sh 
-output       = <path_here>/out.txt 
-error        = <path_here>/error.txt
-log          = <path_here>/log.txt
+executable   = /afs/desy.de/user/h/heikenju/nfs_dust/ML_LLP/GraphNetJetTaggerCalo/example_condor/job.sh 
+output       = /afs/desy.de/user/h/heikenju/nfs_dust/ML_LLP/GraphNetJetTaggerCalo/example_condor/out.txt 
+error        = /afs/desy.de/user/h/heikenju/nfs_dust/ML_LLP/GraphNetJetTaggerCalo/example_condor/error.txt
+log          = /afs/desy.de/user/h/heikenju/nfs_dust/ML_LLP/GraphNetJetTaggerCalo/example_condor/log.txt
  
 #Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" 
 Request_GPUs = 1 
@@ -10,8 +10,8 @@ Request_GPUs = 1
 ##environment = "CLUSTER=$(Cluster) PROCESS=$(Process)" 
  
 ## uncomment this to specify a runtime longer than 3 hours (time in seconds) 
-Request_Cpus = 1 
-Request_Memory = 1500 
-+RequestRuntime = 14400 
-batch_name = test_job 
+#Request_Cpus = 1 
+Request_Memory = 4000 
++RequestRuntime = 200000 
+batch_name = particlenet_job 
 queue 1 

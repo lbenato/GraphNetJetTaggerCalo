@@ -8,7 +8,7 @@ tf_list = tf.config.experimental.list_physical_devices('GPU')
 print("Number of available GPUs: {}".format(len(tf_list)))
 print(tf_list)
 print("\n")
-print(gpus[0].name)
+#print(gpus[0].name)
 
 if len(tf_list) == 1:
     if gpus[0].name=='Tesla P100-PCIE-16GB':
@@ -60,8 +60,8 @@ tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ### Folders ###
 #~~~~~~~~~~~~~~~~~~~~~~~~~
-graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+#graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+#graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,7 +89,7 @@ j_nottrain = [
 ]
 
 # These are the variables we will use for training
-j_features = [
+#j_features = [
 #Lisa, old:
 #'nTrackConstituents','nSelectedTracks','nHadEFrac', 'cHadEFrac','ecalE','hcalE',
 #'muEFrac','eleEFrac','photonEFrac',
@@ -98,10 +98,10 @@ j_features = [
 #'dRSVJet', 'nVertexTracks',
 ##'CSV',
 #'SV_mass',
-###JiaJing uses only:
-'timeRecHits', 
-'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
-'gammaMaxET','minDeltaRPVTracks',
+#JiaJing uses only:
+#'timeRecHits', 
+#'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+#'gammaMaxET','minDeltaRPVTracks',
 
 #new:
 #'nRecHits', 'timeRecHits', #'timeRMSRecHits', 
@@ -109,31 +109,31 @@ j_features = [
 #'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax', 'medianIP2D',
 #'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
 #'dzMedian', 'dxyMedian',
-]
-'''
-j_features = [
-###JiaJing uses only:
-'timeRecHits', 
-'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
-'gammaMaxET','minDeltaRPVTracks',
-]
-'''
-jet_features_list = []
-for f in j_features:
-    jet_features_list.append("Jet_"+f)
+#]
+#'''
+#j_features = [
+#JiaJing uses only:
+#'timeRecHits', 
+#'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+#'gammaMaxET','minDeltaRPVTracks',
+#]
+#'''
+#jet_features_list = []
+#for f in j_features:
+#    jet_features_list.append("Jet_"+f)
 
 # These are all the jet variables we want to save in the final output root file; needed to fully reconstruct the event
-j_var = j_gen+j_features+j_nottrain
-jet_list = []
-for v in j_var:
-    jet_list.append("Jet_"+v)
+#j_var = j_gen+j_features+j_nottrain
+#jet_list = []
+#for v in j_var:
+#    jet_list.append("Jet_"+v)
 
 ###################################
 ### Define PFCandidate features ###
 ###################################
 
 # Number of pf candidates used in the model
-npf=50 #npf are 100 at maximum
+npf=30 #npf are 100 at maximum
 
 #PF features we have in the dataset but that we don't use for training
 pf_nottrain = [
@@ -154,7 +154,7 @@ pf_nottrain = [
 pf_features = [
     'energy',
     #'px','py','pz',
-    'pt',
+    'pt_norm',
     #'pdgId',
     'isTrack',
     #'hasTrackDetails',
@@ -201,17 +201,17 @@ n_class=2
 #compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
 #exit()
 
-graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
-graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
-graphnet_pd_JJ = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ/'#'dataframes_graphnet/v2_calo_AOD_2017_t
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_JJ_preselections/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+#graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+#graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
+#graphnet_pd_JJ = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ/'#'dataframes_graphnet/v2_calo_AOD_2017_t
+#graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+#graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
-graphnet_pd_partnet = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+graphnet_pd_partnet = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
 graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
-graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
-graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
+#graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
+#graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,10 +221,10 @@ bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
 
 ##############################################################
 ### Here we need a switch between jet features and pf features
-TRAIN_MODEL = "BDT"
-TRAIN_MODEL = "FCN"
-TRAIN_MODEL = "particle_net_lite"
-#TRAIN_MODEL = "particle_net"
+#TRAIN_MODEL = "BDT"
+#TRAIN_MODEL = "FCN"
+#TRAIN_MODEL = "particle_net_lite"
+TRAIN_MODEL = "particle_net"
 
 if TRAIN_MODEL == "FCN":
     print("\n")
@@ -308,11 +308,11 @@ elif TRAIN_MODEL == "particle_net":
 
     name = "test"
 
-    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=10,val_split=0.0,model_label="_EWN_ptnorm",ignore_empty_jets_train=True)
 
-    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label="_EWN_ptnorm",signal_match_test=True,ignore_empty_jets_test=True)
 
-    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
+
 
 ####################
 ###To be tested:
