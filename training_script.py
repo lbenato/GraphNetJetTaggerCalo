@@ -207,8 +207,8 @@ n_class=2
 #graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 #graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
-graphnet_pd_partnet = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
-graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+graphnet_pd_partnet = '/nfs/dust/cms/group/cms-llp/dataframes_joerg/v3_calo_AOD_2018_partnet/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+graphnet_result_partnet = 'model_weights_graphnet/v3_calo_AOD_2018_partnet/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
 #graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
 #graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
@@ -216,7 +216,7 @@ graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partne
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
+bkg = ['VV','WJetsToLNu','ZJetsToNuNu','WJetsToLNu','QCD','ST','TTbar']
 #bkg = ['WJetsToLNu']
 
 ##############################################################
@@ -308,9 +308,9 @@ elif TRAIN_MODEL == "particle_net":
 
     name = "test"
 
-    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=10,val_split=0.0,model_label="_EWN_ptnorm",ignore_empty_jets_train=True)
+    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=10,val_split=0.0,model_label="new_data",ignore_empty_jets_train=True)
 
-    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label="_EWN_ptnorm",signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label="new_data",signal_match_test=True,ignore_empty_jets_test=True)
 
 
 
