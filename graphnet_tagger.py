@@ -38,7 +38,9 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         
     return X, y, w
 
-def get_FCN_constituents_dataset(dataframe,n_points,points_var,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+#Lisa:
+#def get_FCN_constituents_dataset(dataframe,n_points,points_var,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
     if ignore_empty_jets:
         #print("\n")
@@ -48,25 +50,38 @@ def get_FCN_constituents_dataset(dataframe,n_points,points_var,features_var,weig
     
     points_arr = []
     features_arr = []
-    
-    for f_var in features_var:
-        features_arr.append(dataframe[_col_list(f_var,n_points)].values)
-    features = np.stack(features_arr,axis=-1)
-    
-    for p_var in points_var:
-        points_arr.append(dataframe[_col_list(p_var,n_points)].values)
-    points = np.stack(points_arr,axis=-1)
-    
-    input_shapes = defaultdict()
-    input_shapes['points'] = points.shape[1:]
-    input_shapes['features'] = features.shape[1:]
 
+    #Lisa:
+    ## Here we simply need a python list with all the names of the relevant variables.
+    ## It's much easier than the code below.
+    ## I recommend to try to understand what you are doing by printing out each operation you perform,
+    ## for example
+    ## print _col_list(f_var,n_points)
+    ## exit()
+    
+    #Lisa: not needed
+    #for f_var in features_var:
+    #    features_arr.append(dataframe[_col_list(f_var,n_points)].values)
+    #features = np.stack(features_arr,axis=-1)
 
-    X = [points,features]
+    #for p_var in points_var:
+    #    points_arr.append(dataframe[_col_list(p_var,n_points)].values)
+    #points = np.stack(points_arr,axis=-1)
+    
+    #Lisa: not needed. For a FCN, we can simply keep the .values, that are numpy arrays
+    #input_shapes = defaultdict()
+    #input_shapes['points'] = points.shape[1:]
+    #input_shapes['features'] = features.shape[1:]
+
+    #Lisa: this is enough
+    X = dataframe[_col_list(f_var,n_points)].values#[points,features]
     y = dataframe[is_signal].values
     w = dataframe[weight].values
         
-    return X, y, w, input_shapes
+    return X, y, w#, input_shapes
+
+    #Lisa: not needed
+    #return X, y, w, input_shapes
 
     #X = dataframe[features].values
     #y = dataframe[is_signal].values
@@ -498,8 +513,12 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
     elif(model_def=="FCN_constituents"):
-        X_train, y_train, w_train, input_shapes  = get_FCN_constituents_dataset(df_train,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        X_val,   y_val,   w_val, _  = get_FCN_constituents_dataset(df_val,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        #Lisa
+        #You can keep it as it is for FCN, and simply add features+points lists
+        #X_train, y_train, w_train, input_shapes  = get_FCN_constituents_dataset(df_train,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        #X_val,   y_val,   w_val, _  = get_FCN_constituents_dataset(df_val,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_constituents(num_classes=n_class, input_shapes=X_train.shape[1:])    
     elif(model_def=="particle_net_lite"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -671,7 +690,8 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     if(model_def=="FCN"):
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="FCN_constituents"):
-        X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        #Lisa: here you also need features+points
+        X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite" or model_def=="particle_net"):
         X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     else:
