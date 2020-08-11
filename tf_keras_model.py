@@ -255,6 +255,18 @@ def get_FCN_jets(num_classes, input_shapes):
 
     return model
 
+def get_FCN_constituents(num_classes, input_shapes):
+    model = keras.models.Sequential(name="FCN_constituents")
+    model.add(keras.layers.Dense(256, input_shape = input_shapes, activation='relu'))
+    model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(64, activation='relu'))
+    model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(16, activation='relu'))
+    model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+
+
 def get_BDT(n_epochs,features):
 
     model = xgb.XGBClassifier(max_depth=4, learning_rate=0.1, n_estimators=n_epochs, verbosity=1, n_jobs=4, reg_lambda=1.0, feature_names=features)
