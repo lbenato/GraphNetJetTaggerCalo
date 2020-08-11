@@ -22,11 +22,11 @@ out_convert = '/nfs/dust/cms/group/cms-llp/dataframes/v3_calo_AOD_2018_partnet/'
 
 sgn = ['ggH_MH1000_MS150_ctau1000']
 sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-#sgn = []
+sgn = []
 #bkg = ['ZJetsToNuNu']
-bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD','TTbar']
+#bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD','TTbar']
 #bkg = ['ZJetsToNuNu']
-#bkg = ['QCD']
+bkg = ['QCD']
 #bkg = ['TTbar']
 #bkg = ['WJetsToLNu']
 #bkg = ['VV']
@@ -207,7 +207,7 @@ for e in event_dict.keys():
     event_list_tree.append( (e, event_dict[e], 1) )
 var_list_tree = event_var_in_tree + jet_list_tree
 #var_list_tree = jet_list_tree
-var_list_tree += pf_list_tree
+#var_list_tree += pf_list_tree
 #print(var_list_tree)
 
 convert_var_list_tree = []
@@ -498,7 +498,7 @@ def do_merge(inp,out,cols,max_n_jets=10,train_split=0.8,test_split=0.2,val_split
         if a in sgn:
             max_jetindex = max_n_jets
         else:
-            max_jetindex = 1
+            max_jetindex = 10
 
         for i, s in enumerate(samples[a]['files']):
             print("\n")
@@ -519,8 +519,8 @@ def do_merge(inp,out,cols,max_n_jets=10,train_split=0.8,test_split=0.2,val_split
             startTime = time.time()
             df_list = []
 
-            #max_n = len(files_list)
-            max_n = 100
+            max_n = len(files_list)
+            #max_n = 300
             max_loop = min(max_n,len(files_list))
             
             for n in range(max_loop):
@@ -766,6 +766,7 @@ def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=0,fraction_of
 #do_write(in_folder, out_folder, cols=var_list_tree)
 #do_convert(in_convert,out_convert,nj,npf,cols=convert_var_list_tree)
 do_merge(out_convert,out_convert,cols=convert_var_list_tree)
+exit()
 
 pf_list = []
 jet_list = []
@@ -784,9 +785,11 @@ for n in range(npf):
 #print(jet_list)
 #print(pf_list)
 for a in ["train","test","val"]:
-    do_mix_background(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index"])
+    #do_mix_background(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index"])
+    do_mix_background(a,out_convert,event_list+jet_list)
 #for a in ["test","val","train"]:
-#    do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
+    #do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
+    do_mix_signal(a,out_convert,event_list+jet_list,upsample_factor=0)
 ## mix considers feature names as a list!
 
 

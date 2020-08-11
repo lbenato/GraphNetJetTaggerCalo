@@ -2,7 +2,7 @@
 #define OBJECTS_H
 
 struct LeptonType {
-LeptonType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), inTrkPt(-1.), pfIso03(-1.), pfIso04(-1.), trkIso(-1.), miniIso(-1.), dxy(-99.), dz(-99.), ip3d(-99.), sip3d(-99.), nPixelHits(-1.), dPhi_met(-1.), charge(0), pdgId(0), isElectron(false), isMuon(false), isVeto(false), isLoose(false), isMedium(false), isTight(false), isHighPt(false), isPFMuon(false), SSscale(-1.), SSsigma(-1.), SSscaleUnc(-1.), SSsigmaUncUp(-1.), SSsigmaUncDown(-1.), SScorr(-1.), energySScorr(-1.), energySScorrUncUp(-1.), energySScorrUncDown(-1.), ptSScorr(-1.), ptSScorrUncUp(-1.), ptSScorrUncDown(-1.), isMatched(false) {} // isHEEP(false), isMVANonTrigMedium(false), isMVANonTrigTight(false), isMVATrigMedium(false), isMVATrigTight(false)
+LeptonType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), inTrkPt(-1.), pfIso03(-1.), pfIso04(-1.), trkIso(-1.), miniIso(-1.), dxy(-99.), dz(-99.), ip3d(-99.), sip3d(-99.), nPixelHits(-1.), dPhi_met(-99.), charge(0), pdgId(0), isElectron(false), isMuon(false), isVeto(false), isLoose(false), isMedium(false), isTight(false), isHighPt(false), isPFMuon(false), SSscale(-1.), SSsigma(-1.), SSscaleUnc(-1.), SSsigmaUncUp(-1.), SSsigmaUncDown(-1.), SScorr(-1.), energySScorr(-1.), energySScorrUncUp(-1.), energySScorrUncDown(-1.), ptSScorr(-1.), ptSScorrUncUp(-1.), ptSScorrUncDown(-1.), isMatched(false) {} // isHEEP(false), isMVANonTrigMedium(false), isMVANonTrigTight(false), isMVATrigMedium(false), isMVATrigTight(false)
     float pt;
     float eta;
     float phi;
@@ -89,7 +89,7 @@ TauType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), pfIso(-1.), dz(-
 
 struct JetType {
 JetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), energyRaw(-1.), ptRaw(-1.), ptUnc(-1.), CSV(-99.), CMVA(-99.),
-//dPhi_met(-1.), dPhi_Jet1(-1.), puId(-1.),
+ dPhi_met(-99.),// dPhi_Jet1(-1.), puId(-1.),
 //CSVR(-99.), CSVRUp(-99.), CSVRDown(-99.),
 //CMVAR(-99.), CMVARUp(-99.), CMVARDown(-99.), QGLikelihood(-1.),
 //energies
@@ -109,7 +109,7 @@ PUId(-1), PUIdLoose(false), PUIdMedium(false), PUIdTight(false), PUDiscriminant(
 //isMatched(false), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000),
 matchBquark(-1), matchLL(-1),
 //original_jet_index(-1),
-    isGenMatched(0), isGenMatchedCaloCorr(0), isGenMatchedLLPAccept(0), isGenMatchedCaloCorrLLPAccept(0), isVBFGenMatched(0),
+    isGenMatched(0), isGenMatchedCaloCorr(0), isGenMatchedLLPAccept(0), isGenMatchedCaloCorrLLPAccept(0), radiusLLP(-1000.), xLLP(-10000.), yLLP(-10000.), zLLP(-10000.), radiusLLPCaloCorr(-1000.), xLLPCaloCorr(-10000.), yLLPCaloCorr(-10000.), zLLPCaloCorr(-10000.), xGenb(-10000.), yGenb(-10000.), zGenb(-10000.), xGenbCaloCorr(-10000.), yGenbCaloCorr(-10000.), zGenbCaloCorr(-10000.), isVBFGenMatched(0),
     //track variables, old implementation
     alphaMaxOld(-100.), sumPtJetOld(-1.), betaMaxOld(-100.), gammaMaxOld(-100.), gammaMaxEMOld(-100.), gammaMaxHadronicOld(-100.), gammaMaxETOld(-100.), sigIP2DMedianOld(-10000.), theta2DMedianOld(-100.), POCA_theta2DMedianOld(-100.), nPixelHitsMedianOld(-1.0), nHitsMedianOld(-1.0), dxyMedianOld(-9999.), dzMedianOld(-9999.),//minDeltaRAllTracksOld(999.), minDeltaRPVTracksOld(999.), minDeltaRAllTracksInJetOld(999.), minDeltaRPVTracksInJetOld(999.),
     //track variables, new implementation
@@ -119,9 +119,12 @@ matchBquark(-1), matchLL(-1),
     ptJESUp (-1.), ptJESDown (-1.), ptJERUp (-1.), ptJERDown (-1.), tau1(-1.), tau2(-1.), tau3(-1.), nSubJets(-1), tau21(-1.), tau31(-1.), tau32(-1.), tau1_neutral(-1.), tau2_neutral(-1.), tau21_neutral(-1.), tau1_charged(-1.), tau2_charged(-1.), tau21_charged(-1.), 
     //TriggerMatched_VBFJet(0), TriggerMatched_DisplacedJet(0), TriggerMatched_TripleJet50(0),//currently not used
     nConstituents (-1), nTrackConstituents (-1), nTracks0PixelHits(-1), nTracks1PixelHit(-1),nTracks2PixelHits(-1),nTracks3PixelHits(-1),nTracks4PixelHits(-1),nTracks5PixelHits(-1),nTracksAtLeast6PixelHits(-1),
-    nTracksValidHitInBPix1(-1),nTracks0LostInnerHits(-1), nTracks1LostInnerHit(-1), nTracksAtLeast2LostInnerHits(-1), nTrackConstituentsWithPtLarger0p95(-1), nTrackConstituentsWithTrackDetails(-1), nTrackConstituentsWithTrackDetailsPtLarger0p95(-1), nMatchedGenBquarks(-1),
+    nTracksValidHitInBPix1(-1),nTracks0LostInnerHits(-1), nTracks1LostInnerHit(-1), nTracksAtLeast2LostInnerHits(-1), nTrackConstituentsWithPtLarger0p95(-1), nTrackConstituentsWithTrackDetails(-1), nTrackConstituentsWithTrackDetailsPtLarger0p95(-1), nMatchedGenBquarks(-1), nMatchedGenBquarksCaloCorr(-1),
     //recHits time
-    nRecHits(-1), timeRecHits(-100.), timeRMSRecHits(-1.),energyRecHits(-1.),energyErrorRecHits(-1.),
+    nRecHitsEB(-1), timeRecHitsEB(-100.), timeRMSRecHitsEB(-1.), energyRecHitsEB(-1.), energyErrorRecHitsEB(-1.), xRecHitsEB(-1000.), yRecHitsEB(-1000.), zRecHitsEB(-1000.), radiusRecHitsEB(-1000.),
+    nRecHitsEE(-1), timeRecHitsEE(-100.), timeRMSRecHitsEE(-1.), energyRecHitsEE(-1.), energyErrorRecHitsEE(-1.), xRecHitsEE(-1000.), yRecHitsEE(-1000.), zRecHitsEE(-1000.), radiusRecHitsEE(-1000.),
+    nRecHitsHB(-1), timeRecHitsHB(-100.), timeRMSRecHitsHB(-1.), energyRecHitsHB(-1.), energyErrorRecHitsHB(-1.), xRecHitsHB(-1000.), yRecHitsHB(-1000.), zRecHitsHB(-1000.), radiusRecHitsHB(-1000.),
+    nRecHitsHE(-1), timeRecHitsHE(-100.), timeRMSRecHitsHE(-1.), energyRecHitsHE(-1.), energyErrorRecHitsHE(-1.), xRecHitsHE(-1000.), yRecHitsHE(-1000.), zRecHitsHE(-1000.), radiusRecHitsHE(-1000.),
     //Imperial College tagger
     pfXWP0p01(-1.), pfXWP0p1(-1.), pfXWP1(-1.), pfXWP10(-1.), pfXWP100(-1.), pfXWP1000(-1.), deepCSV_probudsg(-99.), deepCSV_probb(-99.), deepCSV_probc(-99.), deepCSV_probbb(-99.), deepJet_probuds(-99.),deepJet_probg(-99.), deepJet_problepb(-99.), deepJet_probb(-99.), deepJet_probc(-99.), deepJet_probbb(-99.){}
     float pt;
@@ -132,8 +135,6 @@ matchBquark(-1), matchLL(-1),
     float energyRaw;
     float ptRaw;
     float ptUnc;
-  //float dPhi_met;
-  // float dPhi_Jet1;
   //float puId;
     float CSV;
   //float CSVR;
@@ -144,6 +145,8 @@ matchBquark(-1), matchLL(-1),
   //float CMVARUp;
   //float CMVARDown;
   //float QGLikelihood;
+    float dPhi_met;
+  // float dPhi_Jet1;
     float cHadE;
     float nHadE;
     float eleE;
@@ -232,6 +235,20 @@ matchBquark(-1), matchLL(-1),
     int isGenMatchedCaloCorr;
     int isGenMatchedLLPAccept;
     int isGenMatchedCaloCorrLLPAccept;
+    float radiusLLP;
+    float xLLP;
+    float yLLP;
+    float zLLP;
+    float radiusLLPCaloCorr;
+    float xLLPCaloCorr;
+    float yLLPCaloCorr;
+    float zLLPCaloCorr;
+    float xGenb;
+    float yGenb;
+    float zGenb;
+    float xGenbCaloCorr;
+    float yGenbCaloCorr;
+    float zGenbCaloCorr;
     int isVBFGenMatched;
     //track, old implementation
     float alphaMaxOld;
@@ -332,11 +349,45 @@ matchBquark(-1), matchLL(-1),
     int nTrackConstituentsWithTrackDetails;
     int nTrackConstituentsWithTrackDetailsPtLarger0p95;
     int nMatchedGenBquarks;
-    int nRecHits;
-    float timeRecHits;
-    float timeRMSRecHits;
-    float energyRecHits;
-    float energyErrorRecHits;
+    int nMatchedGenBquarksCaloCorr;
+    int nRecHitsEB;
+    float timeRecHitsEB;
+    float timeRMSRecHitsEB;
+    float energyRecHitsEB;
+    float energyErrorRecHitsEB;
+    float xRecHitsEB;
+    float yRecHitsEB;
+    float zRecHitsEB;
+    float radiusRecHitsEB;
+
+    int nRecHitsEE;
+    float timeRecHitsEE;
+    float timeRMSRecHitsEE;
+    float energyRecHitsEE;
+    float energyErrorRecHitsEE;
+    float xRecHitsEE;
+    float yRecHitsEE;
+    float zRecHitsEE;
+    float radiusRecHitsEE;
+
+    int nRecHitsHB;
+    float timeRecHitsHB;
+    float timeRMSRecHitsHB;
+    float energyRecHitsHB;
+    float energyErrorRecHitsHB;
+    float xRecHitsHB;
+    float yRecHitsHB;
+    float zRecHitsHB;
+    float radiusRecHitsHB;
+    int nRecHitsHE;
+    float timeRecHitsHE;
+    float timeRMSRecHitsHE;
+    float energyRecHitsHE;
+    float energyErrorRecHitsHE;
+    float xRecHitsHE;
+    float yRecHitsHE;
+    float zRecHitsHE;
+    float radiusRecHitsHE;    
     float pfXWP0p01; 
     float pfXWP0p1;
     float pfXWP1; 
@@ -358,7 +409,13 @@ matchBquark(-1), matchLL(-1),
 
 
 struct FatJetType {
-FatJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), ptRaw(-1.), ptUnc(-1.), dPhi_met(-1.), dPhi_Jet1(-1.), puId(-1.), CSV(-99.), CSVR(-99.), CSVRUp(-99.), CSVRDown(-99.), pfBoostedDoubleSVAK8(-1.), CHSprunedMass(-1.), CHSsoftdropMass(-1.), softdropPuppiMass(-1.), CHSprunedMassCorr(-1.), CHSsoftdropMassCorr(-1.), softdropPuppiMassCorr(-1.), softdropPuppiMassCorrNotSmeared(-1.), nSoftDropSubJets(-1), pt1(-1.), eta1(-9.), phi1(-9.), mass1(-1.), CSV1(-99.), //CSVR1(-99.), CSVR1Up(-99.), CSVR1Down(-99.),
+FatJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), ptRaw(-1.), ptUnc(-1.), 
+dPhi_met(-99.), //L//dPhi_Jet1(-1.), 
+puId(-1.), CSV(-99.), CSVR(-99.), 
+//L//CSVRUp(-99.), CSVRDown(-99.), 
+pfBoostedDoubleSVAK8(-1.), CHSprunedMass(-1.), CHSsoftdropMass(-1.), softdropPuppiMass(-1.), 
+//L//CHSprunedMassCorr(-1.), CHSsoftdropMassCorr(-1.), softdropPuppiMassCorr(-1.), softdropPuppiMassCorrNotSmeared(-1.), 
+nSoftDropSubJets(-1), pt1(-1.), eta1(-9.), phi1(-9.), mass1(-1.), CSV1(-99.), //CSVR1(-99.), CSVR1Up(-99.), CSVR1Down(-99.),
     CMVA1(-99.), //CMVAR1(-99.), CMVAR1Up(-99.), CMVAR1Down(-99.),
     flavour1(-1.), nSV1(-1), nVertexTracks1(-1), pt2(-1.), eta2(-9.), phi2(-9.), mass2(-1.), CSV2(-99.), //CSVR2(-99.), CSVR2Up(-99.), CSVR2Down(-99.),
     CMVA2(-99.), //CMVAR2(-99.), CMVAR2Up(-99.), CMVAR2Down(-99.),
@@ -371,13 +428,23 @@ cHadEFrac(-1.), nHadEFrac(-1.), eleEFrac(-1.), photonEFrac(-1.), muEFrac(-1.), n
 cHadMulti(-1.), nHadMulti(-1.), eleMulti(-1.), photonMulti(-1.), muMulti(-1.), cMulti(-1.), nMulti(-1.), npr(-1.),
 //multiplicity fractions
 cHadMultiFrac(-1.), nHadMultiFrac(-1.), eleMultiFrac(-1.), photonMultiFrac(-1.), muMultiFrac(-1.), cMultiFrac(-1.), nMultiFrac(-1.),
-partonFlavour(0), hadronFlavour(0), mother(0), isLoose(false), isMedium(false), isTight(false), isTightLepVeto(false), isMatched(false), JESUnc(-1.), ptJERUp(-1.), etaJERUp(-1.), phiJERUp(-9.), energyJERUp(-1.), ptJERDown(-1.), etaJERDown(-1.), phiJERDown(-9.), energyJERDown(-1.), smearFact(-1.), smearFactUp(-1.), smearFactDown(-1.), softdropPuppiMassCorrJMS(-1.), softdropPuppiMassCorrJMSUp(-1.), softdropPuppiMassCorrJMSDown(-1.), softdropPuppiMassCorrJMR(-1.), softdropPuppiMassCorrJMRUp(-1.), softdropPuppiMassCorrJMRDown(-1.), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000), matchBquark(-1), matchLL(-1), isGenMatched(false),
+partonFlavour(0), hadronFlavour(0), mother(0), isLoose(false), isMedium(false), isTight(false), isTightLepVeto(false), isMatched(false), 
+//L//JESUnc(-1.), ptJERUp(-1.), etaJERUp(-1.), phiJERUp(-9.), energyJERUp(-1.), ptJERDown(-1.), etaJERDown(-1.), phiJERDown(-9.), energyJERDown(-1.), smearFact(-1.), smearFactUp(-1.), smearFactDown(-1.), softdropPuppiMassCorrJMS(-1.), softdropPuppiMassCorrJMSUp(-1.), softdropPuppiMassCorrJMSDown(-1.), softdropPuppiMassCorrJMR(-1.), softdropPuppiMassCorrJMRUp(-1.), softdropPuppiMassCorrJMRDown(-1.), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000), matchBquark(-1), matchLL(-1), 
+isGenMatched(0), isGenMatchedCaloCorr(0), radiusLLP(-1000.), xLLP(-10000.), yLLP(-10000.), zLLP(-10000.), radiusLLPCaloCorr(-1000.), xLLPCaloCorr(-10000.), yLLPCaloCorr(-10000.), zLLPCaloCorr(-10000.), xGenb(-10000.), yGenb(-10000.), zGenb(-10000.), xGenbCaloCorr(-10000.), yGenbCaloCorr(-10000.), zGenbCaloCorr(-10000.),
+    //recHits time
+    nRecHitsEB(-1), timeRecHitsEB(-100.), timeRMSRecHitsEB(-1.), energyRecHitsEB(-1.), energyErrorRecHitsEB(-1.), xRecHitsEB(-1000.), yRecHitsEB(-1000.), zRecHitsEB(-1000.), radiusRecHitsEB(-1000.),
+    nRecHitsEE(-1), timeRecHitsEE(-100.), timeRMSRecHitsEE(-1.), energyRecHitsEE(-1.), energyErrorRecHitsEE(-1.), xRecHitsEE(-1000.), yRecHitsEE(-1000.), zRecHitsEE(-1000.), radiusRecHitsEE(-1000.),
+    nRecHitsHB(-1), timeRecHitsHB(-100.), timeRMSRecHitsHB(-1.), energyRecHitsHB(-1.), energyErrorRecHitsHB(-1.), xRecHitsHB(-1000.), yRecHitsHB(-1000.), zRecHitsHB(-1000.), radiusRecHitsHB(-1000.),
+    nRecHitsHE(-1), timeRecHitsHE(-100.), timeRMSRecHitsHE(-1.), energyRecHitsHE(-1.), energyErrorRecHitsHE(-1.), xRecHitsHE(-1000.), yRecHitsHE(-1000.), zRecHitsHE(-1000.), radiusRecHitsHE(-1000.),
+    //track variables, new implementation
+    nConstituents (-1), nTrackConstituents (-1),
+    ptAllTracks(-1.), ptAllPVTracks(-1.), ptPVTracksMax(-1.), nTracksAll(-1), nTracksPVMax(-1), medianIP2D(-10000.), medianTheta2D(-100.), alphaMax(-100.), betaMax(-100.), gammaMax(-100.), gammaMaxEM(-100.), gammaMaxHadronic(-100.), gammaMaxET(-100.), minDeltaRAllTracks(999.), minDeltaRPVTracks(999.), nPixelHitsMedian(-1.0), nHitsMedian(-1.0), dzMedian(-9999.), dxyMedian(-9999.),
 //From PFCandidates
-alphaMax(-100.), sigIP2DMedian(-100.), theta2DMedian(-100.), POCA_theta2DMedian(-100.), nPixelHitsMedian(-1.0), nHitsMedian(-1.0), nConstituents(-1), nTrackConstituents(-1),
-nTracks0PixelHits(-1), nTracks1PixelHit(-1), nTracks2PixelHits(-1), nTracks3PixelHits(-1), nTracks4PixelHits(-1), nTracks5PixelHits(-1), nTracksAtLeast6PixelHits(-1),
-nTracksValidHitInBPix1(-1), nTracks0LostInnerHits(-1), nTracks1LostInnerHit(-1), nTracksAtLeast2LostInnerHits(-1),
+//L//alphaMax(-100.), sigIP2DMedian(-100.), theta2DMedian(-100.), POCA_theta2DMedian(-100.), nPixelHitsMedian(-1.0), nHitsMedian(-1.0), nConstituents(-1), nTrackConstituents(-1),
+//L//nTracks0PixelHits(-1), nTracks1PixelHit(-1), nTracks2PixelHits(-1), nTracks3PixelHits(-1), nTracks4PixelHits(-1), nTracks5PixelHits(-1), nTracksAtLeast6PixelHits(-1),
+//L//nTracksValidHitInBPix1(-1), nTracks0LostInnerHits(-1), nTracks1LostInnerHit(-1), nTracksAtLeast2LostInnerHits(-1),
 //
-nMatchedGenBquarks(-1) {}
+nMatchedGenBquarks(-1), nMatchedGenBquarksCaloCorr(-1) {}
     float pt;
     float eta;
     float phi;
@@ -386,20 +453,20 @@ nMatchedGenBquarks(-1) {}
     float ptRaw;
     float ptUnc;
     float dPhi_met;
-    float dPhi_Jet1;
+    //L//float dPhi_Jet1;
     float puId;
     float CSV;
     float CSVR;
-    float CSVRUp;
-    float CSVRDown;
+    //L//float CSVRUp;
+    //L//float CSVRDown;
     float pfBoostedDoubleSVAK8;
     float CHSprunedMass;
     float CHSsoftdropMass;
     float softdropPuppiMass;
-    float CHSprunedMassCorr;
-    float CHSsoftdropMassCorr;
-    float softdropPuppiMassCorr;
-    float softdropPuppiMassCorrNotSmeared;
+    //L//float CHSprunedMassCorr;
+    //L//float CHSsoftdropMassCorr;
+    //L//float softdropPuppiMassCorr;
+    //L//float softdropPuppiMassCorrNotSmeared;
     int nSoftDropSubJets;
     float pt1;
     float eta1;
@@ -475,57 +542,136 @@ nMatchedGenBquarks(-1) {}
     bool isTight;
     bool isTightLepVeto;
     bool isMatched;
-    float JESUnc;
-    float ptJERUp;
-    float etaJERUp;
-    float phiJERUp;
-    float energyJERUp;
-    float ptJERDown;
-    float etaJERDown;
-    float phiJERDown;
-    float energyJERDown;
-    float smearFact;
-    float smearFactUp;
-    float smearFactDown;
-    float softdropPuppiMassCorrJMS;
-    float softdropPuppiMassCorrJMSUp;
-    float softdropPuppiMassCorrJMSDown;
-    float softdropPuppiMassCorrJMR;
-    float softdropPuppiMassCorrJMRUp;
-    float softdropPuppiMassCorrJMRDown;
-    float dR_q1;
-    float dR_q2;
-    float dR_q3;
-    float dR_q4;
-    bool m_q1;
-    bool m_q2;
-    bool m_q3;
-    bool m_q4;
-    float dR_pi1;
-    float dR_pi2;
-    int matchBquark;
-    int matchLL;
-    bool isGenMatched;
+    //L//float JESUnc;
+    //L//float ptJERUp;
+    //L//float etaJERUp;
+    //L//float phiJERUp;
+    //L//float energyJERUp;
+    //L//float ptJERDown;
+    //L//float etaJERDown;
+    //L//float phiJERDown;
+    //L//float energyJERDown;
+    //L//float smearFact;
+    //L//float smearFactUp;
+    //L//float smearFactDown;
+    //L//float softdropPuppiMassCorrJMS;
+    //L//float softdropPuppiMassCorrJMSUp;
+    //L//float softdropPuppiMassCorrJMSDown;
+    //L//float softdropPuppiMassCorrJMR;
+    //L//float softdropPuppiMassCorrJMRUp;
+    //L//float softdropPuppiMassCorrJMRDown;
+    //L//float dR_q1;
+    //L//float dR_q2;
+    //L//float dR_q3;
+    //L//float dR_q4;
+    //L//bool m_q1;
+    //L//bool m_q2;
+    //L//bool m_q3;
+    //L//bool m_q4;
+    //L//float dR_pi1;
+    //L//float dR_pi2;
+    //L//int matchBquark;
+    //L//int matchLL;
+    int isGenMatched;    
+    int isGenMatchedCaloCorr;
+    int isGenMatchedLLPAccept;
+    int isGenMatchedCaloCorrLLPAccept;
+    float radiusLLP;
+    float xLLP;
+    float yLLP;
+    float zLLP;
+    float radiusLLPCaloCorr;
+    float xLLPCaloCorr;
+    float yLLPCaloCorr;
+    float zLLPCaloCorr;
+    float xGenb;
+    float yGenb;
+    float zGenb;
+    float xGenbCaloCorr;
+    float yGenbCaloCorr;
+    float zGenbCaloCorr;
+    //L//float alphaMax;
+    //L//float sigIP2DMedian;
+    //L//float theta2DMedian;
+    //L//float POCA_theta2DMedian;
+    //L//float nPixelHitsMedian;
+    //L//float nHitsMedian;
+    //L//int nConstituents;
+    //L//int nTrackConstituents;
+    //L//int nTracks0PixelHits;
+    //L//int nTracks1PixelHit;
+    //L//int nTracks2PixelHits;
+    //L//int nTracks3PixelHits;
+    //L//int nTracks4PixelHits;
+    //L//int nTracks5PixelHits;
+    //L//int nTracksAtLeast6PixelHits;
+    //L//int nTracksValidHitInBPix1;
+    //L//int nTracks0LostInnerHits;
+    //L//int nTracks1LostInnerHit;
+    //L//int nTracksAtLeast2LostInnerHits;
+
+    int nRecHitsEB;
+    float timeRecHitsEB;
+    float timeRMSRecHitsEB;
+    float energyRecHitsEB;
+    float energyErrorRecHitsEB;
+    float xRecHitsEB;
+    float yRecHitsEB;
+    float zRecHitsEB;
+    float radiusRecHitsEB;
+
+    int nRecHitsEE;
+    float timeRecHitsEE;
+    float timeRMSRecHitsEE;
+    float energyRecHitsEE;
+    float energyErrorRecHitsEE;
+    float xRecHitsEE;
+    float yRecHitsEE;
+    float zRecHitsEE;
+    float radiusRecHitsEE;
+
+    int nRecHitsHB;
+    float timeRecHitsHB;
+    float timeRMSRecHitsHB;
+    float energyRecHitsHB;
+    float energyErrorRecHitsHB;
+    float xRecHitsHB;
+    float yRecHitsHB;
+    float zRecHitsHB;
+    float radiusRecHitsHB;
+    int nRecHitsHE;
+    float timeRecHitsHE;
+    float timeRMSRecHitsHE;
+    float energyRecHitsHE;
+    float energyErrorRecHitsHE;
+    float xRecHitsHE;
+    float yRecHitsHE;
+    float zRecHitsHE;
+    float radiusRecHitsHE;
+    
+    int   nConstituents;
+    int   nTrackConstituents; 
+    float ptAllTracks;
+    float ptAllPVTracks;
+    float ptPVTracksMax;
+    int   nTracksAll;
+    int   nTracksPVMax;
+    float medianIP2D;
+    float medianTheta2D;
     float alphaMax;
-    float sigIP2DMedian;
-    float theta2DMedian;
-    float POCA_theta2DMedian;
+    float betaMax;
+    float gammaMax;
+    float gammaMaxEM;
+    float gammaMaxHadronic;
+    float gammaMaxET;
+    float minDeltaRAllTracks;
+    float minDeltaRPVTracks;
     float nPixelHitsMedian;
     float nHitsMedian;
-    int nConstituents;
-    int nTrackConstituents;
-    int nTracks0PixelHits;
-    int nTracks1PixelHit;
-    int nTracks2PixelHits;
-    int nTracks3PixelHits;
-    int nTracks4PixelHits;
-    int nTracks5PixelHits;
-    int nTracksAtLeast6PixelHits;
-    int nTracksValidHitInBPix1;
-    int nTracks0LostInnerHits;
-    int nTracks1LostInnerHit;
-    int nTracksAtLeast2LostInnerHits;
+    float dzMedian;
+    float dxyMedian;
     int nMatchedGenBquarks;
+    int nMatchedGenBquarksCaloCorr;
 };
 
 
@@ -645,7 +791,7 @@ struct EventType {
 };
 
 struct GenPType {
-GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1.), charge(0), pdgId(0), status(0), radius(-1), radius2D(-1), motherid(0), travelTime(-1.), travelRadius(-1000.), beta(-1.), corrCaloEta(-9.), corrCaloPhi(-9.), isLLPInCaloAcceptance(false) {}
+GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1.), charge(0), pdgId(0), status(0), radius(-1), radius2D(-1), motherid(0), travelTime(-1.), travelRadius(-1000.), travelX(-10000.), travelY(-10000.), travelZ(-10000.), beta(-1.), corrCaloEta(-9.), corrCaloPhi(-9.), isLLPInCaloAcceptance(false), travelRadiusLLP(-1000.), travelXLLP(-10000.), travelYLLP(-10000.), travelZLLP(-10000.), dRdaughters(-1.) {}
     float pt;
     float eta;
     float rapidity;
@@ -663,10 +809,18 @@ GenPType(): pt(-1.), eta(-9.), rapidity(-99999.), phi(-9.), mass(-1.), energy(-1
     float vz;
     float travelTime;
     float travelRadius;
+    float travelX;
+    float travelY;
+    float travelZ;    
     float beta;
     float corrCaloEta;
     float corrCaloPhi;
     bool isLLPInCaloAcceptance;
+    float travelRadiusLLP;
+    float travelXLLP;
+    float travelYLLP;
+    float travelZLLP;
+    float dRdaughters;
 };
 
 struct TriggerObjectType {
@@ -683,7 +837,7 @@ TriggerObjectType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), charge
 struct CustomFatJetType {
 //CustomFatJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), ptRaw(-1.), ptUnc(-1.), dPhi_met(-1.), dPhi_Jet1(-1.), puId(-1.), CSV(-99.), CSVR(-99.), CSVRUp(-99.), CSVRDown(-99.), CHSprunedMass(-1.), CHSsoftdropMass(-1.), prunedMass(-1.), softdropMass(-1.), softdropPuppiMass(-1.), CHSprunedMassCorr(-1.), CHSsoftdropMassCorr(-1.), prunedMassCorr(-1.), softdropMassCorr(-1.), softdropPuppiMassCorr(-1.), softdropPuppiMassCorrNotSmeared(-1.), pt1(-1.), eta1(-9.), phi1(-9.), mass1(-1.), CSV1(-99.), CSVR1(-99.), CSVR1Up(-99.), CSVR1Down(-99.), CMVA1(-99.), CMVAR1(-99.), CMVAR1Up(-99.), CMVAR1Down(-99.), flavour1(-1.), pt2(-1.), eta2(-9.), phi2(-9.), mass2(-1.), CSV2(-99.), CSVR2(-99.), CSVR2Up(-99.), CSVR2Down(-99.), CMVA2(-99.), CMVAR2(-99.), CMVAR2Up(-99.), CMVAR2Down(-99.), flavour2(-1.), dR(-1.), Tau21(-1.), puppiTau21(-1.), BDSV(-1.), chf(-1.), nhf(-1.), phf(-1.), elf(-1.), muf(-1.), chm(-1), npr(-1), flavour(0), mother(0), isLoose(false), isMedium(false), isTight(false), isTightLepVeto(false), isMatched(false), JESUnc(-1.), ptJERUp(-1.), etaJERUp(-1.), phiJERUp(-9.), energyJERUp(-1.), ptJERDown(-1.), etaJERDown(-1.), phiJERDown(-9.), energyJERDown(-1.), smearFact(-1.), smearFactUp(-1.), smearFactDown(-1.), softdropPuppiMassCorrJMS(-1.), softdropPuppiMassCorrJMSUp(-1.), softdropPuppiMassCorrJMSDown(-1.), softdropPuppiMassCorrJMR(-1.), softdropPuppiMassCorrJMRUp(-1.), softdropPuppiMassCorrJMRDown(-1.), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000), matchBquark(-1), matchLL(-1) {}
 //simplified version
-CustomFatJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), ptRaw(-1.), ptUnc(-1.), dPhi_met(-1.), dPhi_Jet1(-1.), puId(-1.), CSV(-99.), CHSprunedMass(-1.), CHSsoftdropMass(-1.), prunedMass(-1.), softdropMass(-1.), softdropPuppiMass(-1.), CHSprunedMassCorr(-1.), CHSsoftdropMassCorr(-1.), prunedMassCorr(-1.), softdropMassCorr(-1.), softdropPuppiMassCorr(-1.), softdropPuppiMassCorrNotSmeared(-1.), pt1(-1.), eta1(-9.), phi1(-9.), mass1(-1.), CSV1(-99.), CMVA1(-99.), flavour1(-1.), pt2(-1.), eta2(-9.), phi2(-9.), mass2(-1.), CSV2(-99.), CMVA2(-99.), flavour2(-1.), pt1SDP(-1.), eta1SDP(-9.), phi1SDP(-9.), mass1SDP(-1.), CSV1SDP(-99.), CMVA1SDP(-99.), flavour1SDP(-1.), pt2SDP(-1.), eta2SDP(-9.), phi2SDP(-9.), mass2SDP(-1.), CSV2SDP(-99.), CMVA2SDP(-99.), flavour2SDP(-1.), dR(-1.), Tau21(-1.), puppiTau21(-1.), BDSV(-1.), chf(-1.), nhf(-1.), phf(-1.), elf(-1.), muf(-1.), chm(-1), npr(-1), partonFlavour(0), hadronFlavour(0), mother(0), isLoose(false), isMedium(false), isTight(false), isTightLepVeto(false), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000), matchBquark(-1), matchLL(-1), dR_q1_sj1(1000), dR_q2_sj1(1000), dR_q3_sj1(1000), dR_q4_sj1(1000), dR_pi1_sj1(1000), dR_pi2_sj1(1000), dR_q1_sj2(1000), dR_q2_sj2(1000), dR_q3_sj2(1000), dR_q4_sj2(1000), dR_pi1_sj2(1000), dR_pi2_sj2(1000) {}
+CustomFatJetType(): pt(-1.), eta(-9.), phi(-9.), mass(-1.), energy(-1.), ptRaw(-1.), ptUnc(-1.), dPhi_met(-99.), dPhi_Jet1(-1.), puId(-1.), CSV(-99.), CHSprunedMass(-1.), CHSsoftdropMass(-1.), prunedMass(-1.), softdropMass(-1.), softdropPuppiMass(-1.), CHSprunedMassCorr(-1.), CHSsoftdropMassCorr(-1.), prunedMassCorr(-1.), softdropMassCorr(-1.), softdropPuppiMassCorr(-1.), softdropPuppiMassCorrNotSmeared(-1.), pt1(-1.), eta1(-9.), phi1(-9.), mass1(-1.), CSV1(-99.), CMVA1(-99.), flavour1(-1.), pt2(-1.), eta2(-9.), phi2(-9.), mass2(-1.), CSV2(-99.), CMVA2(-99.), flavour2(-1.), pt1SDP(-1.), eta1SDP(-9.), phi1SDP(-9.), mass1SDP(-1.), CSV1SDP(-99.), CMVA1SDP(-99.), flavour1SDP(-1.), pt2SDP(-1.), eta2SDP(-9.), phi2SDP(-9.), mass2SDP(-1.), CSV2SDP(-99.), CMVA2SDP(-99.), flavour2SDP(-1.), dR(-1.), Tau21(-1.), puppiTau21(-1.), BDSV(-1.), chf(-1.), nhf(-1.), phf(-1.), elf(-1.), muf(-1.), chm(-1), npr(-1), partonFlavour(0), hadronFlavour(0), mother(0), isLoose(false), isMedium(false), isTight(false), isTightLepVeto(false), dR_q1(1000), dR_q2(1000), dR_q3(1000), dR_q4(1000), m_q1(false), m_q2(false), m_q3(false), m_q4(false), dR_pi1(1000), dR_pi2(1000), matchBquark(-1), matchLL(-1), dR_q1_sj1(1000), dR_q2_sj1(1000), dR_q3_sj1(1000), dR_q4_sj1(1000), dR_pi1_sj1(1000), dR_pi2_sj1(1000), dR_q1_sj2(1000), dR_q2_sj2(1000), dR_q3_sj2(1000), dR_q4_sj2(1000), dR_pi1_sj2(1000), dR_pi2_sj2(1000) {}
     float pt;
     float eta;
     float phi;

@@ -1,6 +1,6 @@
 import pandas as pd
-from tensorflow import keras
-import tensorflow as tf
+#from tensorflow import keras
+#import tensorflow as tf
 import numpy as np
 import awkward
 import pickle
@@ -11,7 +11,7 @@ from collections import defaultdict
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
-from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
+#from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 from root_numpy import array2tree, array2root
 from dnn_functions import *
 from samplesAOD2017 import *
@@ -809,7 +809,7 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
     #model.get_booster().feature_names = features
     #print(model.get_booster().feature_names)
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(20, 10))#12,8
     xgb.plot_importance(model, max_num_features=len(features), xlabel="F score (weight)",ax=ax)
     plt.savefig(result_folder+'feature_importance_'+output_file+add_string+'.pdf')
     plt.savefig(result_folder+'feature_importance_'+output_file+add_string+'.png')
