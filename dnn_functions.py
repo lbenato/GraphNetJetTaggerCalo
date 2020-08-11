@@ -49,7 +49,7 @@ def plotLearningCurves(*histObjs):
     #plt.ylim(0.5,1)
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
-    plt.legend(names, loc='upper left')
+    plt.legend(names, loc='lower right')
     
     #plt.show()
 

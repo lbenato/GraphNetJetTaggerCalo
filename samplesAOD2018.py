@@ -56,12 +56,64 @@ sample = {
         'kfactor' : 0.88,
     },
 
-    'WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2' : {
+   #WJetsToLNu
+   #Did not find kfactors for WJets, must be fixed for later versions   
+
+   # 'WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2' : {
+   #     'nevents' : 1,
+   #     'xsec'    : 52850.0,#second entry on XSDB, 50260.0,
+   #     'matcheff': 1.,
+   #     'kfactor' : 0.88,
+   # },
+   # 'WJetsToLNu_HT-70To100_TuneCP5_13TeV-madgraphMLM-pythia8-v2' : {
+   #     'nevents' : 1,
+   #     'xsec'    : 1292,
+   #     'matcheff': 1.,
+   #     'kfactor' : 0.88,
+   # },
+    'WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
         'nevents' : 1,
-        'xsec'    : 52850.0,#second entry on XSDB, 50260.0,
+        'xsec'    : 1395,
         'matcheff': 1.,
         'kfactor' : 0.88,
     },
+    'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 407.9,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+    'WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 57.48,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+    'WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 12.87,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+    'WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 5.366,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+    'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 1.074,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+    'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1' : {
+        'nevents' : 1,
+        'xsec'    : 0.008001,
+        'matcheff': 1.,
+        'kfactor' : 0.88,
+    },
+
 
 
     #WJetsToLNu HT binned
@@ -290,10 +342,14 @@ samples = {
     #QCD
     'QCD' : {
         'files' : [
+<<<<<<< HEAD
             #'QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
             #'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
             'QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'
         ],
+=======
+             'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'],
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
         'fillcolor' : 920,
         'fillstyle' : 1001,
         'linecolor' : 920,
@@ -368,8 +424,22 @@ samples = {
     },
 
     #WJets
+<<<<<<< HEAD
     'WJetsToLNuIncl' : { 
         'files' : ['WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2'],
+=======
+    'WJetsToLNu' : { 
+        'files' : [
+             'WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',            
+             'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             'WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             'WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             'WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+             #'WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2'
+             ],
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
         'fillcolor' : 881,
         'fillstyle' : 1001,
         'linecolor' : 881,
