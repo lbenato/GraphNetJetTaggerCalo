@@ -38,7 +38,7 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         
     return X, y, w
 
-def get_FCN_constituents_dataset(dataframe,n_points,points_var,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
     if ignore_empty_jets:
         #print("\n")
@@ -53,26 +53,21 @@ def get_FCN_constituents_dataset(dataframe,n_points,points_var,features_var,weig
         features_arr.append(dataframe[_col_list(f_var,n_points)].values)
     features = np.stack(features_arr,axis=-1)
     
-    for p_var in points_var:
-        points_arr.append(dataframe[_col_list(p_var,n_points)].values)
-    points = np.stack(points_arr,axis=-1)
+    #for p_var in points_var:
+     #   points_arr.append(dataframe[_col_list(p_var,n_points)].values)
+    #points = np.stack(points_arr,axis=-1)
     
-    input_shapes = defaultdict()
-    input_shapes['points'] = points.shape[1:]
-    input_shapes['features'] = features.shape[1:]
-
-
-    X = [points,features]
+    print(features)
+    print("\n")
+    #print(dataframe[features].values)
+    print("\n")
+    print(dataframe[features])
+    
+    X = dataframe[features]#[points,features]
     y = dataframe[is_signal].values
     w = dataframe[weight].values
         
-    return X, y, w, input_shapes
-
-    #X = dataframe[features].values
-    #y = dataframe[is_signal].values
-    #w = dataframe[weight].values
-    #z = dataframe[points].values    
-    #return X, y, w
+    return X, y, w
 
 def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
 
@@ -498,8 +493,8 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
     elif(model_def=="FCN_constituents"):
-        X_train, y_train, w_train, input_shapes  = get_FCN_constituents_dataset(df_train,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        X_val,   y_val,   w_val, _  = get_FCN_constituents_dataset(df_val,n_points,points,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_train, y_train, w_train = get_FCN_constituents_dataset(df_train,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val   = get_FCN_constituents_dataset(df_val,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_constituents(num_classes=n_class, input_shapes=X_train.shape[1:])    
     elif(model_def=="particle_net_lite"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
