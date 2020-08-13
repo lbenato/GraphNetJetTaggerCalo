@@ -46,24 +46,25 @@ def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signa
         #print("\n")
         dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
     
-    points_arr = []
-    features_arr = []
+    #points_arr = []
+    #features_arr = []
 
-    for f_var in features_var:
-        features_arr.append(dataframe[_col_list(f_var,n_points)].values)
-    features = np.stack(features_arr,axis=-1)
-    
+    features_list = []
+    for n in range(n_points):
+        for f_var in features_var:
+            features_list.append(f_var+"_"+str(n))
+    #L: do not stack!#features = np.stack(features_arr,axis=-1)
+    #L: the _col_list was not doing what I thought. Beter a simpler loop
     #for p_var in points_var:
      #   points_arr.append(dataframe[_col_list(p_var,n_points)].values)
     #points = np.stack(points_arr,axis=-1)
-    
-    print(features)
+
     print("\n")
-    #print(dataframe[features].values)
-    print("\n")
-    print(dataframe[features])
+    print("Here features_list", features_list)
+    print("Here the dataset")
+    print(dataframe[features_list])
     
-    X = dataframe[features]#[points,features]
+    X = dataframe[features_list].values
     y = dataframe[is_signal].values
     w = dataframe[weight].values
         
@@ -485,10 +486,10 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
 
     ##Read train/validation sample
     store_train = pd.HDFStore(folder+"train.h5")
-    df_train = store_train.select("df")
+    df_train = store_train.select("df",start=0,stop=500)
     store_val = pd.HDFStore(folder+"val.h5")
-    df_val = store_val.select("df")
-    
+    df_val = store_val.select("df",start=0,stop=50)
+
     if(model_def=="FCN"):
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
