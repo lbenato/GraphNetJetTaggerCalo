@@ -342,14 +342,11 @@ samples = {
     #QCD
     'QCD' : {
         'files' : [
-<<<<<<< HEAD
             #'QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
             #'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
-            'QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'
+                'QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'
         ],
-=======
-             'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'],
->>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
+
         'fillcolor' : 920,
         'fillstyle' : 1001,
         'linecolor' : 920,
@@ -424,10 +421,9 @@ samples = {
     },
 
     #WJets
-<<<<<<< HEAD
     'WJetsToLNuIncl' : { 
         'files' : ['WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2'],
-=======
+    },
     'WJetsToLNu' : { 
         'files' : [
              'WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',            
@@ -439,7 +435,7 @@ samples = {
              'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
              #'WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8-v2'
              ],
->>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
+
         'fillcolor' : 881,
         'fillstyle' : 1001,
         'linecolor' : 881,
