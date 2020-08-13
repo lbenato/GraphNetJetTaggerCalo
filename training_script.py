@@ -1,5 +1,7 @@
 from graphnet_tagger import *
 
+<<<<<<< HEAD
+=======
 ## Create list of available GPUs:
 import GPUtil as gput
 
@@ -54,6 +56,7 @@ config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
 tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config)) 
 '''
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 
 ## ## Configure parameters ## ##
 
@@ -115,8 +118,13 @@ j_nottrain = [
 #'dRSVJet', 'nVertexTracks',
 ##'CSV',
 #'SV_mass',
+<<<<<<< HEAD
+###JiaJing uses only:
+#'timeRecHitsEB', 
+=======
 #JiaJing uses only:
 #'timeRecHits', 
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 #'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
 #'gammaMaxET','minDeltaRPVTracks',
 
@@ -126,9 +134,26 @@ j_nottrain = [
 #'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax', 'medianIP2D',
 #'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks', 'minDeltaRPVTracks',
 #'dzMedian', 'dxyMedian',
+<<<<<<< HEAD
+
+#v3 variables include ECAL/HCAL recHits
+'nTrackConstituents','nSelectedTracks',
+'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
+'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
+'medianIP2D',#?
+'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks','minDeltaRPVTracks',
+'dzMedian', 'dxyMedian', 
+]
+'''
+j_features = [
+###JiaJing uses only:
+'timeRecHits', 
+=======
 #]
 #'''
 j_features = ['timeRecHits', 
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
 'gammaMaxET','minDeltaRPVTracks',
 ]
@@ -211,6 +236,30 @@ print("\n")
 n_class=2
 
 
+<<<<<<< HEAD
+
+#compare_folder = 'model_weights_graphnet/compare_folder/'
+#compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
+#exit()
+
+graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
+graphnet_pd_JJ = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ/'#'dataframes_graphnet/v2_calo_AOD_2017_t
+graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_LEADER_JJ_preselections/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+
+graphnet_pd_partnet = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+
+graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
+graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
+
+folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn/'
+folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT/'
+result_v3 = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train/'
+
+=======
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -220,13 +269,82 @@ bkg = ['VV','WJetsToLNu','ZJetsToNuNu','WJetsToLNu','QCD','TTbar']
 
 ##############################################################
 ### Here we need a switch between jet features and pf features
+<<<<<<< HEAD
+TRAIN_MODEL = "BDT"
+TRAIN_MODEL = "FCN"
+=======
 #TRAIN_MODEL = "BDT"
 #TRAIN_MODEL = "FCN"
 TRAIN_MODEL = "FCN_constituents"
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 #TRAIN_MODEL = "particle_net_lite"
 #TRAIN_MODEL = "particle_net"
 
 
+<<<<<<< HEAD
+if TRAIN_MODEL != "BDT":
+    from tensorflow import keras
+    import tensorflow as tf
+    from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
+
+    ## Create list of available GPUs:
+    import GPUtil as gput
+
+    gpus = gput.getGPUs()
+    tf_list = tf.config.experimental.list_physical_devices('GPU')
+    print("Number of available GPUs: {}".format(len(tf_list)))
+    print(tf_list)
+    print("\n")
+    print(gpus[0].name)
+
+    if len(tf_list) == 1:
+        if gpus[0].name=='Tesla P100-PCIE-16GB':
+            print("using single GPU setup on login node; use allow_growth")
+            tf_gpus = tf.config.experimental.list_physical_devices('GPU')
+            try:
+                config = tf.compat.v1.ConfigProto()
+                config.gpu_options.allow_growth = True
+                tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config)) 
+
+                #Toby's
+                #tf.config.experimental.set_virtual_device_configuration(
+                #    tf_gpus[0],
+                #    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=args.memory)])
+            except RuntimeError as e:
+                # Virtual devices must be set before GPUs have been initialized
+                print(e)
+        
+        else:
+            print("using single GPU setup")
+    else:
+        print("using multi-GPU setup")
+    
+        # search for GPUs with requested parameters:
+        gpu_idx = -1
+        max_mem = 0
+    
+        # take GPU with maximum available memory
+        for gpu in gpus:
+            if gpu.memoryFree >= args.memory and gpu.load <= args.maxload and max_mem < gpu.memoryFree:
+                max_mem = gpu.memoryFree
+                gpu_idx = gpu.id
+
+        if gpu_idx == -1:
+            sys.exit("Unable to allocate memory as required by user. Please rerun with new criteria!")
+    
+        physical_devices = tf.config.experimental.list_physical_devices('GPU')
+        tf.config.experimental.set_visible_devices(physical_devices[gpu_idx], 'GPU')
+
+    '''
+    ## Tensorflow allow_growth for jobs submitted in the login node
+    config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True
+    tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config)) 
+    '''
+
+
+=======
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 if TRAIN_MODEL == "FCN":
     print("\n")
     print("   Training FCN on jet features (FCN)    ")
@@ -242,14 +360,17 @@ if TRAIN_MODEL == "FCN":
     #evaluate_model("FCN", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="more_var_2_generator",signal_match_test=True,ignore_empty_jets_test=True)
 
 
-    name = "1_EventWeightNormalized"
+    name = "3_EventWeightNormalized_all_vars"
 
     #fit function
-    fit_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=10,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=10,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
+<<<<<<< HEAD
+    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
+=======
     evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
    
  
@@ -274,6 +395,7 @@ elif TRAIN_MODEL == "FCN_constituents":
 
     #evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True) 
     
+>>>>>>> 85f4c6a36f2b51490450bcb4d53f15beb288b9bd
 
 elif TRAIN_MODEL == "BDT":
     print("\n")
@@ -284,14 +406,14 @@ elif TRAIN_MODEL == "BDT":
     print(len(jet_features_list)," training features!")
     print("\n")
 
-    name = "SampleWeight"
+    name = "SampleWeight_all_vars"
 
 
-    fit_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
-    evaluate_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
-    evaluate_BDT("BDT", n_class, graphnet_pd_BDT, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
+    evaluate_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 
 elif TRAIN_MODEL == "particle_net_lite":

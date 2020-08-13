@@ -232,14 +232,14 @@ def get_FCN_jets(num_classes, input_shapes):
 
     #more complex:
     #model 1
-    model = keras.models.Sequential(name="FCN")
-    model.add(keras.layers.Dense(32, input_shape = input_shapes, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(16, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(8, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(num_classes, activation='softmax'))
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(32, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(16, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     #model 2, accuracy of training drops for some reasons...
     #model = keras.models.Sequential(name="FCN")
@@ -252,6 +252,18 @@ def get_FCN_jets(num_classes, input_shapes):
     #model.add(keras.layers.Dense(8, activation='relu'))
     #model.add(keras.layers.Dropout(rate=0.1))
     #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+    #model 3, accuracy of training drops for some reasons...
+    model = keras.models.Sequential(name="FCN")
+    model.add(keras.layers.Dense(64, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(32, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(16, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     return model
 
