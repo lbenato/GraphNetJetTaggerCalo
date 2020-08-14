@@ -157,4 +157,3 @@ def convert_dataset_v2(folder,graphnet_folder,file_name,nj,npf,cols):
     #print(df)
     #print("  DONEEEEE")
     print("  -------------------   ")
-

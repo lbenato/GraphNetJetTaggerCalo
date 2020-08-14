@@ -486,9 +486,9 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
 
     ##Read train/validation sample
     store_train = pd.HDFStore(folder+"train.h5")
-    df_train = store_train.select("df",start=0,stop=500)
+    df_train = store_train.select("df")
     store_val = pd.HDFStore(folder+"val.h5")
-    df_val = store_val.select("df",start=0,stop=50)
+    df_val = store_val.select("df")
 
     if(model_def=="FCN"):
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -669,7 +669,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="FCN_constituents"):
         #Lisa: here you also need features+points
-        X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_test, y_test, w_test = get_FCN_constituents_dataset(df_test,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite" or model_def=="particle_net"):
         X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     else:

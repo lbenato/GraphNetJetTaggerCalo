@@ -269,14 +269,11 @@ def get_FCN_jets(num_classes, input_shapes):
 
 def get_FCN_constituents(num_classes, input_shapes):
     model = keras.models.Sequential(name="FCN_constituents")
-    model.add(keras.layers.Dense(256, input_shape = input_shapes, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(64, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(16, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
+    model.add(keras.layers.Dense(1000, input_shape = input_shapes, activation='relu'))
+    model.add(keras.layers.Dense(500, activation='relu'))
+    model.add(keras.layers.Dense(100, activation='relu'))
+    model.add(keras.layers.Dense(10, activation='relu'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
-    
     return model
 
 

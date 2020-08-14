@@ -99,4 +99,3 @@ def write_h5_v2(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter
     df.to_hdf(output_folder+'/'+file_name+'.h5', 'df', format='table' if (len(cols)<=2000) else 'fixed')
     print("  "+output_folder+"/"+file_name+".h5 stored")
     print("  -------------------   ")
-

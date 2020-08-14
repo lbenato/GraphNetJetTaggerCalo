@@ -192,13 +192,14 @@ pf_features = [
     'energy',
     #'px','py','pz',
     #'pt_norm',
+    'pt',
     #'pdgId',
-    'isTrack',
+    #'isTrack',
     #'hasTrackDetails',
-    'dxy', 'dz',
+    #'dxy', 'dz',
     #'POCA_x', 'POCA_y', 'POCA_z', 'POCA_phi',
     #'ptError', 'etaError', 'phiError', 'dxyError', 'dzError', 'theta', 'thetaError','chi2', 'ndof', 'normalizedChi2',
-    'nHits', 'nPixelHits',
+    #'nHits', 'nPixelHits',
     #'lostInnerHits',
 ]
 pf_points = [
@@ -361,13 +362,13 @@ elif TRAIN_MODEL == "FCN_constituents":
     print(len(pf_points)," points coordinates")
     print("\n")
     
-    name = "1_EventWeightNormalized"
+    name = "2_SW"
 
     #fit function
-    fit_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=20,n_batch_size=2000,patience_val=10,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","SampleWeight",use_weight=True,n_epochs=100,n_batch_size=1000,patience_val=100,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    evaluate_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","SampleWeight",use_weight=True,n_batch_size=1000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
     #evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True) 
     
