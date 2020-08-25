@@ -61,18 +61,22 @@ j_features = [
 'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
 'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
 'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
-'medianIP2D',#?
+#'medianIP2D',#?
 'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks','minDeltaRPVTracks',
-'dzMedian', 'dxyMedian', 
+#'dzMedian', 'dxyMedian', #wait for those
 ]
+
+#variables for tag NoMedian = all but medianIP2D,dzMedian,dxyMedian
+
 '''
 j_features = [
 ###JiaJing uses only:
-'timeRecHits', 
+'timeRecHitsEB', 
 'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
 'gammaMaxET','minDeltaRPVTracks',
 ]
 '''
+
 jet_features_list = []
 for f in j_features:
     jet_features_list.append("Jet_"+f)
@@ -154,7 +158,11 @@ n_class=2
 
 #compare_folder = 'model_weights_graphnet/compare_folder/'
 #compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
-#exit()
+compare_folder = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train_new_presel/'
+compare_folder = 'compare_all/'
+compare_models(["BDT","FCN","particle_net","FCN_constituents"],compare_folder,"is_signal",["SampleWeight","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["SampleWeight_NoMedian","2_EventWeightNormalized_NoMedian","08-22","15_EWN_rel"],signal_match_test=True,ignore_empty_jets_test=True)
+#compare_models(["BDT","FCN","FCN_constituents"],compare_folder,"is_signal",["SampleWeight","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["SampleWeight_NoMedian","2_EventWeightNormalized_NoMedian","15_EWN_rel"],signal_match_test=True,ignore_empty_jets_test=True)
+exit()
 
 graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
 graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
@@ -168,9 +176,9 @@ graphnet_result_partnet = 'model_weights_graphnet/v2_calo_AOD_2017_condor_partne
 graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
 graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
 
-folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn/'
-folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT/'
-result_v3 = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train/'
+folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn_new_presel/'
+folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT_new_presel/'
+result_v3 = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train_new_presel/'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
@@ -263,15 +271,18 @@ if TRAIN_MODEL == "FCN":
     #evaluate_model("FCN", n_class, graphnet_pd_folder, graphnet_result_folder,0,[],jet_features_list,[],"Jet_isGenMatched","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label="more_var_2_generator",signal_match_test=True,ignore_empty_jets_test=True)
 
 
-    name = "3_EventWeightNormalized_all_vars"
+    b_size=2000 #default
+    #b_size=4096
+    #name = "2_EventWeightNormalized_NoMedian_Adamax_patience20_batch_size_"+str(b_size)
+    name = "2_EventWeightNormalized_NoMedian"
 
     #fit function
-    fit_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=10,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=b_size,patience_val=20,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
-    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
+    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 
 elif TRAIN_MODEL == "BDT":
     print("\n")
@@ -282,7 +293,7 @@ elif TRAIN_MODEL == "BDT":
     print(len(jet_features_list)," training features!")
     print("\n")
 
-    name = "SampleWeight_all_vars"
+    name = "SampleWeight_NoMedian"
 
 
     fit_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
