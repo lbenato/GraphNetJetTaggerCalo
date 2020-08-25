@@ -291,8 +291,12 @@ samples = {
     'QCD' : {
         'files' : [
             #'QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
-            #'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
-            'QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1','QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'
+            'QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            'QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            'QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            'QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            'QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8-v1',
+            'QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8-v1', 'QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8-v1'
         ],
         'fillcolor' : 920,
         'fillstyle' : 1001,
@@ -336,7 +340,10 @@ samples = {
         'files' : [
             'ZJetsToNuNu_HT-100To200_13TeV-madgraph-v1', 
             'ZJetsToNuNu_HT-200To400_13TeV-madgraph-v1',
-            'ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1', 'ZJetsToNuNu_HT-600To800_13TeV-madgraph-v1', 'ZJetsToNuNu_HT-800To1200_13TeV-madgraph-v1', 'ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-v1', 'ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-v1'
+            'ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1',
+            'ZJetsToNuNu_HT-600To800_13TeV-madgraph-v1',
+            'ZJetsToNuNu_HT-800To1200_13TeV-madgraph-v1',
+            'ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-v1', 'ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-v1'
         ],  
         'fillcolor' : 856,
         'fillstyle' : 1001,
