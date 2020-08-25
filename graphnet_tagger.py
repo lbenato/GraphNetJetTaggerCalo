@@ -244,9 +244,16 @@ def fit_generator(model_def,n_class,folder,result_folder,n_points,points,feature
 
     ##Compile
     model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
-    #custom_adam:
-    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
-    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+    ##custom_opt:
+    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=False, name="custom_opt")
+    ##Nadam
+    #custom_opt = keras.optimizers.NAdam(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
+    ##Adadelta
+    #custom_opt = keras.optimizers.Adadelta(learning_rate=0.001, rho=0.95, epsilon=1e-07, name="custom_opt")    
+    ##Adamax
+    #custom_opt = keras.optimizers.Adamax(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
+    #custom_opt = keras.optimizers.Adamax(learning_rate=0.001/10., beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_opt, metrics = ["accuracy"])
 
     ##Callbacks
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
@@ -358,9 +365,9 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
     model.summary()
     ##Compile
     model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
-    #custom_adam:
-    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
-    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+    #custom_opt:
+    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_opt, metrics = ["accuracy"])
 
     ##Callbacks
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
@@ -415,9 +422,9 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
     
     ##Compile
     model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
-    #custom_adam:
-    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
-    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+    #custom_opt:
+    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_opt, metrics = ["accuracy"])
 
     ##Callbacks
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
@@ -490,9 +497,9 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
     
     ##Compile
     model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
-    #custom_adam:
-    #custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
-    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+    #custom_opt:
+    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_opt, metrics = ["accuracy"])
 
     ##Callbacks
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
@@ -553,9 +560,9 @@ def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask
     
     ##Compile
     ##model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
-    ##custom_adam:
-    ##custom_adam = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
-    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_adam, metrics = ["accuracy"])
+    ##custom_opt:
+    ##custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, amsgrad=False)
+    #model.compile(loss='sparse_categorical_crossentropy', optimizer=custom_opt, metrics = ["accuracy"])
 
     ###Callbacks
     #early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
