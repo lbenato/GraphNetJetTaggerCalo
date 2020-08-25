@@ -32,6 +32,8 @@ def write_h5_v4(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter
     #print(cols)
     # loop over files, called file_name
     oldFile = TFile(folder+file_name, "READ")
+    if(oldFile.GetListOfKeys().Contains(counter_hist) == False):
+        return
     counter = oldFile.Get(counter_hist)#).GetBinContent(1)
     nevents_gen = counter.GetBinContent(1)
     print("  n events gen.: ", nevents_gen)
