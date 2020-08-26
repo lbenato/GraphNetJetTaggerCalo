@@ -22,7 +22,7 @@ out_convert = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn_
 
 #sgn = ['ggH_MH1000_MS150_ctau1000']
 sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-sgn = []
+#sgn = []
 bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD','TTbar']
 #bkg = ['ZJetsToNuNu']
 #bkg = ['QCD']
@@ -462,20 +462,25 @@ def do_convert(inp,out,nj,npf,cols):
             print("files? ", skim_list)
             ####root_files.remove(f)
             
-            ##print("Post root files: ", skim_list)
-            
-            for n, f in enumerate(skim_list):
-            #for n, f in enumerate([skim_list[0]]):
-                ###convert_dataset_condor(IN,OUT,f)
+            ###Loop on root files
+            max_n = 20000
+            #print("Max number of root files considered: ", max_n)
+            max_loop = min(max_n,len(skim_list))
+            print("Max number of root files: ", max_loop)
+            print("Max root files per condor job: ", root_files_per_job)
+            j_num = 0
+
+
+
+            for b in range(0,max_loop,root_files_per_job):
+                start = b
+                stop = min(b+root_files_per_job-1,max_loop-1)
+                #print("Start & stop: ", start, stop)
+                print("Submitting job n. : ", j_num)
                 os.chdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/')
-                print("Loop n. ", n)
-                print(f)
-                
-                #convert_dataset_v2(IN,OUT,f,nj,npf,cols)
-                #exit()
-                
-                #write python macro
-                with open('convert_macro_'+str(n)+'.py', 'w') as fout:
+
+                #PYTHON 
+                with open('convert_macro_'+str(j_num)+'.py', 'w') as fout:
                     fout.write('#!/usr/bin/env python \n')
                     fout.write('import os \n')
                     #fout.write('import ROOT as ROOT \n')
@@ -489,25 +494,25 @@ def do_convert(inp,out,nj,npf,cols):
                     ###out.write('pf_dict = '+str(pf_dict)+' \n')
                     fout.write('cols = '+str(cols)+' \n')
                     fout.write(' \n')
-                    fout.write('convert_dataset_v2(IN,OUT,"'+f+'",nj,npf,cols) \n')
+                    for c in np.arange(start,stop+1):
+                        fout.write('convert_dataset_v2(IN,OUT,"'+skim_list[c]+'",nj,npf,cols) \n')
 
-                #From here now, to be fixed
-                with open('job_convert_'+str(n)+'.sh', 'w') as fout:
+                #BASH
+                with open('job_convert_'+str(j_num)+'.sh', 'w') as fout:
                     fout.write('#!/bin/sh \n')
                     fout.write('source /etc/profile.d/modules.sh \n')
                     fout.write('export PATH=/nfs/dust/cms/user/lbenato/anaconda2/bin:$PATH \n')
                     fout.write('cd /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/ \n')
                     fout.write('source activate /nfs/dust/cms/user/lbenato/anaconda2/envs/particlenet \n')
-                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/convert_macro_'+str(n)+'.py'  +' \n')
-                os.system('chmod 755 job_convert_'+str(n)+'.sh')
-                ###os.system('sh job_convert_'+str(n)+'.sh')
-    
-                #write submit config
-                with open('submit_convert_'+str(n)+'.submit', 'w') as fout:
-                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/job_convert_'+ str(n) + '.sh \n')
-                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/out_convert_'+ str(n) + '.txt \n')
-                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/error_convert_'+ str(n) + '.txt \n')
-                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/log_convert_'+ str(n) + '.txt \n')
+                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/convert_macro_'+str(j_num)+'.py'  +' \n')
+                os.system('chmod 755 job_convert_'+str(j_num)+'.sh')
+
+                #CONDOR
+                with open('submit_convert_'+str(j_num)+'.submit', 'w') as fout:
+                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/job_convert_'+ str(j_num) + '.sh \n')
+                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/out_convert_'+ str(j_num) + '.txt \n')
+                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/error_convert_'+ str(j_num) + '.txt \n')
+                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/log_convert_'+ str(j_num) + '.txt \n')
                     fout.write(' \n')
                     fout.write('#Requirements = OpSysAndVer == "CentOS7" \n')
                     fout.write('##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" \n')
@@ -520,12 +525,15 @@ def do_convert(inp,out,nj,npf,cols):
                     fout.write('Request_Cpus = ' + str(NCPUS) + ' \n')
                     fout.write('Request_Memory = ' + str(MEMORY) + ' \n')
                     fout.write('+RequestRuntime = ' + str(RUNTIME) + ' \n')
-                    fout.write('batch_name = '+s[:15]+str(n)+' \n')
+                    fout.write('batch_name = conv_'+s[:2]+str(j_num)+' \n')
                     fout.write('queue 1 \n')
-            
+               
                 ##submit condor
                 os.chdir('../../.')
-                os.system('condor_submit condor_conv_partnet/'+s+'/submit_convert_'+str(n)+'.submit' + ' \n')
+                os.system('condor_submit /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_partnet/'+s+'/submit_convert_'+str(j_num)+'.submit' + ' \n')
+
+                j_num +=1
+
                 
 
 
@@ -802,13 +810,30 @@ def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=0,fraction_of
     print("  Saving mixed dataset: "+OUT+type_dataset+".h5 stored")
     del df
 
-do_write(in_folder, out_folder, cols=var_list_tree)
-exit()
+#do_write(in_folder, out_folder, cols=var_list_tree)
 #do_convert(in_convert,out_convert,nj,npf,cols=convert_var_list_tree)
+#do_merge(out_convert,out_convert,cols=convert_var_list_tree)
 
-OUT_NEW_PRESEL = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn___v4/'
-#do_merge(out_convert,OUT_NEW_PRESEL,cols=convert_var_list_tree)
-#exit()
+pf_list = []
+jet_list = []
+event_list = []
+for i,c in enumerate(convert_var_list_tree):
+    if not isinstance(c, tuple):
+       event_list.append(c.replace('.','_'))
+for a in jdict.keys():
+    jet_list.append("Jet_"+a)
+if "Jet_index" not in jet_list:
+    jet_list.append("Jet_index")
+for n in range(npf):
+    for a in pfdict.keys():
+        pf_list.append(a+"_"+str(n))
+
+upsampl = [1,1,1]
+for i,a in enumerate(["train","test","val"]):
+    do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
+    do_mix_background(a,out_convert,event_list+jet_list+pf_list)
+    do_mix_s_b(a,out_convert,event_list+jet_list+pf_list,upsampl[i],1)
+exit()
 
 pf_list = []
 jet_list = []
