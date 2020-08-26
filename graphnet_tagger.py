@@ -35,6 +35,38 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         
     return X, y, w
 
+def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    if ignore_empty_jets:
+        #print("\n")
+        #print("    Ignore empty jets!!!!!!")
+        #print("\n")
+        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    
+    #points_arr = []
+    #features_arr = []
+
+    features_list = []
+    for n in range(n_points):
+        for f_var in features_var:
+            features_list.append(f_var+"_"+str(n))
+    #L: do not stack!#features = np.stack(features_arr,axis=-1)
+    #L: the _col_list was not doing what I thought. Beter a simpler loop
+    #for p_var in points_var:
+     #   points_arr.append(dataframe[_col_list(p_var,n_points)].values)
+    #points = np.stack(points_arr,axis=-1)
+
+    print("\n")
+    print("Here features_list", features_list)
+    print("Here the dataset")
+    print(dataframe[features_list])
+    
+    X = dataframe[features_list].values
+    y = dataframe[is_signal].values
+    w = dataframe[weight].values
+        
+    return X, y, w
+
 def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
 
     while True:
@@ -97,6 +129,48 @@ def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var
 
 
     X = [points,features,mask]
+    y = dataframe[is_signal].values
+    w = dataframe[weight].values
+        
+    return X, y, w, input_shapes
+
+def get_particle_net_jet_dataset(dataframe,n_points,points_var,features_var,mask_var,jet_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    if ignore_empty_jets:
+        #print("\n")
+        #print("    Ignore empty jets!!!!!!")
+        #print("\n")
+        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+        
+    points_arr = []
+    features_arr = []
+    mask_arr = []
+    jet_arr = []
+    
+    for p_var in points_var:
+        points_arr.append(dataframe[_col_list(p_var,n_points)].values)
+    points = np.stack(points_arr,axis=-1)
+
+    for f_var in features_var:
+        features_arr.append(dataframe[_col_list(f_var,n_points)].values)
+    features = np.stack(features_arr,axis=-1)
+    
+    for m_var in mask_var:
+        mask_arr.append(dataframe[_col_list(m_var,n_points)].values)
+    mask = np.stack(mask_arr,axis=-1)
+
+    for j_var in jet_var:
+        jet_arr.append(dataframe[j_var].values)
+    jetvars = np.stack(jet_arr,axis=-1)#TBC
+
+    input_shapes = defaultdict()
+    input_shapes['points'] = points.shape[1:]
+    input_shapes['features'] = features.shape[1:]
+    input_shapes['mask'] = mask.shape[1:]
+    input_shapes['jetvars'] = jetvars.shape[1:]
+
+
+    X = [points,features,mask,jetvars]#TBC
     y = dataframe[is_signal].values
     w = dataframe[weight].values
         
@@ -453,7 +527,7 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
     
 
 
-def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
+def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,jvars,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
 
     ##Read train/validation sample
     store_train = pd.HDFStore(folder+"train.h5")
@@ -465,6 +539,10 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_train, y_train, w_train = get_FCN_jets_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
+    elif(model_def=="FCN_constituents"):
+        X_train, y_train, w_train = get_FCN_constituents_dataset(df_train,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val   = get_FCN_constituents_dataset(df_val,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        model = get_FCN_constituents(num_classes=n_class, input_shapes=X_train.shape[1:])    
     elif(model_def=="particle_net_lite"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -474,6 +552,11 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_particle_net(n_class, input_shapes, contains_angle = True if 'phi' in points else False) 
+    elif(model_def=="particle_net_jet"):#TBC
+        print("L: here go to particle net jet")
+        X_train, y_train, w_train, input_shapes = get_particle_net_jet_dataset(df_train,n_points,points,features,mask,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val, _   = get_particle_net_jet_dataset(df_val,n_points,points,features,mask,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        model = get_particle_net_jet(n_class, input_shapes, contains_angle = True if 'phi' in points else False) 
         
     else:
         print("    Model not recognized, abort . . .")
@@ -600,7 +683,7 @@ def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask
     #plot.show()
 
 
-def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
+def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,jvars,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
 
     print("\n")
     print("    Evaluating performances of the model.....   ")
@@ -634,8 +717,13 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     
     if(model_def=="FCN"):
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    elif(model_def=="FCN_constituents"):
+        #Lisa: here you also need features+points
+        X_test, y_test, w_test = get_FCN_constituents_dataset(df_test,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite" or model_def=="particle_net"):
         X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    elif(model_def=="particle_net_jet"):
+        X_test, y_test, w_test, input_shapes = get_particle_net_jet_dataset(df_test,n_points,points,features,mask,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     else:
         print("    Model not recognized, abort . . .")
         exit()
