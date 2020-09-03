@@ -319,11 +319,12 @@ def fit_generator(model_def,n_class,folder,result_folder,n_points,points,feature
     ##Compile
     model.compile(loss='sparse_categorical_crossentropy', optimizer="adam", metrics = ["accuracy"])
     ##custom_opt:
-    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/2., beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=False, name="custom_opt")
+    #custom_opt = keras.optimizers.Adam(learning_rate=0.001/10., beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=False, name="custom_opt")
     ##Nadam
     #custom_opt = keras.optimizers.NAdam(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
     ##Adadelta
     #custom_opt = keras.optimizers.Adadelta(learning_rate=0.001, rho=0.95, epsilon=1e-07, name="custom_opt")    
+    #custom_opt = keras.optimizers.Adadelta(learning_rate=0.001/10., rho=0.95, epsilon=1e-07, name="custom_opt")    
     ##Adamax
     #custom_opt = keras.optimizers.Adamax(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
     #custom_opt = keras.optimizers.Adamax(learning_rate=0.001/10., beta_1=0.9, beta_2=0.999, epsilon=1e-07, name="custom_opt")
@@ -683,7 +684,7 @@ def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask
     #plot.show()
 
 
-def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,jvars,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
+def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,jvars,is_signal,jet_matching,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
 
     print("\n")
     print("    Evaluating performances of the model.....   ")
@@ -709,10 +710,10 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
         #print("\n")
         df_s = df_test.loc[df_test[is_signal]==1]
         df_b = df_test.loc[df_test[is_signal]==0]
-        df_s = df_s.loc[df_s["Jet_isGenMatched"]==1]
+        df_s = df_s.loc[df_s[jet_matching]==1]
         df_test = pd.concat([df_b,df_s])
         #print(df_test.shape[0],df_s.shape[0],df_b.shape[0])
-        add_string+="_signal_matched"
+        add_string+="_signal_matched_"+jet_matching
 
     
     if(model_def=="FCN"):
@@ -849,7 +850,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     #plt.show()
 
 
-def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
+def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask,is_signal,jet_matching,weight,use_weight,n_batch_size,model_label,signal_match_test,ignore_empty_jets_test):
 
     print("\n")
     print("    Evaluating performances of the model.....   ")
@@ -867,10 +868,10 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
         print("\n")
         print("    Ignore not matched jets in signal at testing!!!!!!")
         print("\n")
-        df_s = df_test_pre.loc[(df_test_pre[is_signal]==1) & (df_test_pre["Jet_isGenMatched"]==1)]
+        df_s = df_test_pre.loc[(df_test_pre[is_signal]==1) & (df_test_pre[jet_matching]==1)]
         df_b = df_test_pre.loc[df_test_pre[is_signal]==0]
         df_test = pd.concat([df_b,df_s])
-        add_string+="_signal_matched"
+        add_string+="_signal_matched_"+jet_matching
     else:
         df_test = df_test_pre
 
@@ -1128,13 +1129,15 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
 
 # # # # # # # # # #
 # These functions must be tested for graphnet:
-'''
-def write_discriminator_output(folder,result_folder,features,is_signal,weight,n_batch_size,model_label,sample_list=[]):
+def write_discriminator_output(model_def,folder,model_folder,result_folder,event_dict, jet_dict,nj,features,jvar,event_var,is_signal,jet_matching,weight,n_batch_size,model_label,sample_list=[]):
     if model_label=="":
         model_label=timestampStr
-    output_file = 'model_'+model_label
-    print("Loading model... ", result_folder+output_file+'.h5')
-    model = keras.models.load_model(result_folder+output_file+'.h5')
+
+    model_folder += 'model_'+model_def+"_"+model_label+"/"
+    output_file = 'best_model_'+model_label
+
+    print("Loading model... ", model_folder+output_file+'.h5')
+    model = keras.models.load_model(model_folder+output_file+'.h5')
     model.summary()
     print("Running on test sample. This may take a moment. . .")
     
@@ -1142,8 +1145,8 @@ def write_discriminator_output(folder,result_folder,features,is_signal,weight,n_
         ##Read test sample
         store = pd.HDFStore(folder+"test_"+model_label+".h5")
         df = store.select("df")
-        df_valid = df.loc[df["Jet_isGenMatched"]!=-1]
-        df_invalid = df.loc[df["Jet_isGenMatched"]==-1]
+        df_valid = df.loc[df[jet_matching]!=-1]
+        df_invalid = df.loc[df[jet_matching]==-1]
 
         probs = model.predict(df_valid[features].values)#predict probability over test sample
         df_valid["Jet_sigprob"] = probs[:,1]
@@ -1168,17 +1171,131 @@ def write_discriminator_output(folder,result_folder,features,is_signal,weight,n_
                 continue
             store = pd.HDFStore(folder+sample+"_test.h5")
             df = store.select("df")
-            df_valid = df.loc[df["Jet_isGenMatched"]!=-1]
-            df_invalid = df.loc[df["Jet_isGenMatched"]==-1]
+            df_valid = df.loc[df["Jet_pt"]>-1]
+            df_invalid = df.loc[df["Jet_pt"]<=-1]
+            print("L: valid ", df_valid)
+            print("L: invalid ", df_invalid)
 
             probs = model.predict(df_valid[features].values)#predict probability over test sample
             df_valid["Jet_sigprob"] = probs[:,1]
             df_invalid["Jet_sigprob"] = np.ones(df_invalid.shape[0])*(-1)
             df_test = pd.concat([df_valid,df_invalid])
-            df_test.to_hdf(result_folder+sample+'_score_'+model_label+'.h5', 'df', format='table')
-            print("   "+result_folder+sample+"_score_"+model_label+".h5 stored")
+            ## Here writes the output if needed
+            #df_test.to_hdf(result_folder+sample+'_score_'+model_label+'.h5', 'df', format='table')
+            #print("   "+result_folder+sample+"_score_"+model_label+".h5 stored")
 
-'''
+            #Here root conversion
+            #print(df_test)
+            df_j = defaultdict()
+
+
+            #Must redo zero padding!
+            #for j in range(nj):
+            print(df_test["Jet_index"])
+
+            #Transform per-event into per-jet; this requires proper zero padding (hence, also empty jets)
+            for j in range(nj):
+                print(j)
+                df_j[j] = df_test.loc[ df_test["Jet_index"]==float(j) ]
+                print(df_j[j]["Jet_index"])
+
+                #if df_j[j].shape[0]>0: print(df_j[j])
+                #temp_list = []
+                for f in jvar:
+                    #print("Jet_"+f)
+                    #print("Jets"+str(j)+"_"+f)
+                    df_j[j].rename(columns={"Jet_"+f: "Jets"+str(j)+"_"+f},inplace=True)
+                    #if str(j) in l:
+                    #    print("\n")
+                    #    #temp_list.append(l)
+                df_j[j].rename(columns={jet_matching: "Jets"+str(j)+"_isGenMatched"},inplace=True)
+                df_j[j].rename(columns={"Jet_index": "Jets"+str(j)+"_index"},inplace=True)
+                df_j[j].rename(columns={"Jet_sigprob": "Jets"+str(j)+"_sigprob"},inplace=True)
+                #if df_j[j].shape[0]>0: print(df_j[j])
+
+                if j==0:
+                    df = df_j[j]
+                else:
+                    df_temp = pd.merge(df, df_j[j], on=event_var, how='inner')
+                    df = df_temp
+
+            #Here, count how many jets are tagged!
+            #Reject events with zero jets
+            #print(df)
+            df = df[ df['nCHSJets']>0]
+            print("\n")
+            print("work up to here?")
+            #Define variables to counts nTags
+            #HERE IT COMPLAINS, TOBEFIXED!
+            '''
+            var_tag_sigprob = []
+            var_tag_cHadEFrac = []
+            for j in range(nj):
+                var_tag_sigprob.append("Jets"+str(j)+"_sigprob")
+                var_tag_cHadEFrac.append("Jets"+str(j)+"_cHadEFrac")
+            #print(var_tag_sigprob)
+            wp_sigprob = [0.5,0.6,0.7,0.8,0.9,0.95]
+            wp_cHadEFrac = [0.2,0.1,0.05,0.02]
+            for wp in wp_sigprob:
+                name = str(wp).replace(".","p")
+                df['nTags_sigprob_wp'+name] = df[ df[var_tag_sigprob] > wp ].count(axis=1)
+            for wp in wp_cHadEFrac:
+                name = str(wp).replace(".","p")
+                df['nTags_cHadEFrac_wp'+name] = df[ (df[var_tag_cHadEFrac] < wp) & (df[var_tag_cHadEFrac]>-1) ].count(axis=1)
+
+            '''
+            #!!!#
+            #print("\n")
+            #print(df)
+            #print(nj)
+            #print(len(jfeatures)+3)
+            #print(len(event_var))
+            #print(list(df.columns))
+            #df_0 = df_j[0]
+            #df_3 = df_j[3]     
+            #mergedStuff = pd.merge(df_0, df_3, on=event_var, how='inner')
+
+            #Here I must compare df_j with the same event number and merge it
+
+            newFile = TFile(result_folder+'/model_'+model_label+'/'+sample+'.root', 'recreate')
+            newFile.cd()
+            #Here, since it does not work, use only df_test
+            #TOBEFIXED
+            '''
+            for n, a in enumerate(list(df.columns)):
+                arr = np.array(df[a].values, dtype=[(a, np.float64)])
+                ###print(a, " values: ", arr)
+                ###array2root(arr, output_root_folder+'/model_'+model_label+'/'+sample+'.root', mode='update')#mode='recreate' if n==0 else 'update')
+                if n==0: skim = array2tree(arr)
+                else: array2tree(arr, tree=skim)#mode='recreate' if n==0 else 'update')
+            '''
+
+            for n, a in enumerate(list(df_test.columns)):
+                arr = np.array(df_test[a].values, dtype=[(a, np.float64)])
+                ###print(a, " values: ", arr)
+                ###array2root(arr, output_root_folder+'/model_'+model_label+'/'+sample+'.root', mode='update')#mode='recreate' if n==0 else 'update')
+                if n==0: skim = array2tree(arr)
+                else: array2tree(arr, tree=skim)#mode='recreate' if n==0 else 'update')
+
+            skim.Write()
+            ##Recreate c_nEvents histogram
+            #Giving errors, skip, TOBEFIXED!
+            '''
+            counter = TH1F("c_nEvents", "Event Counter", 1, 0., 1.)
+            counter.Sumw2()
+            ##Fill counter histogram with the first entry of c_nEvents
+            counter.Fill(0., df["c_nEvents"].values[0])
+            ##print("counter bin content: ", counter.GetBinContent(1))
+            counter.Write()
+            '''
+            newFile.Close()
+            ##counter.Delete()
+
+
+
+
+
+
 
 '''
 def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,model_label,sample_list=[]):
@@ -1235,7 +1352,7 @@ def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,mod
                     #if str(j) in l:
                     #    print("\n")
                     #    #temp_list.append(l)
-                df_j[j].rename(columns={"Jet_isGenMatched": "Jets"+str(j)+"_isGenMatched"},inplace=True)
+                df_j[j].rename(columns={jet_matching: "Jets"+str(j)+"_isGenMatched"},inplace=True)
                 df_j[j].rename(columns={"Jet_index": "Jets"+str(j)+"_index"},inplace=True)
                 df_j[j].rename(columns={"Jet_sigprob": "Jets"+str(j)+"_sigprob"},inplace=True)
                 #if df_j[j].shape[0]>0: print(df_j[j])
@@ -1243,7 +1360,7 @@ def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,mod
                 if j==0:
                     df = df_j[j]
                 else:
-                    df_temp = pd.merge(df, df_j[j], on=event_list, how='inner')
+                    df_temp = pd.merge(df, df_j[j], on=event_var, how='inner')
                     df = df_temp
 
             #Here, count how many jets are tagged!
@@ -1271,11 +1388,11 @@ def test_to_root(folder,result_folder,output_root_folder,variables,is_signal,mod
             #print(df)
             #print(nj)
             #print(len(jfeatures)+3)
-            #print(len(event_list))
+            #print(len(event_var))
             #print(list(df.columns))
             #df_0 = df_j[0]
             #df_3 = df_j[3]     
-            #mergedStuff = pd.merge(df_0, df_3, on=event_list, how='inner')
+            #mergedStuff = pd.merge(df_0, df_3, on=event_var, how='inner')
 
             #Here I must compare df_j with the same event number and merge it
 
