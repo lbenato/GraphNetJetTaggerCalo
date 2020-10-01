@@ -579,7 +579,7 @@ def do_merge(inp,out,cols,max_n_jets=10,train_split=0.8,test_split=0.2,val_split
             del df_test
 
 
-def do_mix_signal(type_dataset,folder,features,upsample_factor=0):
+def do_mix_signal(type_dataset,folder,features,upsample_factor):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -699,7 +699,7 @@ def do_mix_background(type_dataset,folder,features):
     del df_b
     del df_list
 
-def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=0,fraction_of_background=1):
+def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=10,fraction_of_background=1):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -783,10 +783,10 @@ for n in range(npf):
 #print(event_list)
 #print(jet_list)
 #print(pf_list)
-for a in ["train","test","val"]:
-    do_mix_background(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
-for a in ["test","val","train"]:
-    do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
+#for a in ["train","test","val"]:
+    #do_mix_background(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
+#for a in ["test","val","train"]:
+#    do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
 for a in ["test","val","train"]:
     do_mix_s_b(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
     
