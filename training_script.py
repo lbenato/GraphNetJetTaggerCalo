@@ -57,13 +57,29 @@ j_features = [
 #'dzMedian', 'dxyMedian',
 
 #v3 variables include ECAL/HCAL recHits
+# # # The best so far:
+# # # # # # #
+# # # # # # #
+# # # # # # #
+# # # # # # #
 'nTrackConstituents','nSelectedTracks',
-'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
+
+'timeRecHitsEB',#'timeRecHitsHB',
+'energyRecHitsEB',#'energyRecHitsHB',
+'nRecHitsEB',#'nRecHitsHB', 
+
 'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
-'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
-##'medianIP2D',#?
-'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks','minDeltaRPVTracks',
-##'dzMedian', 'dxyMedian', #wait for those
+'ptAllTracks', 'ptAllPVTracks',
+#'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',#Si does not have these!
+
+###'medianIP2D',#?
+'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET',
+'minDeltaRAllTracks','minDeltaRPVTracks',
+###'dzMedian', 'dxyMedian', #wait for those
+# # # # # # #
+# # # # # # #
+# # # # # # #
+# # # # # # #
 
 #variables for partnet + jet constituents
 #'nTrackConstituents',#already embedded in pf constituents
@@ -72,6 +88,16 @@ j_features = [
 #'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
 #'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
 #'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks','minDeltaRPVTracks',
+
+#Here: test for v3__v4, find the most important variables
+#'nTrackConstituents','nSelectedTracks',
+#'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
+#'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+#'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
+###'medianIP2D',#?
+#'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET',
+#'minDeltaRAllTracks','minDeltaRPVTracks',
+###'dzMedian', 'dxyMedian', #wait for those
 ]
 
 #variables for tag NoMedian = all but medianIP2D,dzMedian,dxyMedian
@@ -94,6 +120,23 @@ j_var = j_gen+j_features+j_nottrain
 jet_list = []
 for v in j_var:
     jet_list.append("Jet_"+v)
+
+##############################
+### Define FatJet features ###
+##############################
+fj_features = [
+'nConstituents','nTrackConstituents',#'nSelectedTracks',
+'timeRecHitsEB','timeRecHitsHB','energyRecHitsEB','energyRecHitsHB','nRecHitsEB','nRecHitsHB', 
+'cHadEFrac', 'nHadEFrac', 'eleEFrac','photonEFrac',
+'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',
+'alphaMax', 'betaMax', 'gammaMax', 'gammaMaxEM', 'gammaMaxHadronic', 'gammaMaxET', 'minDeltaRAllTracks','minDeltaRPVTracks',
+'puppiTau21',
+#'softdropPuppiMass',
+]
+fat_jet_features_list = []
+for f in fj_features:
+    fat_jet_features_list.append("FatJet_"+f)
+
 
 ###################################
 ### Define PFCandidate features ###
@@ -168,8 +211,32 @@ n_class=2
 ##compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
 #compare_folder = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train_new_presel/'
 #compare_folder = 'compare_all/'
-#compare_models(["BDT","FCN","particle_net","FCN_constituents"],compare_folder,"is_signal",["SampleWeight","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["SampleWeight_NoMedian","2_EventWeightNormalized_NoMedian","08-22","15_EWN_rel"],signal_match_test=True,ignore_empty_jets_test=True)
-#exit()
+#compare_models(["BDT","FCN","particle_net","FCN_constituents","particle_net"],compare_folder,"is_signal",["SampleWeight","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["SampleWeight_NoMedian","2_EventWeightNormalized_NoMedian","08-22","15_EWN_rel","09-23"],plot_labels=["BDT","FCN","particle_net","FCN_constituents","particle_net + jets"],signal_match_test=True,ignore_empty_jets_test=True)
+#compare_models(["BDT","FCN","FCN_constituents","particle_net"],compare_folder,"is_signal",["SampleWeight","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["SampleWeight_NoMedian_200epochs_patience50","2_EventWeightNormalized_NoMedian_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","15_EWN_rel","09-23"],plot_labels=["BDT","FCN","FCN on PF","particle net"],signal_match_test=True,ignore_empty_jets_test=True)
+
+#compare_folder = 'model_weights//v3_calo_AOD_2018_dnn__v4_20Upsampling_0p25Background_BUGFIX/SUSY/AK4jets/'
+#compare_models(["FCN","FCN","FCN"],compare_folder,"is_signal",["EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["2_EventWeightNormalized_NoMedian_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsEB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsEBHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2"],plot_labels=["FCN","FCN no HCAL rec hits","FCN no rec hits"],signal_match_test=True,ignore_empty_jets_test=True)
+
+compare_folder = 'model_weights/v3_calo_AOD_2018_dnn__v4_2018_5Upsampling_0p25Background/SUSY/AK4jets/'
+#compare_models(["FCN","FCN","FCN","BDT","BDT","BDT"],compare_folder,"is_signal",["EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["2_EventWeightNormalized_NoMedian_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsEBHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","SampleWeight_NoMedian_200epochs_patience25","SampleWeight_NoMedian_NoRecHitsHB_200epochs_patience25","SampleWeight_NoMedian_NoRecHitsEBHB_200epochs_patience25"],plot_labels=["FCN","FCN no HCAL rec hits","FCN no rec hits","BDT","BDT no HCAL rec hits", "BDT no rec hits"],signal_match_test=True,ignore_empty_jets_test=True)
+
+##FCN
+compare_models(["FCN","FCN","FCN","FCN","FCN","FCN"],compare_folder,"is_signal",["EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],use_weight=True,model_labels=["2_EventWeightNormalized_NoMedian_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsEBHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","1_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2"],plot_labels=["FCN","FCN no HCAL rec hits","FCN no rec hits","FCN no HCAL/Si","FCN EB time, no Si","FCN EB time, no Si, model 1"],signal_match_test=True,ignore_empty_jets_test=True)
+
+#FCN & BDT
+#compare_models(
+#    ["FCN","FCN","FCN","FCN","FCN","BDT","BDT","BDT","BDT"],
+#    compare_folder,
+#    "is_signal",
+#    ["EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","SampleWeight","SampleWeight","SampleWeight","SampleWeight"],
+#    use_weight=True,
+#    model_labels=["2_EventWeightNormalized_NoMedian_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsEBHB_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","2_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime_Adam_ReLU_200epochs_patience200_batch_size_512_dropout_0p2","SampleWeight_NoMedian_200epochs_patience25","SampleWeight_NoMedian_NoRecHitsHB_200epochs_patience25","SampleWeight_NoMedian_NoRecHitsEBHB_200epochs_patience25","SampleWeight_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime200epochs_patience25"],
+#    plot_labels=["FCN","FCN no HCAL rec hits","FCN no rec hits","FCN no HCAL/Si","FCN EB time, no Si","BDT","BDT no HCAL rec hits", "BDT no rec hits","BDT EB time, no Si"],
+#    signal_match_test=True,
+#    ignore_empty_jets_test=True
+#)
+
+exit()
 
 graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_LEADER/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
 graphnet_pd_BDT = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_BDT/'#'dataframes_graphnet/v2_calo_AOD_2017_t
@@ -203,11 +270,43 @@ result_v3 = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train_new_presel_50_
 #folder_test = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn_partnet/'
 #result_test = 'model_weights/test/'
 
+#New dataset with AK4 and AK8
+#jet_type = "AK8jets"
+#jet_string = "FatJet_"
+#jet_features_list = fat_jet_features_list
+jet_type = "AK4jets"
+jet_string = "Jet_"
+#folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4/'+jet_type+'_'
+#folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT__v4/'+jet_type+'_'
+#!#result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_20Upsampling_0p25Background/SUSY/'+jet_type+'/'
+#result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_20Upsampling_0p25Background_BUGFIX/SUSY/'+jet_type+'/'
+
+#more stat:
+#folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4_XL/'+jet_type+'_'
+#folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT__v4_XL/'+jet_type+'_'
+#result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_3Upsampling_0p25Background_XL/SUSY/'+jet_type+'/'
+#more stat new attempt:
+#folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4_XL_balance/'+jet_type+'_'
+#folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT__v4_XL_balance/'+jet_type+'_'
+#result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_10Upsampling_0p25Background_XL_balance/SUSY/'+jet_type+'/'
+
+
+#Fixed: only 2018 without mixing data eras
+folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4_2018/'+jet_type+'_'
+folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT__v4_2018/'+jet_type+'_'
+result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_2018_5Upsampling_0p25Background/SUSY/'+jet_type+'/'
+
+#no upsampling, cross-check
+#folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4_no_upsampling/'+jet_type+'_'
+#folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn__v4_no_upsampling/'+jet_type+'_'
+#result_v3 = 'model_weights/v3_calo_AOD_2018_dnn__v4_no_upsampling_0p25Background/SUSY/'+jet_type+'/'
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
-sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
+#sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
+#bkg = ['VV','WJetsToLNu','ZJetsToNuNu']
 #bkg = ['WJetsToLNu']
 
 ##############################################################
@@ -298,9 +397,52 @@ if TRAIN_MODEL == "FCN":
 
     #b_size=2000 #default
     b_size = 2048
+    n_epochs = 200
     #b_size=4096
+
+    #Improving architecture
+    #Leaky Relu
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_LeakyReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+
+    #input normalization
+
+    #less dropout
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p1"
+
+    #batch norm first layer
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_LayerNorm_LeakyReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p1"
+    b_size = 2048
+    b_size=1024
+    b_size = 512 #the best
+    n_epochs = 200 #faster
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_NO_dropout"
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_BatchNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+    #Try model 1!!
+    #name = "1_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"# --> best 1
+    #name = "1_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_monitor_val_acc_batch_size_"+str(b_size)+"_dropout_0p2"
+    #name = "1_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2_StandardScaler"
+
+
+    #Without layer norm
+    name = "1_EventWeightNormalized_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime_Adam_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+    #name = "2_EventWeightNormalized_NoMedian_Adam_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+    #name = "2_EventWeightNormalized_NoMedian_Adam_LeakyReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+
+
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_EACHLAYER_LayerNorm_ReLU_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2_StadardScaler"
+
+
+    #Train longer
+    #name = "2_EventWeightNormalized_NoMedian_Adam_200epochs_patience200_batch_size_"+str(b_size)
+    #name = "2_EventWeightNormalized_NoMedian_Adamax_200epochs_patience200_batch_size_"+str(b_size)
+    #name = "1_CASTFLOAT_EventWeightNormalized_NoMedian_Adamax_200epochs_patience200_batch_size_"+str(b_size)
+    #name = "thumb_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_200epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p3"
+    #name = "2_CASTFLOAT_EventWeightNormalized_NoMedian_Adam_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+    #name = "2_CASTFLOAT_EventWeightNormalized_CaloHitsAndEnergyFractionsAndXMax_Adam_"+str(n_epochs)+"epochs_patience200_batch_size_"+str(b_size)+"_dropout_0p2"
+
     #name = "2_SampleWeight_NoMedian_Adam_patience40_batch_size_"+str(b_size)
-    name = "2_EventWeightNormalized_NoMedian_Adam_patience40_batch_size_"+str(b_size)
+    #name = "2_EventWeightNormalized_NoMedian_Adam_patience40_batch_size_"+str(b_size)
 
     #name = "2_EventWeightNormalized_NoMedian_Adam_patience20_lr_0p0001_batch_size_"+str(b_size)
     #name = "2_EventWeightNormalized_NoMedian_Nadam_patience20_batch_size_"+str(b_size)
@@ -310,11 +452,11 @@ if TRAIN_MODEL == "FCN":
     #name = "2_EventWeightNormalized_NoMedian"
 
     #fit function
-    #fit_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=200,n_batch_size=b_size,patience_val=40,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=n_epochs,n_batch_size=b_size,patience_val=200,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    #evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
-    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    ##evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
+    evaluate_model("FCN", n_class, folder_dnn_v3, result_v3,0,[],jet_features_list,[],[],"is_signal",jet_string+"isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=b_size,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
 
 elif TRAIN_MODEL == "FCN_constituents":
@@ -347,12 +489,15 @@ elif TRAIN_MODEL == "BDT":
     print(len(jet_features_list)," training features!")
     print("\n")
 
-    name = "SampleWeight_NoMedian"
+    n_epochs = 200
+    patience = 25
+    name = "SampleWeight_NoMedian_NoRecHitsHB_NoSi_OnlyECALtime"+str(n_epochs)+"epochs_patience"+str(patience)
+    #name = "SampleWeight_NoMedian_"+str(n_epochs)+"epochs_patience"+str(patience)
+    #name = "SampleWeight_CaloHitsAndEnergyFractionsAndXMax_"+str(n_epochs)+"epochs"
 
+    fit_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=n_epochs,n_batch_size=2000,patience_val=patience,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
-    fit_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","SampleWeight",use_weight=True,n_epochs=200,n_batch_size=2000,patience_val=5,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
-
-    evaluate_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal",jet_string+"isGenMatchedCaloCorrLLPAccept","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
     #evaluate_BDT("BDT", n_class, folder_BDT_v3, result_v3,0,[],jet_features_list,[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","SampleWeight",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 

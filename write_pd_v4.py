@@ -22,7 +22,11 @@ variables = []
 MEt = MEtType()
 #CHSJets = JetType()
 
-def write_h5_v4(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter_hist="",sel_cut="",obj_sel_cut="",verbose=True):
+
+### NOTE:
+### Includes important bug fix for c_nEvents!
+
+def write_h5_v4(folder,output_folder,file_name,xs,LUMI,counter,cols,tree_name="",counter_hist="",sel_cut="",obj_sel_cut="",verbose=True):
     print("    Opening ", folder)
     print("\n")
     if verbose:
@@ -30,12 +34,15 @@ def write_h5_v4(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter
         #print("   Initialized df for sample: ", file_name)
         print("   Initialized df for sample: ", file_name)
     #print(cols)
+    
+    
     # loop over files, called file_name
     oldFile = TFile(folder+file_name, "READ")
     if(oldFile.GetListOfKeys().Contains(counter_hist) == False):
         return
-    counter = oldFile.Get(counter_hist)#).GetBinContent(1)
-    nevents_gen = counter.GetBinContent(1)
+    #counter = oldFile.Get(counter_hist)#).GetBinContent(1)
+    #nevents_gen = counter.GetBinContent(1)
+    nevents_gen = counter
     print("  n events gen.: ", nevents_gen)
     if(nevents_gen==0):
         return
@@ -78,7 +85,7 @@ def write_h5_v4(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter
     print(df)
 
     #add is_signal flag
-    df["is_signal"] = np.ones(nevents) if (("n3n2" in folder) or ("H2ToSSTobbbb" in folder)) else np.zeros(nevents)
+    df["is_signal"] = np.ones(nevents) if (("n3n2" in folder) or ("H2ToSSTobbbb" in folder) or ("TChiHH" in folder)) else np.zeros(nevents)
     df["c_nEvents"] = np.ones(nevents) * nevents_gen
     df["EventWeight"] = df["EventWeight"]*tree_weight
     df["SampleWeight"] = np.ones(nevents) * tree_weight
