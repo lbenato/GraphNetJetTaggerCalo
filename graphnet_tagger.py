@@ -7,15 +7,22 @@ import pickle
 import uproot_methods
 import os.path
 from datetime import datetime
+import time
 from collections import defaultdict
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
+from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 #from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 from root_numpy import array2tree, array2root
 from dnn_functions import *
-from samplesAOD2017 import *
+from samplesAOD2018 import *
 from tf_keras_model import *
+
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx, array[idx]
 
 def _col_list(prefix,npf):
     return ['%s_%d'%(prefix,i) for i in range(npf)]
@@ -23,25 +30,25 @@ def _col_list(prefix,npf):
 
 def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
 
-    if ignore_empty_jets:
-        #print("\n")
-        #print("    Ignore empty jets!!!!!!")
-        #print("\n")
-        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
 
-    X = dataframe[features].values
-    y = dataframe[is_signal].values
-    w = dataframe[weight].values
+    X = dataframe[features].values.astype(dtype = 'float32')
+    y = dataframe[is_signal].values.astype(dtype = 'float32')
+    w = dataframe[weight].values.astype(dtype = 'float32')
         
     return X, y, w
 
 def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
-    if ignore_empty_jets:
-        #print("\n")
-        #print("    Ignore empty jets!!!!!!")
-        #print("\n")
-        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
     
     #points_arr = []
     #features_arr = []
@@ -71,11 +78,11 @@ def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signa
 
     while True:
         df = next(dataframe)
-        if ignore_empty_jets:
-            #print("\n")
-            #print("    Ignore empty jets!!!!!!")
-            #print("\n")
-            df = df[ df["Jet_pt"]>-1 ]
+        #if ignore_empty_jets:
+        #    #print("\n")
+        #    #print("    Ignore empty jets!!!!!!")
+        #    #print("\n")
+        #    df = df[ df["Jet_pt"]>-1 ]
 
         X = df[features].values
         y = df[is_signal].values
@@ -85,11 +92,11 @@ def get_FCN_jets_dataset_generator(dataframe,features,weight,is_signal="is_signa
 
 def get_BDT_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
 
-    if ignore_empty_jets:
-        #print("\n")
-        #print("    Ignore empty jets!!!!!!")
-        #print("\n")
-        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
 
     X = dataframe[features]
     y = dataframe[is_signal]
@@ -97,14 +104,28 @@ def get_BDT_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty
         
     return X, y, w
 
+def get_BDT_DMatrix_dataset(dataframe,features,weight,is_signal="is_signal",ignore_empty_jets=True):
+
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+
+    X = dataframe[features].values
+    y = dataframe[is_signal].values
+    w = dataframe[weight].values
+    D = xgb.DMatrix(X, label=y, weight=w)
+        
+    return X, y, w, D
 
 def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
-    if ignore_empty_jets:
-        #print("\n")
-        #print("    Ignore empty jets!!!!!!")
-        #print("\n")
-        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
         
     points_arr = []
     features_arr = []
@@ -136,11 +157,11 @@ def get_particle_net_dataset(dataframe,n_points,points_var,features_var,mask_var
 
 def get_particle_net_jet_dataset(dataframe,n_points,points_var,features_var,mask_var,jet_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
-    if ignore_empty_jets:
-        #print("\n")
-        #print("    Ignore empty jets!!!!!!")
-        #print("\n")
-        dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
+    #if ignore_empty_jets:
+    #    #print("\n")
+    #    #print("    Ignore empty jets!!!!!!")
+    #    #print("\n")
+    #    dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
         
     points_arr = []
     features_arr = []
@@ -589,6 +610,16 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience_val, verbose=0, mode='auto')
     checkpoint = keras.callbacks.ModelCheckpoint(filepath=result_folder+'best_model_'+model_label+'.h5', monitor='val_loss', save_best_only=True)
 
+    #Input normalization!
+    #print('n')
+    #print(' INPUT NORM! ')
+    #scaler_t = StandardScaler()
+    #scaled_X_train = scaler_t.fit_transform(X_train)
+    #scaler_v = StandardScaler()
+    #scaled_X_val = scaler_v.fit_transform(X_val)
+
+    #X_train = scaled_X_train
+    #X_val = scaled_X_val
 
     ##Fit model
     #train is 60%, test is 20%, val is 20%
@@ -618,6 +649,9 @@ def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask
     store_val = pd.HDFStore(folder+"val.h5")
     df_val = store_val.select("df")
     
+    #X_train, y_train, w_train, D_train = get_BDT_DMatrix_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+    #D_test = get_BDT_DMatrix_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+
     if(model_def=="BDT"):
         X_train, y_train, w_train = get_BDT_dataset(df_train,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val   = get_BDT_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -655,6 +689,40 @@ def fit_BDT(model_def,n_class,folder,result_folder,n_points,points,features,mask
 
     ##Fit model
     #train is 60%, test is 20%, val is 20%
+    
+    ########  ### L
+    ##print("Attempt at training DMatrix . . .")
+    #pickle.load(open("model_weights/v3_calo_AOD_2018_dnn_balance_val_train_new_presel/model_BDT_SampleWeight_NoMedian/model_SampleWeight_NoMedian.dat","rb"))
+    #print(model.get_booster().get_dump(dump_format="json"))
+    #exit()
+    # 
+    #X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
+    #D_train = xgb.DMatrix(X_train.values,label = y_train.values,weight=w_train.values)
+    #D_val =   xgb.DMatrix(X_val.values,label = y_val.values,weight=w_val.values)
+    
+    #param = {
+    #'eta': 0.3, 
+    #'max_depth': 4,  
+    #'objective': 'multi:softmax',
+    #'eval_metric' : ["error","logloss"],
+    #'num_class': 2} 
+
+    #steps = 50  # The number of training iterations
+    ##model = xgb.train(param, D_train, steps)
+    ##print("Save model...")
+    ##model.get_dump("/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/BDT_dump.txt")#crash
+    
+    #model.fit(D_train, eval_metric=["error","logloss"], early_stopping_rounds = patience_val)
+    ##from sklearn.metrics import precision_score, recall_score, accuracy_score
+    ##preds = model.predict(D_train)
+    ##best_preds = np.asarray([np.argmax(line) for line in preds])
+    #print("Precision = {}".format(precision_score(X_train, best_preds, average='macro')))
+    ##print("Recall = {}".format(recall_score(Y_test, best_preds, average='macro')))
+    #print("Accuracy = {}".format(accuracy_score(y_train, best_preds)))
+    ##histObj = model.evals_result()
+    #exit()
+    ####### ### L
+    
     if use_weight:
         print("yes weight")
         eval_set = [(X_train, y_train), (X_val, y_val)]
@@ -689,6 +757,8 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     print("\n")
     print("    Evaluating performances of the model.....   ")
 
+    cut_fpr = 0.0006325845
+
     ##Read test sample
     store = pd.HDFStore(folder+"test.h5")
     df_test = store.select("df")
@@ -697,12 +767,12 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     df_test = df_test.loc[df_test['EventWeight']>=0]
 
     add_string = ""
-    if ignore_empty_jets_test:
-        #print("\n")
-        #print("    Ignore empty jets at testing!!!!!!")
-        #print("\n")
-        df_test = df_test.loc[df_test["Jet_pt"]>-1]
-        #add_string+="_ignore_empty_jets"
+    #if ignore_empty_jets_test:
+    #    #print("\n")
+    #    #print("    Ignore empty jets at testing!!!!!!")
+    #    #print("\n")
+    #    df_test = df_test.loc[df_test["Jet_pt"]>-1]
+    #    #add_string+="_ignore_empty_jets"
 
     if signal_match_test:
         #print("\n")
@@ -728,6 +798,14 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     else:
         print("    Model not recognized, abort . . .")
         exit()
+
+    #Input normalization!
+    #print('n')
+    #print(' INPUT NORM! ')
+    #scaler = StandardScaler()
+    #scaled_X_test = scaler.fit_transform(X_test)
+
+    #X_test = scaled_X_test
 
 
     if model_label=="":
@@ -814,14 +892,18 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     plt.savefig(result_folder+'probability_'+output_file+add_string+'.pdf')
 
     if use_weight:
-        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"])
+        fpr, tpr, thresholds = roc_curve(df_test[is_signal], df_test["sigprob"])
+        idx, _ = find_nearest(fpr,cut_fpr)
     else:
-        fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=w_test)
+        fpr, tpr, thresholds = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=w_test)
+        idx, _ = find_nearest(fpr,cut_fpr)
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     plt.plot(fpr, tpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
+    plt.plot(fpr[idx], tpr[idx],'ro',color='crimson',label="w.p. {0:.4f}".format(thresholds[idx]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.0006325845,0.22,'ro',color='blue',label="cut based")
     plt.xlim([0.0, 1.05])
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
@@ -837,7 +919,9 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     plt.plot(fpr, tpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
+    plt.plot(fpr[idx], tpr[idx],'ro',color='crimson',label="w.p. {0:.4f}".format(thresholds[idx]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.0006325845,0.22,'ro',color='blue',label="cut based")
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
@@ -860,7 +944,8 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
     df_test_pre = store.select("df")
 
     print("    Remove negative weights at testing!!!!!!")
-    df_test_pre = df_test_pre.loc[(df_test_pre['EventWeight']>=0) & (df_test_pre['Jet_pt']>-1)]
+    #df_test_pre = df_test_pre.loc[(df_test_pre['EventWeight']>=0) & (df_test_pre['Jet_pt']>-1)]
+    df_test_pre = df_test_pre.loc[df_test_pre['EventWeight']>=0]
 
     add_string = ""
 
@@ -1011,7 +1096,7 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
 
 
 
-def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,model_labels,signal_match_test,ignore_empty_jets_test):
+def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,model_labels,plot_labels,signal_match_test,ignore_empty_jets_test,jets="AK4"):
 
     sigprob = {}
     target = {}
@@ -1019,13 +1104,21 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     AUC = {}
     fpr = {}
     tpr = {}
+    thresholds = {}
+    idx = {}
     add_string = ""
+
+    cut_fpr = 0.0006325845
+
 
     #if ignore_empty_jets_test:
     #    add_string+="_ignore_empty_jets"
 
     if signal_match_test:
-        add_string+="_signal_matched"
+        if jets=="AK4":
+            add_string+="_signal_matched_Jet_isGenMatchedCaloCorrLLPAccept"
+        else:
+            add_string+="_signal_matched_FatJet_isGenMatchedCaloCorrLLPAccept"
 
     orig_result = result_folder
     for i,m in enumerate(model_list):
@@ -1045,25 +1138,32 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
         weight[i] = df[weight_list[i]].values
         if use_weight:
             AUC[i] = roc_auc_score(target[i], sigprob[i], sample_weight=weight[i])        
-            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i], sample_weight=weight[i])
+            fpr[i], tpr[i], thresholds[i] = roc_curve(target[i], sigprob[i], sample_weight=weight[i])
+            idx[i], _ = find_nearest(fpr[i],cut_fpr)
         else:
             AUC[i] = roc_auc_score(target[i], sigprob[i])
-            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i])
+            fpr[i], tpr[i], thresholds[i] = roc_curve(target[i], sigprob[i])
+            idx[i], _ = find_nearest(fpr[i],cut_fpr)
 
         del df
         store.close()
         del store
 
-    colors = ['crimson','green','skyblue','chocolate','orange']
-    linestyles = ['-', '--', '-.', ':']
+    colors = ['crimson','green','skyblue','orange','gray','magenta','chocolate','yellow','black','olive']
+    linestyles = ['-', '--', '-.', ':','-','--','-.',':']
+    linestyles = ['-', '--', '-.', '-','--','-.',':','-', '--', '-.',]
 
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
-        lab = m if not m=="LEADER" else "FCN"
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        #lab = m if not m=="LEADER" else "FCN"
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i],label="w.p. {0:.4f}".format(thresholds[i][idx[i]]))
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.0006325845,0.22,'ro',color='blue',label="cut based")
+
     plt.xlim([0.0, 1.05])
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
@@ -1080,13 +1180,27 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
         lab = m if not m=="LEADER" else "FCN"
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i],label="w.p. {0:.4f}".format(thresholds[i][idx[i]]))
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.0006325845,0.22,'ro',color='blue',label="cut based")
     plt.ylim([0.0, 1.05])
+
+    print('\n')
+    print('Example: take the first entry')
+    print(tpr.keys())
+    print(tpr[0])
+    print(fpr[0])
+    print(thresholds[0])
+    idx, val = find_nearest(fpr[0],cut_fpr)
+    print('closest?')
+    print(idx, val, fpr[0][idx], tpr[0][idx], thresholds[0][idx], cut_fpr, 0.22)
+    
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
-    plt.legend(loc="lower right")
+    plt.legend(loc="center right")
     plt.grid(True)
     plt.xlim([0.0001, 1.05])
     plt.xscale('log')
@@ -1129,6 +1243,7 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
 
 # # # # # # # # # #
 # These functions must be tested for graphnet:
+'''
 def write_discriminator_output(model_def,folder,model_folder,result_folder,event_dict, jet_dict,nj,features,jvar,event_var,is_signal,jet_matching,weight,n_batch_size,model_label,sample_list=[]):
     if model_label=="":
         model_label=timestampStr
@@ -1227,7 +1342,7 @@ def write_discriminator_output(model_def,folder,model_folder,result_folder,event
             print("work up to here?")
             #Define variables to counts nTags
             #HERE IT COMPLAINS, TOBEFIXED!
-            '''
+            ######
             var_tag_sigprob = []
             var_tag_cHadEFrac = []
             for j in range(nj):
@@ -1243,7 +1358,7 @@ def write_discriminator_output(model_def,folder,model_folder,result_folder,event
                 name = str(wp).replace(".","p")
                 df['nTags_cHadEFrac_wp'+name] = df[ (df[var_tag_cHadEFrac] < wp) & (df[var_tag_cHadEFrac]>-1) ].count(axis=1)
 
-            '''
+            ######
             #!!!#
             #print("\n")
             #print(df)
@@ -1261,14 +1376,14 @@ def write_discriminator_output(model_def,folder,model_folder,result_folder,event
             newFile.cd()
             #Here, since it does not work, use only df_test
             #TOBEFIXED
-            '''
+            #####
             for n, a in enumerate(list(df.columns)):
                 arr = np.array(df[a].values, dtype=[(a, np.float64)])
                 ###print(a, " values: ", arr)
                 ###array2root(arr, output_root_folder+'/model_'+model_label+'/'+sample+'.root', mode='update')#mode='recreate' if n==0 else 'update')
                 if n==0: skim = array2tree(arr)
                 else: array2tree(arr, tree=skim)#mode='recreate' if n==0 else 'update')
-            '''
+            #####
 
             for n, a in enumerate(list(df_test.columns)):
                 arr = np.array(df_test[a].values, dtype=[(a, np.float64)])
@@ -1280,18 +1395,332 @@ def write_discriminator_output(model_def,folder,model_folder,result_folder,event
             skim.Write()
             ##Recreate c_nEvents histogram
             #Giving errors, skip, TOBEFIXED!
-            '''
+            #####
             counter = TH1F("c_nEvents", "Event Counter", 1, 0., 1.)
             counter.Sumw2()
             ##Fill counter histogram with the first entry of c_nEvents
             counter.Fill(0., df["c_nEvents"].values[0])
             ##print("counter bin content: ", counter.GetBinContent(1))
             counter.Write()
-            '''
+            #####
             newFile.Close()
             ##counter.Delete()
+'''
+
+def write_discriminator_output_simplified(model_def,folder,model_folder,result_folder,jet_type,signal_model,event_dict,jet_dict,fat_jet_dict,nj,nfj,j_features,fj_features,is_signal,jet_matching,weight,n_batch_size,model_label,sample_list=[]):
+
+    if model_label=="":
+        print("No keras/BDT model specified, aborting . . . ")
+        exit()
+
+    model_folder += signal_model + '/' + jet_type + '/'
+    model_folder += 'model_'+model_def+'_'+model_label+'/'
+    output_file = 'best_model_'+model_label
+
+    print("Loading model... ", model_folder+output_file+'.h5')
+    model = keras.models.load_model(model_folder+output_file+'.h5')
+    model.summary()
+
+    if jet_type == "AK4jets":
+        jet_string = "Jet_"
+        features = j_features
+    elif jet_type == "AK8jets":
+        jet_string = "FatJet_"
+        features = fj_features
+    else:
+        print("Jet type not recognized, aborting . . . ")
+        exit()
+
+    if sample_list==[]:
+        print(" Not fixed, exit")
+        exit()
+        ##Read test sample
+        '''
+        store = pd.HDFStore(folder+"test_"+model_label+".h5")
+        df = store.select("df",start=0,stop=20)
+        df_valid = df.loc[df[jet_matching]!=-1]
+        df_invalid = df.loc[df[jet_matching]==-1]
+
+        probs = model.predict(df_valid[features].values.astype(dtype = 'float32'))#predict probability over test sample
+        df_valid[jet_string+"sigprob"] = probs[:,1].astype(dtype = 'float32')
+        df_invalid[jet_string+"sigprob"] = np.ones(df_invalid.shape[0])*(-1)
+        df_test = pd.concat([df_valid,df_invalid])
+        df_test.to_hdf(result_folder+'test_score_'+model_label+'.h5', 'df', format='table')
+        print("   "+result_folder+"test_score_"+model_label+".h5 stored")
+        '''
+
+    else:
+        full_list = []
+        for sl in sample_list:
+            full_list += samples[sl]['files']
+
+        for sample in full_list:
+            print('\n')
+            print(" ********************* ")
+            IN = folder+sample+'/'#+"_"+jet_type+"_test.h5"
+            print(IN)
+            #Concatenate all the files in one dataset
+            files_list = [x for x in os.listdir(IN) if os.path.isfile(os.path.join(IN, x))]
+            #print(files_list)
+            df_list = []
+            count_events = 0
+            for n in range(len(files_list)):
+                ###print(IN+files_list[n])
+                store = pd.HDFStore(IN+files_list[n])
+                if store.keys() ==[]:
+                    print("Warning, empty dataframe, skipping...")
+                    continue
+                if n%50==0:
+                    print('Opening file n. ', n)
+                df = store.select("df",start=0,stop=20)
+                count_events += df.shape[0]#store.get_storer('df').shape
+                df_list.append( df.loc[df["EventNumber"]%2!=0]  )
+                del df
+                store.close()
+
+            # Calculate even/odd ratio and keep only odd
+            # Result of get_storer and df.shape differ by 1...
+            df = pd.concat(df_list,ignore_index=True)
+            if df.shape[0]==0:
+                print("   Empty dataset, go to next sample.......")
+                continue
+            print("   df shape: ", df.shape)
+            print("   count storer: ", count_events)
+            del df_list
+
+            #df_train = df.loc[df["EventNumber"]%2==0]
+            df_test = df.loc[df["EventNumber"]%2!=0]
+            ratio_test = df_test.shape[0]/count_events
+            ratio_train = (count_events - df_test.shape[0])/count_events
+            print("   ratio test ", ratio_test)
+            print("   ratio train ", ratio_train)
+            print("   train shape: ", count_events - df_test.shape[0])
+            print("   test shape: ", df_test.shape)
+            df_test["TestEventRatio"] = np.ones(df_test.shape[0])*(df_test.shape[0]/count_events)
+            del df
+            #print(df_test)
+
+            nloop = 0
+            if jet_type=="AK4jets":
+                nloop=nj
+                
+            elif jet_type=="AK8jets":
+                nloop=nfj
+
+            #Create a dictionary of features lists
+            features_list = {}
+            for j in range(nloop):
+                feat = []
+                for f in features:
+                    feat.append(jet_string+str(j)+"_"+f)
+                features_list[j] = feat
+
+            #Now make prediction per each jet
+            #Empty jets (i.e. with pt<0) assigned probability is -1
+
+            print('\n')
+            print("   Running on test sample. This may take a moment. . .")
+            
+            #print("ATTENTION!!!! ONLY 1 JET ON PURPOSEEEE")
+            #nloop = 1
+
+            for j in range(nloop):
+                #print("Jet n. : ", j)
+                #print(df_test[ features_list[j] ])
+                mask = df_test[jet_string+str(j)+"_pt"].values<=0.
+                probs = model.predict(df_test[features_list[j]].values.astype(dtype='float32'))
+                #First assign predicted probabilities
+                df_test[jet_string + str(j) + "_sigprob"] = probs[:,1]
+                #Then remove probabilities of empty jets, setting them to -1.
+                df_test[jet_string + str(j) + "_sigprob"] = df_test[jet_string + str(j) + "_sigprob"].mask(mask, -1.)
+                #print(df_test[ [ jet_string + str(j) + "_pt" ,  jet_string + str(j) + "_sigprob"] ])
 
 
+            #Now we want to count the number of tagged jets
+            print("   Counting number of tagged jets, cut based approach. . .")
+
+            #Define variables to counts nTags
+            var_tag_sigprob = []
+            if jet_type=="AK4jets":
+            ######
+                cut_based_vars = {
+                    "pt" : {"min" : 30, "max" : 1.e10},
+                    "timeRecHitsEB" : {"min" : 0.09, "max" : 999.e+10},
+                    "gammaMaxET" : {"min" : -100.-10., "max" : 0.16},
+                    "minDeltaRPVTracks" : {"min" : 0.06, "max" : 999.+10.},
+                    "cHadEFrac" : {"min" : -1., "max" : 0.06},
+                    "muEFrac" : {"min" : -1., "max" : 0.6},
+                    "eleEFrac" : {"min" : -1., "max" : 0.6},
+                    "photonEFrac" : {"min" : -1., "max" : 0.8},
+                }
+                var_tag_cutbased_JJ = {}
+                for j in range(nloop):
+                    var_tag_sigprob.append(jet_string+str(j)+"_sigprob")
+                for c in cut_based_vars.keys():
+                    temp_list = []
+                    for j in range(nloop):
+                        temp_list.append(jet_string+str(j)+"_"+c)
+                        var_tag_cutbased_JJ[c] = temp_list
+
+                #print(cut_based_vars)
+
+                mask_list = []
+                for c in cut_based_vars.keys():
+                    mask_temp = (df_test[ var_tag_cutbased_JJ[c]  ].values<cut_based_vars[c]['max']) & (df_test[ var_tag_cutbased_JJ[c]  ].values>cut_based_vars[c]['min'])
+                    #print("mask[c] ", mask[c])
+                    mask_list.append(mask_temp)
+
+                ms = mask_list[0]
+                for  m in mask_list:
+                    ms = (ms) & (m)
+
+
+                #print("with loop:  ", ms)
+                #print("how many survived?")
+                surv = np.sum(ms == True, axis=1)
+                print(surv)
+                df_test['nTags_cutbased'] = surv
+
+
+            elif jet_type=="AK8jets":
+            ######
+                cut_based_vars = {
+                    "pt" : {"min" : 170, "max" : 1.e15},
+                    #missing one cut: FatJets->at(j).energyRecHitsHB/FatJets->at(j).energy>0.03 and FatJets->at(j).energyRecHitsHB>-1.
+                    #"timeRecHitsEB" : {"min" : -0.296, "max" : 0.296},
+                    "gammaMaxET" : {"min" : -100.-10., "max" : 0.02},
+                    "cHadEFrac" : {"min" : -1., "max" : 0.03},
+                }
+                var_tag_cutbased_JJ = {}
+                for j in range(nloop):
+                    var_tag_sigprob.append(jet_string+str(j)+"_sigprob")
+                for c in cut_based_vars.keys():
+                    temp_list = []
+                    for j in range(nloop):
+                        temp_list.append(jet_string+str(j)+"_"+c)
+                        var_tag_cutbased_JJ[c] = temp_list
+
+                #print(var_tag_cutbased_JJ)
+                #print(cut_based_vars)
+
+                mask_list = []
+                for c in cut_based_vars.keys():
+                    mask_temp = (df_test[ var_tag_cutbased_JJ[c]  ].values<cut_based_vars[c]['max']) & (df_test[ var_tag_cutbased_JJ[c]  ].values>cut_based_vars[c]['min'])
+                    #print("mask[c] ", mask[c])
+                    mask_list.append(mask_temp)
+
+                ms = mask_list[0]
+                for  m in mask_list:
+                    ms = (ms) & (m)
+
+
+                #print("with loop:  ", ms)
+                #print("how many survived?")
+                surv = np.sum(ms == True, axis=1)
+                #print(surv)
+                df_test['nTags_cutbased'] = surv
+
+
+
+
+            print("   Calculating n. tagged jets with different DNN output scores...")
+            #wp_sigprob = [0.5,0.6,0.7,0.8,0.9,0.95,0.975]
+            wp_sigprob = [0.9,0.95,0.96,0.97,0.98,0.99,0.995,0.9975]
+            #wp_cHadEFrac = [0.2,0.1,0.05,0.02]
+
+            for wp in wp_sigprob:
+                print("   working point: ", wp)
+                startTime = time.time()
+                name = str(wp).replace(".","p")
+                #This loop works but it's slow
+                #df_test['nTags_sigprob_wp'+name] = df_test[ df_test[var_tag_sigprob] > wp ].count(axis=1)
+                #print(df_test['nTags_sigprob_wp'+name].values)
+                oneTime = time.time()
+
+                cut_vars = {
+                    "pt" : {"min" : 30, "max" : 1.e10},
+                    "sigprob" : {"min" : wp, "max" : 1.e10},
+                    "muEFrac" : {"min" : -1., "max" : 0.6},
+                    "eleEFrac" : {"min" : -1., "max" : 0.6},
+                    "photonEFrac" : {"min" : -1., "max" : 0.8},
+                }
+                var_tag = {}
+                for c in cut_vars.keys():
+                    temp_list = []
+                    for j in range(nloop):
+                        temp_list.append(jet_string+str(j)+"_"+c)
+                        var_tag[c] = temp_list
+
+                mask_list = []
+                for c in cut_vars.keys():
+                    mask_temp = (df_test[ var_tag[c]  ].values<cut_vars[c]['max']) & (df_test[ var_tag[c]  ].values>cut_vars[c]['min'])
+                    #print("mask[c] ", mask[c])
+                    mask_list.append(mask_temp)
+
+                ms = mask_list[0]
+                for  m in mask_list:
+                    ms = (ms) & (m)
+
+
+                #print("with loop:  ", ms)
+                #print("how many survived?")
+                surv = np.sum(ms == True, axis=1)
+                #print(surv)
+                df_test['nTags_sigprob_wp'+name] = surv
+
+                '''
+                mask = df_test[ var_tag_sigprob ].values>wp
+                df_test['nTags_sigprob_wp'+name] = np.sum(mask == True, axis=1)
+                #print(df_test['nTags_sigprob_wp'+name].values)
+                '''
+                twoTime = time.time()
+                
+                print("  * * * * * * * * * * * * * * * * * * * * * * *")
+                #print("  Time needed with old method: %.2f seconds" % (oneTime - startTime))
+                print("  Time needed with new method: %.2f seconds" % (twoTime - oneTime))
+                print("  * * * * * * * * * * * * * * * * * * * * * * *")
+            #Now we can write the test output
+
+            OUT = result_folder+signal_model+'/'
+            if not os.path.isdir(OUT):
+                os.mkdir(OUT)
+
+            OUT += jet_type + '/'
+            if not os.path.isdir(OUT):
+                os.mkdir(OUT)
+
+            OUT += 'model_'+model_def+'_'+model_label+'/'
+            if not os.path.isdir(OUT):
+                os.mkdir(OUT)
+
+            #print(OUT)
+            print("   Creating root file . . .")
+
+            newFile = TFile(OUT+sample+'.root', 'recreate')
+            newFile.cd()
+
+            for n, a in enumerate(list(df_test.columns)):
+                arr = np.array(df_test[a].values, dtype=[(a, np.float32)])#64?
+                ###print(a, " values: ", arr)
+                ###array2root(arr, output_root_folder+'/model_'+model_label+'/'+sample+'.root', mode='update')#mode='recreate' if n==0 else 'update')
+                if n==0: skim = array2tree(arr)
+                else: array2tree(arr, tree=skim)#mode='recreate' if n==0 else 'update')
+
+            skim.Write()
+            ##Recreate c_nEvents histogram
+            #Giving errors, skip, TOBEFIXED!
+            
+            counter = TH1F("c_nEvents", "Event Counter", 1, 0., 1.)
+            counter.Sumw2()
+            ##Fill counter histogram with the first entry of c_nEvents
+            counter.Fill(0., df_test["c_nEvents"].values[0])
+            ##print("counter bin content: ", counter.GetBinContent(1))
+            counter.Write()
+            
+            newFile.Close()
+            ##print('\n')
+            print("   Written: ", OUT+sample+'.root')
+            ##counter.Delete()
 
 
 

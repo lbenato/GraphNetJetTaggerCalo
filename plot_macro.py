@@ -62,8 +62,8 @@ def plot(filename,var,weight,minval,maxval,nbins):
 for w in ["EventWeightNormalized"]:
     #plot("val","Jet_pt",w,0,500,50)
     #plot("val","Jet_eta",w,-2,2,50)
-    #plot("val","HT",w,0,2000,50)
-    #plot("val","MEt_pt",w,100,3100,50)
+    plot("val","HT",w,0,500,50)
+    plot("val","MEt_pt",w,0,200,50)#100, 3100
     #plot("val","Jet_eleEFrac",w,0,1,50)
     #plot("val","Jet_cHadEFrac",w,0,1,50)
     #plot("val","Jet_nHadEFrac",w,0,1,50)
@@ -93,7 +93,7 @@ for w in ["EventWeightNormalized"]:
     #plot("val","Jet_ptAllPVTracks",w,0,500,50)
     #plot("val","Jet_ptPVTracksMax",w,0,500,50)
     #plot("val","dxy_0",w,-50,50,50)
-    plot("val","dxy_29",w,-50,50,50)
+    #plot("val","dxy_29",w,-50,50,50)
     #plot("val","dxy_29",w,-20000,20000,50)
 
 'ptAllTracks', 'ptAllPVTracks', 'ptPVTracksMax', 'nTracksAll', 'nTracksPVMax',

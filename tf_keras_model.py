@@ -323,31 +323,94 @@ def get_FCN_jets(num_classes, input_shapes):
     #model 0
     #model = keras.models.Sequential(name="FCN")
     #model.add(keras.layers.Dense(16, input_shape = input_shapes, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.3))
+    #model.add(keras.layers.Dropout(rate=0.2))#0.3
     #model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     #more complex:
     #model 1
     #model = keras.models.Sequential(name="FCN")
-    #model.add(keras.layers.Dense(32, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dense(32, input_shape = input_shapes))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(16))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(8))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+    #model 2, accuracy of training drops for some reasons...
+    #dropout at 0.2
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(64, input_shape = input_shapes, activation='relu', name='input'))
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(32, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(16, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax', name='output'))
+
+    #model 2, accuracy of training drops for some reasons...
+    #dropout at 0.1
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(64, input_shape = input_shapes, activation='relu', name='input'))
+    #model.add(keras.layers.Dropout(rate=0.1))
+    #model.add(keras.layers.Dense(32, activation='relu'))
     #model.add(keras.layers.Dropout(rate=0.1))
     #model.add(keras.layers.Dense(16, activation='relu'))
     #model.add(keras.layers.Dropout(rate=0.1))
     #model.add(keras.layers.Dense(8, activation='relu'))
     #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax', name='output'))
+
+    #ReLU and layer norm
+    #dropout at 0.2
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(64, input_shape = input_shapes, name='input'))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    ##model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(32))
+
+    ##model.add(keras.layers.Dense(32, input_shape = input_shapes, name='input'))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    ##model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(16))
+    #model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    ##model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(8))
+    ##model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.ReLU())
+    ##model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax', name='output'))
+
 
     #model 2, accuracy of training drops for some reasons...
-    model = keras.models.Sequential(name="FCN")
-    model.add(keras.layers.Dense(64, input_shape = input_shapes, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(32, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(16, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(8, activation='relu'))
-    model.add(keras.layers.Dropout(rate=0.1))
-    model.add(keras.layers.Dense(num_classes, activation='softmax'))
+    #Leaky relu
+    #dropout at 0.2
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(64, input_shape = input_shapes, name='input'))
+    #model.add(keras.layers.LeakyReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(32))
+    #model.add(keras.layers.LeakyReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(16))
+    #model.add(keras.layers.LeakyReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(8))
+    #model.add(keras.layers.LeakyReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    #model.add(keras.layers.Dense(num_classes, activation='softmax', name='output'))
+
 
     #model 3 is model 2 w/o dropout
     #model = keras.models.Sequential(name="FCN")
@@ -362,20 +425,32 @@ def get_FCN_jets(num_classes, input_shapes):
     #model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     #model 4, more layers
-    #model = keras.models.Sequential(name="FCN")
-    #model.add(keras.layers.Dense(128, input_shape = input_shapes, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(64, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(32, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(16, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(8, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(4, activation='relu'))
-    #model.add(keras.layers.Dropout(rate=0.1))
-    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+    model = keras.models.Sequential(name="FCN")
+    model.add(keras.layers.Dense(128, input_shape = input_shapes))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(64))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(32))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(16))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(8))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(4))
+    model.add(keras.layers.LayerNormalization())
+    model.add(keras.layers.ReLU())
+    #model.add(keras.layers.Dropout(rate=0.2))
+    model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     #model 5, like model 2 but more dropout and linear activations in between# and batch norm
     #model = keras.models.Sequential(name="FCN")
@@ -458,6 +533,16 @@ def get_FCN_jets(num_classes, input_shapes):
     #model.add(keras.layers.Dense(4, activation='relu'))
     ##model.add(keras.layers.Dropout(rate=0.1))
     ##model.add(keras.layers.LayerNormalization())
+    #model.add(keras.layers.Dense(num_classes, activation='softmax'))
+
+    #model thumb, rule of thumbs
+    #model = keras.models.Sequential(name="FCN")
+    #model.add(keras.layers.Dense(16, input_shape = input_shapes, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.3))
+    #model.add(keras.layers.Dense(8, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.3))
+    #model.add(keras.layers.Dense(4, activation='relu'))
+    #model.add(keras.layers.Dropout(rate=0.3))
     #model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     return model
