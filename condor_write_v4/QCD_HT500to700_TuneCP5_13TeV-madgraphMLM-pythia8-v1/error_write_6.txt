@@ -1,0 +1,82 @@
++ '[' '' '!=' -htcpart2 ']'
++ checkexist klist keyctl aklog awk cut
++ for prog in '"$@"'
++ hash klist
++ for prog in '"$@"'
++ hash keyctl
++ for prog in '"$@"'
++ hash aklog
++ for prog in '"$@"'
++ hash awk
++ for prog in '"$@"'
++ hash cut
++ klist -s
++ export master_ring=@u
++ master_ring=@u
++ '[' -n '' ']'
++ checkexist grep xargs getent
++ for prog in '"$@"'
++ hash grep
++ for prog in '"$@"'
++ hash xargs
++ for prog in '"$@"'
++ hash getent
+++ klist
+++ grep 'Default principal'
+++ cut '-d ' -f3
+++ cut -d@ -f1
+++ cut -d/ -f1
+++ xargs getent passwd
++ id='heikenju:*:36344:1028:Julia Catharina Heiken,68/120,2137:/afs/desy.de/user/h/heikenju:/bin/bash'
+++ echo 'heikenju:*:36344:1028:Julia Catharina Heiken,68/120,2137:/afs/desy.de/user/h/heikenju:/bin/bash'
+++ cut -d: -f3
++ id=36344
++ export uid_ring_name=htcondor_uid36344
++ uid_ring_name=htcondor_uid36344
++ keyctl session htcondor_uid36344 /usr/sbin/condor_aklog -htcpart2
++ awk '/^Joined session key/ { next }
+   /^aklog_real_exit_code/ { exit $2 }
+   { print $0 }
+  ' -
++ exit 0
++ '[' '' '!=' -htcpart2 ']'
++ checkexist klist keyctl aklog awk cut
++ for prog in '"$@"'
++ hash klist
++ for prog in '"$@"'
++ hash keyctl
++ for prog in '"$@"'
++ hash aklog
++ for prog in '"$@"'
++ hash awk
++ for prog in '"$@"'
++ hash cut
++ klist -s
++ export master_ring=@u
++ master_ring=@u
++ '[' -n '' ']'
++ checkexist grep xargs getent
++ for prog in '"$@"'
++ hash grep
++ for prog in '"$@"'
++ hash xargs
++ for prog in '"$@"'
++ hash getent
+++ klist
+++ grep 'Default principal'
+++ cut -d@ -f1
+++ cut -d/ -f1
+++ cut '-d ' -f3
+++ xargs getent passwd
++ id='heikenju:*:36344:1028:Julia Catharina Heiken,68/120,2137:/afs/desy.de/user/h/heikenju:/bin/bash'
+++ echo 'heikenju:*:36344:1028:Julia Catharina Heiken,68/120,2137:/afs/desy.de/user/h/heikenju:/bin/bash'
+++ cut -d: -f3
++ id=36344
++ export uid_ring_name=htcondor_uid36344
++ uid_ring_name=htcondor_uid36344
++ awk '/^Joined session key/ { next }
+   /^aklog_real_exit_code/ { exit $2 }
+   { print $0 }
+  ' -
++ keyctl session htcondor_uid36344 /usr/sbin/condor_aklog -htcpart2
++ exit 0

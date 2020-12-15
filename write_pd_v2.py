@@ -72,7 +72,7 @@ def write_h5_v2(folder,output_folder,file_name,xs,LUMI,cols,tree_name="",counter
     print(df)
 
     #add is_signal flag
-    df["is_signal"] = np.ones(nevents) if (("n3n2" in folder) or ("H2ToSSTobbbb" in folder)) else np.zeros(nevents)
+    df["is_signal"] = np.ones(nevents) if (("n3n2" in folder) or ("H2ToSSTobbbb" in folder) or ("TChiHH" in folder)) else np.zeros(nevents)
     df["c_nEvents"] = np.ones(nevents) * nevents_gen
     df["EventWeight"] = df["EventWeight"]*tree_weight
     df["SampleWeight"] = np.ones(nevents) * tree_weight

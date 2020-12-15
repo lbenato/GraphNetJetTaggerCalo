@@ -1,0 +1,51 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/n3n2-n1-hbb-hbb_mh300_pl1000/
+
+
+
+
+   Initialized df for sample:  output_1.root
+  n events gen.:  51714.0
+   Tree weight:    328.78901167962255
+   Reading n. events in tree:  12503
+   Cut applied:  
+   Events passing cuts:  12503
+
+
+       EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0                4  ...                                  -1
+1               22  ...                                  -1
+2               41  ...                                  -1
+3               53  ...                                  -1
+4               66  ...                                  -1
+...            ...  ...                                 ...
+12498        99975  ...                                  -1
+12499        99974  ...                                  -1
+12500        99988  ...                                  -1
+12501        99979  ...                                  -1
+12502        99995  ...                                  -1
+
+[12503 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 133.82 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+       EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0                4          1           1  ...        1.0    51714.0    328.789012
+1               22          1           1  ...        1.0    51714.0    328.789012
+2               41          1           1  ...        1.0    51714.0    328.789012
+3               53          1           1  ...        1.0    51714.0    328.789012
+4               66          1           1  ...        1.0    51714.0    328.789012
+...            ...        ...         ...  ...        ...        ...           ...
+12498        99975          1        1000  ...        1.0    51714.0    328.789012
+12499        99974          1        1000  ...        1.0    51714.0    328.789012
+12500        99988          1        1000  ...        1.0    51714.0    328.789012
+12501        99979          1        1000  ...        1.0    51714.0    328.789012
+12502        99995          1        1000  ...        1.0    51714.0    328.789012
+
+[12503 rows x 6951 columns]
+  -------------------   
+  Events :  12503
+Opening /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/n3n2-n1-hbb-hbb_mh300_pl1000//output_1.h5 in read-only mode

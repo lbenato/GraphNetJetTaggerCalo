@@ -1,0 +1,2600 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_140.root
+  n events gen.:  66456.5078125
+   Tree weight:    1252.9630692441826
+   Reading n. events in tree:  620
+   Cut applied:  
+   Events passing cuts:  620
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       53512231  ...                                  -1
+1       53513112  ...                                  -1
+2       62719138  ...                                  -1
+3       62719457  ...                                  -1
+4       62720620  ...                                  -1
+..           ...  ...                                 ...
+615     75152902  ...                                  -1
+616     75153226  ...                                  -1
+617     75154001  ...                                  -1
+618     75165443  ...                                  -1
+619     75165981  ...                                  -1
+
+[620 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 9.53 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       53512231          1       80349  ...        0.0  66456.507812   1252.963069
+1       53513112          1       80351  ...        0.0  66456.507812   1252.963069
+2       62719138          1       94173  ...        0.0  66456.507812   1252.963069
+3       62719457          1       94174  ...        0.0  66456.507812   1252.963069
+4       62720620          1       94176  ...        0.0  66456.507812   1252.963069
+..           ...        ...         ...  ...        ...           ...           ...
+615     75152902          1      112843  ...        0.0  66456.507812   1252.963069
+616     75153226          1      112843  ...        0.0  66456.507812   1252.963069
+617     75154001          1      112844  ...        0.0  66456.507812   1252.963069
+618     75165443          1      112862  ...        0.0  66456.507812   1252.963069
+619     75165981          1      112862  ...        0.0  66456.507812   1252.963069
+
+[620 rows x 6951 columns]
+  -------------------   
+  Events :  620
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_140.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_113.root
+  n events gen.:  66250.75
+   Tree weight:    1256.8544507043316
+   Reading n. events in tree:  592
+   Cut applied:  
+   Events passing cuts:  592
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       14056712  ...                                  -1
+1       14056980  ...                                  -1
+2       14177462  ...                                  -1
+3       14519377  ...                                  -1
+4       14519386  ...                                  -1
+..           ...  ...                                 ...
+587     44582729  ...                                  -1
+588     44582974  ...                                  -1
+589     44583548  ...                                  -1
+590     44584321  ...                                  -1
+591     44584633  ...                                  -1
+
+[592 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 9.03 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0       14056712          1       21107  ...        0.0   66250.75   1256.854451
+1       14056980          1       21107  ...        0.0   66250.75   1256.854451
+2       14177462          1       21288  ...        0.0   66250.75   1256.854451
+3       14519377          1       21801  ...        0.0   66250.75   1256.854451
+4       14519386          1       21801  ...        0.0   66250.75   1256.854451
+..           ...        ...         ...  ...        ...        ...           ...
+587     44582729          1       66942  ...        0.0   66250.75   1256.854451
+588     44582974          1       66942  ...        0.0   66250.75   1256.854451
+589     44583548          1       66943  ...        0.0   66250.75   1256.854451
+590     44584321          1       66944  ...        0.0   66250.75   1256.854451
+591     44584633          1       66944  ...        0.0   66250.75   1256.854451
+
+[592 rows x 6951 columns]
+  -------------------   
+  Events :  592
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_113.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-100.root
+  n events gen.:  10998.5546875
+   Tree weight:    7570.772011947593
+   Reading n. events in tree:  106
+   Cut applied:  
+   Events passing cuts:  106
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      184551136  ...                                  -1
+1      184644578  ...                                  -1
+2      184645636  ...                                  -1
+3      184645832  ...                                  -1
+4      184646017  ...                                  -1
+..           ...  ...                                 ...
+101    166358193  ...                                  -1
+102    166358429  ...                                  -1
+103    166358427  ...                                  -1
+104    166358742  ...                                  -1
+105    166358714  ...                                  -1
+
+[106 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 5.51 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      184551136          1      277104  ...        0.0  10998.554688   7570.772012
+1      184644578          1      277245  ...        0.0  10998.554688   7570.772012
+2      184645636          1      277246  ...        0.0  10998.554688   7570.772012
+3      184645832          1      277246  ...        0.0  10998.554688   7570.772012
+4      184646017          1      277247  ...        0.0  10998.554688   7570.772012
+..           ...        ...         ...  ...        ...           ...           ...
+101    166358193          1      249788  ...        0.0  10998.554688   7570.772012
+102    166358429          1      249788  ...        0.0  10998.554688   7570.772012
+103    166358427          1      249788  ...        0.0  10998.554688   7570.772012
+104    166358742          1      249788  ...        0.0  10998.554688   7570.772012
+105    166358714          1      249788  ...        0.0  10998.554688   7570.772012
+
+[106 rows x 6951 columns]
+  -------------------   
+  Events :  106
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-100.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-67.root
+  n events gen.:  11199.298828125
+   Tree weight:    7435.068148274489
+   Reading n. events in tree:  84
+   Cut applied:  
+   Events passing cuts:  84
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      94103349  ...                                  -1
+1      94103696  ...                                  -1
+2      94105740  ...                                  -1
+3      95091828  ...                                  -1
+4      95092257  ...                                  -1
+..          ...  ...                                 ...
+79     94649250  ...                                  -1
+80    102161852  ...                                  -1
+81    106578738  ...                                  -1
+82    106580864  ...                                  -1
+83    108972170  ...                                  -1
+
+[84 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 5.22 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      94103349          1      141297  ...        0.0  11199.298828   7435.068148
+1      94103696          1      141297  ...        0.0  11199.298828   7435.068148
+2      94105740          1      141300  ...        0.0  11199.298828   7435.068148
+3      95091828          1      142781  ...        0.0  11199.298828   7435.068148
+4      95092257          1      142782  ...        0.0  11199.298828   7435.068148
+..          ...        ...         ...  ...        ...           ...           ...
+79     94649250          1      142116  ...        0.0  11199.298828   7435.068148
+80    102161852          1      153397  ...        0.0  11199.298828   7435.068148
+81    106578738          1      160029  ...        0.0  11199.298828   7435.068148
+82    106580864          1      160032  ...        0.0  11199.298828   7435.068148
+83    108972170          1      163622  ...        0.0  11199.298828   7435.068148
+
+[84 rows x 6951 columns]
+  -------------------   
+  Events :  84
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-67.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_1-91.root
+  n events gen.:  14311.2421875
+   Tree weight:    5818.33141449658
+   Reading n. events in tree:  143
+   Cut applied:  
+   Events passing cuts:  143
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      126409543  ...                                  -1
+1      126410058  ...                                  -1
+2      126665520  ...                                  -1
+3      132773213  ...                                  -1
+4      132773434  ...                                  -1
+..           ...  ...                                 ...
+138    130415237  ...                                  -1
+139    130415647  ...                                  -1
+140    130415864  ...                                  -1
+141    126258372  ...                                  -1
+142    126258848  ...                                  -1
+
+[143 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 5.91 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      126409543          1      189805  ...        0.0  14311.242188   5818.331414
+1      126410058          1      189805  ...        0.0  14311.242188   5818.331414
+2      126665520          1      190189  ...        0.0  14311.242188   5818.331414
+3      132773213          1      199360  ...        0.0  14311.242188   5818.331414
+4      132773434          1      199360  ...        0.0  14311.242188   5818.331414
+..           ...        ...         ...  ...        ...           ...           ...
+138    130415237          1      195819  ...        0.0  14311.242188   5818.331414
+139    130415647          1      195820  ...        0.0  14311.242188   5818.331414
+140    130415864          1      195820  ...        0.0  14311.242188   5818.331414
+141    126258372          1      189578  ...        0.0  14311.242188   5818.331414
+142    126258848          1      189578  ...        0.0  14311.242188   5818.331414
+
+[143 rows x 6951 columns]
+  -------------------   
+  Events :  143
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_1-91.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_335.root
+  n events gen.:  58849.48046875
+   Tree weight:    1414.9241307952816
+   Reading n. events in tree:  506
+   Cut applied:  
+   Events passing cuts:  506
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      146869153  ...                                  -1
+1      146870685  ...                                  -1
+2      146870810  ...                                  -1
+3      146871178  ...                                  -1
+4      146895913  ...                                  -1
+..           ...  ...                                 ...
+501    161812097  ...                                  -1
+502    161812226  ...                                  -1
+503    161812956  ...                                  -1
+504    161819985  ...                                  -1
+505    161820064  ...                                  -1
+
+[506 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.54 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      146869153          1      220525  ...        0.0  58849.480469   1414.924131
+1      146870685          1      220527  ...        0.0  58849.480469   1414.924131
+2      146870810          1      220527  ...        0.0  58849.480469   1414.924131
+3      146871178          1      220528  ...        0.0  58849.480469   1414.924131
+4      146895913          1      220565  ...        0.0  58849.480469   1414.924131
+..           ...        ...         ...  ...        ...           ...           ...
+501    161812097          1      242962  ...        0.0  58849.480469   1414.924131
+502    161812226          1      242962  ...        0.0  58849.480469   1414.924131
+503    161812956          1      242963  ...        0.0  58849.480469   1414.924131
+504    161819985          1      242973  ...        0.0  58849.480469   1414.924131
+505    161820064          1      242974  ...        0.0  58849.480469   1414.924131
+
+[506 rows x 6951 columns]
+  -------------------   
+  Events :  506
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_335.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_368.root
+  n events gen.:  66163.4765625
+   Tree weight:    1258.512314136682
+   Reading n. events in tree:  579
+   Cut applied:  
+   Events passing cuts:  579
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      142843504  ...                                  -1
+1      148205062  ...                                  -1
+2      149674935  ...                                  -1
+3      149675886  ...                                  -1
+4      149675944  ...                                  -1
+..           ...  ...                                 ...
+574    196019349  ...                                  -1
+575    196019534  ...                                  -1
+576    196070886  ...                                  -1
+577    196071356  ...                                  -1
+578    196072253  ...                                  -1
+
+[579 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.05 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      142843504          1      214480  ...        0.0  66163.476562   1258.512314
+1      148205062          1      222531  ...        0.0  66163.476562   1258.512314
+2      149674935          1      224738  ...        0.0  66163.476562   1258.512314
+3      149675886          1      224739  ...        0.0  66163.476562   1258.512314
+4      149675944          1      224739  ...        0.0  66163.476562   1258.512314
+..           ...        ...         ...  ...        ...           ...           ...
+574    196019349          1      294324  ...        0.0  66163.476562   1258.512314
+575    196019534          1      294324  ...        0.0  66163.476562   1258.512314
+576    196070886          1      294401  ...        0.0  66163.476562   1258.512314
+577    196071356          1      294402  ...        0.0  66163.476562   1258.512314
+578    196072253          1      294403  ...        0.0  66163.476562   1258.512314
+
+[579 rows x 6951 columns]
+  -------------------   
+  Events :  579
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_368.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_99.root
+  n events gen.:  61678.41015625
+   Tree weight:    1350.0275021528312
+   Reading n. events in tree:  536
+   Cut applied:  
+   Events passing cuts:  536
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0        8062791  ...                                  -1
+1        8063277  ...                                  -1
+2        8067126  ...                                  -1
+3        8068906  ...                                  -1
+4        8072111  ...                                  -1
+..           ...  ...                                 ...
+531     39227876  ...                                  -1
+532     39227956  ...                                  -1
+533     39227933  ...                                  -1
+534     39228046  ...                                  -1
+535     39228645  ...                                  -1
+
+[536 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.62 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0        8062791          1       12107  ...        0.0  61678.410156   1350.027502
+1        8063277          1       12108  ...        0.0  61678.410156   1350.027502
+2        8067126          1       12113  ...        0.0  61678.410156   1350.027502
+3        8068906          1       12116  ...        0.0  61678.410156   1350.027502
+4        8072111          1       12121  ...        0.0  61678.410156   1350.027502
+..           ...        ...         ...  ...        ...           ...           ...
+531     39227876          1       58901  ...        0.0  61678.410156   1350.027502
+532     39227956          1       58901  ...        0.0  61678.410156   1350.027502
+533     39227933          1       58901  ...        0.0  61678.410156   1350.027502
+534     39228046          1       58901  ...        0.0  61678.410156   1350.027502
+535     39228645          1       58902  ...        0.0  61678.410156   1350.027502
+
+[536 rows x 6951 columns]
+  -------------------   
+  Events :  536
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_99.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-28.root
+  n events gen.:  9884.8359375
+   Tree weight:    8423.766517369171
+   Reading n. events in tree:  83
+   Cut applied:  
+   Events passing cuts:  83
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       1556134  ...                                  -1
+1       1556209  ...                                  -1
+2       1556445  ...                                  -1
+3       1556845  ...                                  -1
+4       1557648  ...                                  -1
+..          ...  ...                                 ...
+78     44450048  ...                                  -1
+79     44473031  ...                                  -1
+80     44473872  ...                                  -1
+81     44474087  ...                                  -1
+82     44474270  ...                                  -1
+
+[83 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.94 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0       1556134          1        2337  ...        0.0  9884.835938   8423.766517
+1       1556209          1        2337  ...        0.0  9884.835938   8423.766517
+2       1556445          1        2338  ...        0.0  9884.835938   8423.766517
+3       1556845          1        2338  ...        0.0  9884.835938   8423.766517
+4       1557648          1        2339  ...        0.0  9884.835938   8423.766517
+..          ...        ...         ...  ...        ...          ...           ...
+78     44450048          1       66742  ...        0.0  9884.835938   8423.766517
+79     44473031          1       66777  ...        0.0  9884.835938   8423.766517
+80     44473872          1       66778  ...        0.0  9884.835938   8423.766517
+81     44474087          1       66778  ...        0.0  9884.835938   8423.766517
+82     44474270          1       66779  ...        0.0  9884.835938   8423.766517
+
+[83 rows x 6951 columns]
+  -------------------   
+  Events :  83
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-28.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2.root
+  n events gen.:  66456.421875
+   Tree weight:    1252.9646895016494
+   Reading n. events in tree:  578
+   Cut applied:  
+   Events passing cuts:  578
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0        1927559  ...                                  -1
+1        1927819  ...                                  -1
+2        1974393  ...                                  -1
+3        1990176  ...                                  -1
+4        1990655  ...                                  -1
+..           ...  ...                                 ...
+573     40073250  ...                                  -1
+574     40073802  ...                                  -1
+575     42560357  ...                                  -1
+576     42560390  ...                                  -1
+577     42560362  ...                                  -1
+
+[578 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.74 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0        1927559          1        2895  ...        0.0  66456.421875    1252.96469
+1        1927819          1        2895  ...        0.0  66456.421875    1252.96469
+2        1974393          1        2965  ...        0.0  66456.421875    1252.96469
+3        1990176          1        2989  ...        0.0  66456.421875    1252.96469
+4        1990655          1        2989  ...        0.0  66456.421875    1252.96469
+..           ...        ...         ...  ...        ...           ...           ...
+573     40073250          1       60171  ...        0.0  66456.421875    1252.96469
+574     40073802          1       60171  ...        0.0  66456.421875    1252.96469
+575     42560357          1       63905  ...        0.0  66456.421875    1252.96469
+576     42560390          1       63905  ...        0.0  66456.421875    1252.96469
+577     42560362          1       63905  ...        0.0  66456.421875    1252.96469
+
+[578 rows x 6951 columns]
+  -------------------   
+  Events :  578
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_369.root
+  n events gen.:  61412.41796875
+   Tree weight:    1355.874801125256
+   Reading n. events in tree:  558
+   Cut applied:  
+   Events passing cuts:  558
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      148568622  ...                                  -1
+1      148568735  ...                                  -1
+2      148571051  ...                                  -1
+3      149559397  ...                                  -1
+4      149978062  ...                                  -1
+..           ...  ...                                 ...
+553    173322125  ...                                  -1
+554    173322171  ...                                  -1
+555    173645535  ...                                  -1
+556    173646675  ...                                  -1
+557    181502235  ...                                  -1
+
+[558 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.73 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      148568622          1      223077  ...        0.0  61412.417969   1355.874801
+1      148568735          1      223077  ...        0.0  61412.417969   1355.874801
+2      148571051          1      223080  ...        0.0  61412.417969   1355.874801
+3      149559397          1      224564  ...        0.0  61412.417969   1355.874801
+4      149978062          1      225193  ...        0.0  61412.417969   1355.874801
+..           ...        ...         ...  ...        ...           ...           ...
+553    173322125          1      260244  ...        0.0  61412.417969   1355.874801
+554    173322171          1      260244  ...        0.0  61412.417969   1355.874801
+555    173645535          1      260730  ...        0.0  61412.417969   1355.874801
+556    173646675          1      260731  ...        0.0  61412.417969   1355.874801
+557    181502235          1      272526  ...        0.0  61412.417969   1355.874801
+
+[558 rows x 6951 columns]
+  -------------------   
+  Events :  558
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_369.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_242.root
+  n events gen.:  66132.9140625
+   Tree weight:    1259.0939198793906
+   Reading n. events in tree:  603
+   Cut applied:  
+   Events passing cuts:  603
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       83847380  ...                                  -1
+1       83847877  ...                                  -1
+2       83848091  ...                                  -1
+3       83848223  ...                                  -1
+4       83849021  ...                                  -1
+..           ...  ...                                 ...
+598    105043177  ...                                  -1
+599    105043425  ...                                  -1
+600    135120911  ...                                  -1
+601    135121417  ...                                  -1
+602    135122001  ...                                  -1
+
+[603 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.76 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       83847380          1      125897  ...        0.0  66132.914062    1259.09392
+1       83847877          1      125898  ...        0.0  66132.914062    1259.09392
+2       83848091          1      125899  ...        0.0  66132.914062    1259.09392
+3       83848223          1      125899  ...        0.0  66132.914062    1259.09392
+4       83849021          1      125900  ...        0.0  66132.914062    1259.09392
+..           ...        ...         ...  ...        ...           ...           ...
+598    105043177          1      157723  ...        0.0  66132.914062    1259.09392
+599    105043425          1      157723  ...        0.0  66132.914062    1259.09392
+600    135120911          1      202885  ...        0.0  66132.914062    1259.09392
+601    135121417          1      202886  ...        0.0  66132.914062    1259.09392
+602    135122001          1      202886  ...        0.0  66132.914062    1259.09392
+
+[603 rows x 6951 columns]
+  -------------------   
+  Events :  603
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_242.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_289.root
+  n events gen.:  52628.73828125
+   Tree weight:    1582.168843855139
+   Reading n. events in tree:  470
+   Cut applied:  
+   Events passing cuts:  470
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       90417435  ...                                  -1
+1       90417535  ...                                  -1
+2       91227353  ...                                  -1
+3       91227646  ...                                  -1
+4       92546161  ...                                  -1
+..           ...  ...                                 ...
+465    113142239  ...                                  -1
+466    113142485  ...                                  -1
+467     90595112  ...                                  -1
+468     90595818  ...                                  -1
+469     90595998  ...                                  -1
+
+[470 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.29 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       90417435          1      135762  ...        0.0  52628.738281   1582.168844
+1       90417535          1      135763  ...        0.0  52628.738281   1582.168844
+2       91227353          1      136979  ...        0.0  52628.738281   1582.168844
+3       91227646          1      136979  ...        0.0  52628.738281   1582.168844
+4       92546161          1      138959  ...        0.0  52628.738281   1582.168844
+..           ...        ...         ...  ...        ...           ...           ...
+465    113142239          1      169884  ...        0.0  52628.738281   1582.168844
+466    113142485          1      169884  ...        0.0  52628.738281   1582.168844
+467     90595112          1      136029  ...        0.0  52628.738281   1582.168844
+468     90595818          1      136030  ...        0.0  52628.738281   1582.168844
+469     90595998          1      136031  ...        0.0  52628.738281   1582.168844
+
+[470 rows x 6951 columns]
+  -------------------   
+  Events :  470
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_289.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-48.root
+  n events gen.:  10995.17578125
+   Tree weight:    7573.098571283926
+   Reading n. events in tree:  120
+   Cut applied:  
+   Events passing cuts:  120
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      141073926  ...                                  -1
+1      141074029  ...                                  -1
+2      141074117  ...                                  -1
+3      141074382  ...                                  -1
+4       85818660  ...                                  -1
+..           ...  ...                                 ...
+115    111982021  ...                                  -1
+116    112916686  ...                                  -1
+117    112916902  ...                                  -1
+118    112917282  ...                                  -1
+119    112918738  ...                                  -1
+
+[120 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 5.13 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      141073926          1      211823  ...        0.0  10995.175781   7573.098571
+1      141074029          1      211823  ...        0.0  10995.175781   7573.098571
+2      141074117          1      211823  ...        0.0  10995.175781   7573.098571
+3      141074382          1      211824  ...        0.0  10995.175781   7573.098571
+4       85818660          1      128857  ...        0.0  10995.175781   7573.098571
+..           ...        ...         ...  ...        ...           ...           ...
+115    111982021          1      168142  ...        0.0  10995.175781   7573.098571
+116    112916686          1      169545  ...        0.0  10995.175781   7573.098571
+117    112916902          1      169545  ...        0.0  10995.175781   7573.098571
+118    112917282          1      169546  ...        0.0  10995.175781   7573.098571
+119    112918738          1      169548  ...        0.0  10995.175781   7573.098571
+
+[120 rows x 6951 columns]
+  -------------------   
+  Events :  120
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-48.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_322.root
+  n events gen.:  66295.140625
+   Tree weight:    1256.0128723612613
+   Reading n. events in tree:  600
+   Cut applied:  
+   Events passing cuts:  600
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      131581497  ...                                  -1
+1      131591589  ...                                  -1
+2      131592348  ...                                  -1
+3      131592433  ...                                  -1
+4      131592773  ...                                  -1
+..           ...  ...                                 ...
+595    135291212  ...                                  -1
+596    135348195  ...                                  -1
+597    135348425  ...                                  -1
+598    135354083  ...                                  -1
+599    135354731  ...                                  -1
+
+[600 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.98 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      131581497          1      197570  ...        0.0  66295.140625   1256.012872
+1      131591589          1      197585  ...        0.0  66295.140625   1256.012872
+2      131592348          1      197587  ...        0.0  66295.140625   1256.012872
+3      131592433          1      197587  ...        0.0  66295.140625   1256.012872
+4      131592773          1      197587  ...        0.0  66295.140625   1256.012872
+..           ...        ...         ...  ...        ...           ...           ...
+595    135291212          1      203140  ...        0.0  66295.140625   1256.012872
+596    135348195          1      203226  ...        0.0  66295.140625   1256.012872
+597    135348425          1      203226  ...        0.0  66295.140625   1256.012872
+598    135354083          1      203235  ...        0.0  66295.140625   1256.012872
+599    135354731          1      203236  ...        0.0  66295.140625   1256.012872
+
+[600 rows x 6951 columns]
+  -------------------   
+  Events :  600
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_322.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_4.root
+  n events gen.:  66282.6953125
+   Tree weight:    1256.2487027333798
+   Reading n. events in tree:  561
+   Cut applied:  
+   Events passing cuts:  561
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0          35494  ...                                  -1
+1          35774  ...                                  -1
+2          36078  ...                                  -1
+3          36363  ...                                  -1
+4          36589  ...                                  -1
+..           ...  ...                                 ...
+556     14009325  ...                                  -1
+557     14009565  ...                                  -1
+558     20466462  ...                                  -1
+559     20466570  ...                                  -1
+560     42641609  ...                                  -1
+
+[561 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.25 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0          35494          1          54  ...        0.0  66282.695312   1256.248703
+1          35774          1          54  ...        0.0  66282.695312   1256.248703
+2          36078          1          55  ...        0.0  66282.695312   1256.248703
+3          36363          1          55  ...        0.0  66282.695312   1256.248703
+4          36589          1          55  ...        0.0  66282.695312   1256.248703
+..           ...        ...         ...  ...        ...           ...           ...
+556     14009325          1       21036  ...        0.0  66282.695312   1256.248703
+557     14009565          1       21036  ...        0.0  66282.695312   1256.248703
+558     20466462          1       30731  ...        0.0  66282.695312   1256.248703
+559     20466570          1       30731  ...        0.0  66282.695312   1256.248703
+560     42641609          1       64027  ...        0.0  66282.695312   1256.248703
+
+[561 rows x 6951 columns]
+  -------------------   
+  Events :  561
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_4.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-192.root
+  n events gen.:  9787.501953125
+   Tree weight:    8507.53853218021
+   Reading n. events in tree:  71
+   Cut applied:  
+   Events passing cuts:  71
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      95456750  ...                                  -1
+1      95457158  ...                                  -1
+2      95457793  ...                                  -1
+3      95458264  ...                                  -1
+4      95458979  ...                                  -1
+..          ...  ...                                 ...
+66     98117550  ...                                  -1
+67     98542478  ...                                  -1
+68     98543749  ...                                  -1
+69    104284172  ...                                  -1
+70    116448547  ...                                  -1
+
+[71 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.84 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0      95456750          1      143329  ...        0.0  9787.501953   8507.538532
+1      95457158          1      143330  ...        0.0  9787.501953   8507.538532
+2      95457793          1      143331  ...        0.0  9787.501953   8507.538532
+3      95458264          1      143331  ...        0.0  9787.501953   8507.538532
+4      95458979          1      143332  ...        0.0  9787.501953   8507.538532
+..          ...        ...         ...  ...        ...          ...           ...
+66     98117550          1      147324  ...        0.0  9787.501953   8507.538532
+67     98542478          1      147962  ...        0.0  9787.501953   8507.538532
+68     98543749          1      147964  ...        0.0  9787.501953   8507.538532
+69    104284172          1      156583  ...        0.0  9787.501953   8507.538532
+70    116448547          1      174848  ...        0.0  9787.501953   8507.538532
+
+[71 rows x 6951 columns]
+  -------------------   
+  Events :  71
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-192.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_58.root
+  n events gen.:  66483.8671875
+   Tree weight:    1252.4474511262424
+   Reading n. events in tree:  582
+   Cut applied:  
+   Events passing cuts:  582
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0        1343326  ...                                  -1
+1        1344180  ...                                  -1
+2        1344405  ...                                  -1
+3        9176940  ...                                  -1
+4        9177102  ...                                  -1
+..           ...  ...                                 ...
+577     39621406  ...                                  -1
+578     39642387  ...                                  -1
+579     39642778  ...                                  -1
+580     44112887  ...                                  -1
+581     44112890  ...                                  -1
+
+[582 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.95 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0        1343326          1        2018  ...        0.0  66483.867188   1252.447451
+1        1344180          1        2019  ...        0.0  66483.867188   1252.447451
+2        1344405          1        2019  ...        0.0  66483.867188   1252.447451
+3        9176940          1       13780  ...        0.0  66483.867188   1252.447451
+4        9177102          1       13780  ...        0.0  66483.867188   1252.447451
+..           ...        ...         ...  ...        ...           ...           ...
+577     39621406          1       59492  ...        0.0  66483.867188   1252.447451
+578     39642387          1       59524  ...        0.0  66483.867188   1252.447451
+579     39642778          1       59524  ...        0.0  66483.867188   1252.447451
+580     44112887          1       66236  ...        0.0  66483.867188   1252.447451
+581     44112890          1       66236  ...        0.0  66483.867188   1252.447451
+
+[582 rows x 6951 columns]
+  -------------------   
+  Events :  582
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_58.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_1-32.root
+  n events gen.:  14191.7734375
+   Tree weight:    5867.3111127870625
+   Reading n. events in tree:  126
+   Cut applied:  
+   Events passing cuts:  126
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       34950486  ...                                  -1
+1       17897640  ...                                  -1
+2       39030151  ...                                  -1
+3       44128907  ...                                  -1
+4       44128900  ...                                  -1
+..           ...  ...                                 ...
+121     26431017  ...                                  -1
+122     26488324  ...                                  -1
+123     26488437  ...                                  -1
+124     26490044  ...                                  -1
+125     35512121  ...                                  -1
+
+[126 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 5.52 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       34950486          1       52479  ...        0.0  14191.773438   5867.311113
+1       17897640          1       26874  ...        0.0  14191.773438   5867.311113
+2       39030151          1       58604  ...        0.0  14191.773438   5867.311113
+3       44128907          1       66260  ...        0.0  14191.773438   5867.311113
+4       44128900          1       66260  ...        0.0  14191.773438   5867.311113
+..           ...        ...         ...  ...        ...           ...           ...
+121     26431017          1       39687  ...        0.0  14191.773438   5867.311113
+122     26488324          1       39773  ...        0.0  14191.773438   5867.311113
+123     26488437          1       39773  ...        0.0  14191.773438   5867.311113
+124     26490044          1       39775  ...        0.0  14191.773438   5867.311113
+125     35512121          1       53322  ...        0.0  14191.773438   5867.311113
+
+[126 rows x 6951 columns]
+  -------------------   
+  Events :  126
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_1-32.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_418.root
+  n events gen.:  52265.09765625
+   Tree weight:    1593.1769715165287
+   Reading n. events in tree:  487
+   Cut applied:  
+   Events passing cuts:  487
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      155812944  ...                                  -1
+1      155813444  ...                                  -1
+2      155813684  ...                                  -1
+3      155813779  ...                                  -1
+4      155916772  ...                                  -1
+..           ...  ...                                 ...
+482    183112698  ...                                  -1
+483    149445224  ...                                  -1
+484    149446164  ...                                  -1
+485    149446722  ...                                  -1
+486    149634428  ...                                  -1
+
+[487 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.54 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      155812944          1      233954  ...        0.0  52265.097656   1593.176972
+1      155813444          1      233955  ...        0.0  52265.097656   1593.176972
+2      155813684          1      233955  ...        0.0  52265.097656   1593.176972
+3      155813779          1      233955  ...        0.0  52265.097656   1593.176972
+4      155916772          1      234110  ...        0.0  52265.097656   1593.176972
+..           ...        ...         ...  ...        ...           ...           ...
+482    183112698          1      274944  ...        0.0  52265.097656   1593.176972
+483    149445224          1      224393  ...        0.0  52265.097656   1593.176972
+484    149446164          1      224394  ...        0.0  52265.097656   1593.176972
+485    149446722          1      224395  ...        0.0  52265.097656   1593.176972
+486    149634428          1      224677  ...        0.0  52265.097656   1593.176972
+
+[487 rows x 6951 columns]
+  -------------------   
+  Events :  487
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_418.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_85.root
+  n events gen.:  61014.6796875
+   Tree weight:    1364.7133841638263
+   Reading n. events in tree:  534
+   Cut applied:  
+   Events passing cuts:  534
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0        4369061  ...                                  -1
+1        4370469  ...                                  -1
+2        4370555  ...                                  -1
+3        4371338  ...                                  -1
+4       27471541  ...                                  -1
+..           ...  ...                                 ...
+529    186029567  ...                                  -1
+530    184068771  ...                                  -1
+531    184068942  ...                                  -1
+532    184074706  ...                                  -1
+533    184079826  ...                                  -1
+
+[534 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.92 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0        4369061          1        6561  ...        0.0  61014.679688   1364.713384
+1        4370469          1        6563  ...        0.0  61014.679688   1364.713384
+2        4370555          1        6563  ...        0.0  61014.679688   1364.713384
+3        4371338          1        6564  ...        0.0  61014.679688   1364.713384
+4       27471541          1       41249  ...        0.0  61014.679688   1364.713384
+..           ...        ...         ...  ...        ...           ...           ...
+529    186029567          1      279324  ...        0.0  61014.679688   1364.713384
+530    184068771          1      276380  ...        0.0  61014.679688   1364.713384
+531    184068942          1      276380  ...        0.0  61014.679688   1364.713384
+532    184074706          1      276389  ...        0.0  61014.679688   1364.713384
+533    184079826          1      276397  ...        0.0  61014.679688   1364.713384
+
+[534 rows x 6951 columns]
+  -------------------   
+  Events :  534
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_85.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_202.root
+  n events gen.:  61802.37109375
+   Tree weight:    1347.3196663229762
+   Reading n. events in tree:  559
+   Cut applied:  
+   Events passing cuts:  559
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       70538144  ...                                  -1
+1       70538298  ...                                  -1
+2       70539596  ...                                  -1
+3       70539724  ...                                  -1
+4       70539711  ...                                  -1
+..           ...  ...                                 ...
+554     73842083  ...                                  -1
+555     73842380  ...                                  -1
+556     73907878  ...                                  -1
+557     73908066  ...                                  -1
+558     73908033  ...                                  -1
+
+[559 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.84 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       70538144          1      105914  ...        0.0  61802.371094   1347.319666
+1       70538298          1      105914  ...        0.0  61802.371094   1347.319666
+2       70539596          1      105916  ...        0.0  61802.371094   1347.319666
+3       70539724          1      105916  ...        0.0  61802.371094   1347.319666
+4       70539711          1      105916  ...        0.0  61802.371094   1347.319666
+..           ...        ...         ...  ...        ...           ...           ...
+554     73842083          1      110874  ...        0.0  61802.371094   1347.319666
+555     73842380          1      110875  ...        0.0  61802.371094   1347.319666
+556     73907878          1      110973  ...        0.0  61802.371094   1347.319666
+557     73908066          1      110974  ...        0.0  61802.371094   1347.319666
+558     73908033          1      110974  ...        0.0  61802.371094   1347.319666
+
+[559 rows x 6951 columns]
+  -------------------   
+  Events :  559
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_202.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-300.root
+  n events gen.:  9829.83984375
+   Tree weight:    8470.895896940081
+   Reading n. events in tree:  78
+   Cut applied:  
+   Events passing cuts:  78
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     144874548  ...                                  -1
+1     144876008  ...                                  -1
+2     152638552  ...                                  -1
+3     152638581  ...                                  -1
+4     152638765  ...                                  -1
+..          ...  ...                                 ...
+73    168409918  ...                                  -1
+74    156628962  ...                                  -1
+75    156629117  ...                                  -1
+76    156629202  ...                                  -1
+77    172882547  ...                                  -1
+
+[78 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.75 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     144874548          1      217530  ...        0.0  9829.839844   8470.895897
+1     144876008          1      217532  ...        0.0  9829.839844   8470.895897
+2     152638552          1      229188  ...        0.0  9829.839844   8470.895897
+3     152638581          1      229188  ...        0.0  9829.839844   8470.895897
+4     152638765          1      229188  ...        0.0  9829.839844   8470.895897
+..          ...        ...         ...  ...        ...          ...           ...
+73    168409918          1      252868  ...        0.0  9829.839844   8470.895897
+74    156628962          1      235179  ...        0.0  9829.839844   8470.895897
+75    156629117          1      235179  ...        0.0  9829.839844   8470.895897
+76    156629202          1      235179  ...        0.0  9829.839844   8470.895897
+77    172882547          1      259584  ...        0.0  9829.839844   8470.895897
+
+[78 rows x 6951 columns]
+  -------------------   
+  Events :  78
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-300.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_391.root
+  n events gen.:  46307.40625
+   Tree weight:    1798.1475695370004
+   Reading n. events in tree:  440
+   Cut applied:  
+   Events passing cuts:  440
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      143928738  ...                                  -1
+1      143929150  ...                                  -1
+2      143929761  ...                                  -1
+3      143930159  ...                                  -1
+4      143973504  ...                                  -1
+..           ...  ...                                 ...
+435    176679104  ...                                  -1
+436    176680708  ...                                  -1
+437    176681804  ...                                  -1
+438    176815575  ...                                  -1
+439    176815656  ...                                  -1
+
+[440 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.15 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0      143928738          1      216110  ...        0.0  46307.40625    1798.14757
+1      143929150          1      216110  ...        0.0  46307.40625    1798.14757
+2      143929761          1      216111  ...        0.0  46307.40625    1798.14757
+3      143930159          1      216112  ...        0.0  46307.40625    1798.14757
+4      143973504          1      216177  ...        0.0  46307.40625    1798.14757
+..           ...        ...         ...  ...        ...          ...           ...
+435    176679104          1      265284  ...        0.0  46307.40625    1798.14757
+436    176680708          1      265287  ...        0.0  46307.40625    1798.14757
+437    176681804          1      265288  ...        0.0  46307.40625    1798.14757
+438    176815575          1      265489  ...        0.0  46307.40625    1798.14757
+439    176815656          1      265489  ...        0.0  46307.40625    1798.14757
+
+[440 rows x 6951 columns]
+  -------------------   
+  Events :  440
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_391.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_237.root
+  n events gen.:  66396.2265625
+   Tree weight:    1254.1006366019717
+   Reading n. events in tree:  570
+   Cut applied:  
+   Events passing cuts:  570
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       98529532  ...                                  -1
+1       98530122  ...                                  -1
+2      100587411  ...                                  -1
+3      100589292  ...                                  -1
+4      100589752  ...                                  -1
+..           ...  ...                                 ...
+565    130147448  ...                                  -1
+566    130147761  ...                                  -1
+567    130148160  ...                                  -1
+568    130148547  ...                                  -1
+569    130148625  ...                                  -1
+
+[570 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.95 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       98529532          1      147943  ...        0.0  66396.226562   1254.100637
+1       98530122          1      147944  ...        0.0  66396.226562   1254.100637
+2      100587411          1      151033  ...        0.0  66396.226562   1254.100637
+3      100589292          1      151035  ...        0.0  66396.226562   1254.100637
+4      100589752          1      151036  ...        0.0  66396.226562   1254.100637
+..           ...        ...         ...  ...        ...           ...           ...
+565    130147448          1      195417  ...        0.0  66396.226562   1254.100637
+566    130147761          1      195418  ...        0.0  66396.226562   1254.100637
+567    130148160          1      195418  ...        0.0  66396.226562   1254.100637
+568    130148547          1      195419  ...        0.0  66396.226562   1254.100637
+569    130148625          1      195419  ...        0.0  66396.226562   1254.100637
+
+[570 rows x 6951 columns]
+  -------------------   
+  Events :  570
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_237.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-179.root
+  n events gen.:  9872.703125
+   Tree weight:    8434.118695329451
+   Reading n. events in tree:  89
+   Cut applied:  
+   Events passing cuts:  89
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      90943811  ...                                  -1
+1      90944146  ...                                  -1
+2      90944151  ...                                  -1
+3      90945230  ...                                  -1
+4      90958136  ...                                  -1
+..          ...  ...                                 ...
+84    130139373  ...                                  -1
+85    130140155  ...                                  -1
+86    130140333  ...                                  -1
+87    130141199  ...                                  -1
+88    130141360  ...                                  -1
+
+[89 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.77 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0      90943811          1      136553  ...        0.0  9872.703125   8434.118695
+1      90944146          1      136553  ...        0.0  9872.703125   8434.118695
+2      90944151          1      136553  ...        0.0  9872.703125   8434.118695
+3      90945230          1      136555  ...        0.0  9872.703125   8434.118695
+4      90958136          1      136574  ...        0.0  9872.703125   8434.118695
+..          ...        ...         ...  ...        ...          ...           ...
+84    130139373          1      195405  ...        0.0  9872.703125   8434.118695
+85    130140155          1      195406  ...        0.0  9872.703125   8434.118695
+86    130140333          1      195406  ...        0.0  9872.703125   8434.118695
+87    130141199          1      195408  ...        0.0  9872.703125   8434.118695
+88    130141360          1      195408  ...        0.0  9872.703125   8434.118695
+
+[89 rows x 6951 columns]
+  -------------------   
+  Events :  89
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-179.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-113.root
+  n events gen.:  11104.4541015625
+   Tree weight:    7498.572125961913
+   Reading n. events in tree:  114
+   Cut applied:  
+   Events passing cuts:  114
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      149037981  ...                                  -1
+1      149038143  ...                                  -1
+2      149038191  ...                                  -1
+3      161646470  ...                                  -1
+4      161646860  ...                                  -1
+..           ...  ...                                 ...
+109    164795582  ...                                  -1
+110    164795802  ...                                  -1
+111    164797130  ...                                  -1
+112    188042474  ...                                  -1
+113    188042830  ...                                  -1
+
+[114 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.94 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      149037981          1      223781  ...        0.0  11104.454102   7498.572126
+1      149038143          1      223781  ...        0.0  11104.454102   7498.572126
+2      149038191          1      223782  ...        0.0  11104.454102   7498.572126
+3      161646470          1      242713  ...        0.0  11104.454102   7498.572126
+4      161646860          1      242714  ...        0.0  11104.454102   7498.572126
+..           ...        ...         ...  ...        ...           ...           ...
+109    164795582          1      247441  ...        0.0  11104.454102   7498.572126
+110    164795802          1      247442  ...        0.0  11104.454102   7498.572126
+111    164797130          1      247444  ...        0.0  11104.454102   7498.572126
+112    188042474          1      282347  ...        0.0  11104.454102   7498.572126
+113    188042830          1      282347  ...        0.0  11104.454102   7498.572126
+
+[114 rows x 6951 columns]
+  -------------------   
+  Events :  114
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-113.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-9.root
+  n events gen.:  11055.2978515625
+   Tree weight:    7531.91375917849
+   Reading n. events in tree:  108
+   Cut applied:  
+   Events passing cuts:  108
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       54645465  ...                                  -1
+1       54646293  ...                                  -1
+2       55374644  ...                                  -1
+3       55375121  ...                                  -1
+4       55375787  ...                                  -1
+..           ...  ...                                 ...
+103     61891949  ...                                  -1
+104     61892183  ...                                  -1
+105     61892361  ...                                  -1
+106     61892579  ...                                  -1
+107     61892567  ...                                  -1
+
+[108 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.91 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       54645465          1       82051  ...        0.0  11055.297852   7531.913759
+1       54646293          1       82052  ...        0.0  11055.297852   7531.913759
+2       55374644          1       83146  ...        0.0  11055.297852   7531.913759
+3       55375121          1       83146  ...        0.0  11055.297852   7531.913759
+4       55375787          1       83147  ...        0.0  11055.297852   7531.913759
+..           ...        ...         ...  ...        ...           ...           ...
+103     61891949          1       92931  ...        0.0  11055.297852   7531.913759
+104     61892183          1       92932  ...        0.0  11055.297852   7531.913759
+105     61892361          1       92932  ...        0.0  11055.297852   7531.913759
+106     61892579          1       92932  ...        0.0  11055.297852   7531.913759
+107     61892567          1       92932  ...        0.0  11055.297852   7531.913759
+
+[108 rows x 6951 columns]
+  -------------------   
+  Events :  108
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-9.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_1-55.root
+  n events gen.:  14182.556640625
+   Tree weight:    5871.124093485767
+   Reading n. events in tree:  130
+   Cut applied:  
+   Events passing cuts:  130
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       29029548  ...                                  -1
+1       29029597  ...                                  -1
+2       29062687  ...                                  -1
+3       29062911  ...                                  -1
+4       29063396  ...                                  -1
+..           ...  ...                                 ...
+125    199331985  ...                                  -1
+126    199332596  ...                                  -1
+127    199332827  ...                                  -1
+128    199332971  ...                                  -1
+129    199333679  ...                                  -1
+
+[130 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.98 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       29029548          1       43588  ...        0.0  14182.556641   5871.124093
+1       29029597          1       43588  ...        0.0  14182.556641   5871.124093
+2       29062687          1       43638  ...        0.0  14182.556641   5871.124093
+3       29062911          1       43639  ...        0.0  14182.556641   5871.124093
+4       29063396          1       43639  ...        0.0  14182.556641   5871.124093
+..           ...        ...         ...  ...        ...           ...           ...
+125    199331985          1      299298  ...        0.0  14182.556641   5871.124093
+126    199332596          1      299299  ...        0.0  14182.556641   5871.124093
+127    199332827          1      299299  ...        0.0  14182.556641   5871.124093
+128    199332971          1      299299  ...        0.0  14182.556641   5871.124093
+129    199333679          1      299300  ...        0.0  14182.556641   5871.124093
+
+[130 rows x 6951 columns]
+  -------------------   
+  Events :  130
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_1-55.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-56.root
+  n events gen.:  11071.583984375
+   Tree weight:    7520.834427803017
+   Reading n. events in tree:  88
+   Cut applied:  
+   Events passing cuts:  88
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     105636850  ...                                  -1
+1     105637688  ...                                  -1
+2     112452054  ...                                  -1
+3     116323571  ...                                  -1
+4      97824016  ...                                  -1
+..          ...  ...                                 ...
+83    114916911  ...                                  -1
+84    116410024  ...                                  -1
+85    127987643  ...                                  -1
+86    127988801  ...                                  -1
+87    127989191  ...                                  -1
+
+[88 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.75 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0     105636850          1      158614  ...        0.0  11071.583984   7520.834428
+1     105637688          1      158616  ...        0.0  11071.583984   7520.834428
+2     112452054          1      168847  ...        0.0  11071.583984   7520.834428
+3     116323571          1      174661  ...        0.0  11071.583984   7520.834428
+4      97824016          1      146883  ...        0.0  11071.583984   7520.834428
+..          ...        ...         ...  ...        ...           ...           ...
+83    114916911          1      172548  ...        0.0  11071.583984   7520.834428
+84    116410024          1      174790  ...        0.0  11071.583984   7520.834428
+85    127987643          1      192174  ...        0.0  11071.583984   7520.834428
+86    127988801          1      192176  ...        0.0  11071.583984   7520.834428
+87    127989191          1      192176  ...        0.0  11071.583984   7520.834428
+
+[88 rows x 6951 columns]
+  -------------------   
+  Events :  88
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-56.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_440.root
+  n events gen.:  66353.671875
+   Tree weight:    1254.9049306097652
+   Reading n. events in tree:  572
+   Cut applied:  
+   Events passing cuts:  572
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      170126170  ...                                  -1
+1      170126699  ...                                  -1
+2      170129246  ...                                  -1
+3      170130207  ...                                  -1
+4      170137054  ...                                  -1
+..           ...  ...                                 ...
+567    195431733  ...                                  -1
+568    186873033  ...                                  -1
+569    186873229  ...                                  -1
+570    188575262  ...                                  -1
+571    188575670  ...                                  -1
+
+[572 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.79 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      170126170          1      255445  ...        0.0  66353.671875   1254.904931
+1      170126699          1      255446  ...        0.0  66353.671875   1254.904931
+2      170129246          1      255450  ...        0.0  66353.671875   1254.904931
+3      170130207          1      255451  ...        0.0  66353.671875   1254.904931
+4      170137054          1      255462  ...        0.0  66353.671875   1254.904931
+..           ...        ...         ...  ...        ...           ...           ...
+567    195431733          1      293442  ...        0.0  66353.671875   1254.904931
+568    186873033          1      280591  ...        0.0  66353.671875   1254.904931
+569    186873229          1      280591  ...        0.0  66353.671875   1254.904931
+570    188575262          1      283147  ...        0.0  66353.671875   1254.904931
+571    188575670          1      283147  ...        0.0  66353.671875   1254.904931
+
+[572 rows x 6951 columns]
+  -------------------   
+  Events :  572
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_440.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-197.root
+  n events gen.:  9881.5810546875
+   Tree weight:    8426.54121229928
+   Reading n. events in tree:  89
+   Cut applied:  
+   Events passing cuts:  89
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     114139364  ...                                  -1
+1     114139601  ...                                  -1
+2     114139871  ...                                  -1
+3     114141435  ...                                  -1
+4     128130287  ...                                  -1
+..          ...  ...                                 ...
+84    124131788  ...                                  -1
+85    124132381  ...                                  -1
+86    124132939  ...                                  -1
+87    124133199  ...                                  -1
+88    124134286  ...                                  -1
+
+[89 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.80 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     114139364          1      171381  ...        0.0  9881.581055   8426.541212
+1     114139601          1      171381  ...        0.0  9881.581055   8426.541212
+2     114139871          1      171382  ...        0.0  9881.581055   8426.541212
+3     114141435          1      171384  ...        0.0  9881.581055   8426.541212
+4     128130287          1      192388  ...        0.0  9881.581055   8426.541212
+..          ...        ...         ...  ...        ...          ...           ...
+84    124131788          1      186385  ...        0.0  9881.581055   8426.541212
+85    124132381          1      186385  ...        0.0  9881.581055   8426.541212
+86    124132939          1      186386  ...        0.0  9881.581055   8426.541212
+87    124133199          1      186387  ...        0.0  9881.581055   8426.541212
+88    124134286          1      186388  ...        0.0  9881.581055   8426.541212
+
+[89 rows x 6951 columns]
+  -------------------   
+  Events :  89
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-197.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_291.root
+  n events gen.:  62448.8125
+   Tree weight:    1333.3728323496944
+   Reading n. events in tree:  540
+   Cut applied:  
+   Events passing cuts:  540
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       90668015  ...                                  -1
+1       90668045  ...                                  -1
+2       90668167  ...                                  -1
+3       90668333  ...                                  -1
+4       90668416  ...                                  -1
+..           ...  ...                                 ...
+535    139505415  ...                                  -1
+536    139985282  ...                                  -1
+537    139985726  ...                                  -1
+538    139986740  ...                                  -1
+539    139987194  ...                                  -1
+
+[540 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.79 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal   c_nEvents  SampleWeight
+0       90668015          1      136139  ...        0.0  62448.8125   1333.372832
+1       90668045          1      136139  ...        0.0  62448.8125   1333.372832
+2       90668167          1      136139  ...        0.0  62448.8125   1333.372832
+3       90668333          1      136139  ...        0.0  62448.8125   1333.372832
+4       90668416          1      136139  ...        0.0  62448.8125   1333.372832
+..           ...        ...         ...  ...        ...         ...           ...
+535    139505415          1      209468  ...        0.0  62448.8125   1333.372832
+536    139985282          1      210189  ...        0.0  62448.8125   1333.372832
+537    139985726          1      210189  ...        0.0  62448.8125   1333.372832
+538    139986740          1      210191  ...        0.0  62448.8125   1333.372832
+539    139987194          1      210191  ...        0.0  62448.8125   1333.372832
+
+[540 rows x 6951 columns]
+  -------------------   
+  Events :  540
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_291.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-200.root
+  n events gen.:  9910.7001953125
+   Tree weight:    8401.782755912984
+   Reading n. events in tree:  83
+   Cut applied:  
+   Events passing cuts:  83
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     110418147  ...                                  -1
+1     110419502  ...                                  -1
+2     124100147  ...                                  -1
+3     124100971  ...                                  -1
+4     118649587  ...                                  -1
+..          ...  ...                                 ...
+78    130362033  ...                                  -1
+79    130400392  ...                                  -1
+80    130400590  ...                                  -1
+81    130401028  ...                                  -1
+82    130401700  ...                                  -1
+
+[83 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.68 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     110418147          1      165794  ...        0.0  9910.700195   8401.782756
+1     110419502          1      165796  ...        0.0  9910.700195   8401.782756
+2     124100147          1      186337  ...        0.0  9910.700195   8401.782756
+3     124100971          1      186338  ...        0.0  9910.700195   8401.782756
+4     118649587          1      178153  ...        0.0  9910.700195   8401.782756
+..          ...        ...         ...  ...        ...          ...           ...
+78    130362033          1      195739  ...        0.0  9910.700195   8401.782756
+79    130400392          1      195797  ...        0.0  9910.700195   8401.782756
+80    130400590          1      195797  ...        0.0  9910.700195   8401.782756
+81    130401028          1      195798  ...        0.0  9910.700195   8401.782756
+82    130401700          1      195799  ...        0.0  9910.700195   8401.782756
+
+[83 rows x 6951 columns]
+  -------------------   
+  Events :  83
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-200.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-20.root
+  n events gen.:  10028.802734375
+   Tree weight:    8302.840548911174
+   Reading n. events in tree:  77
+   Cut applied:  
+   Events passing cuts:  77
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0        671947  ...                                  -1
+1        673310  ...                                  -1
+2        673910  ...                                  -1
+3        954805  ...                                  -1
+4       2014166  ...                                  -1
+..          ...  ...                                 ...
+72     35488627  ...                                  -1
+73     35488738  ...                                  -1
+74     36153928  ...                                  -1
+75     36155416  ...                                  -1
+76     37508947  ...                                  -1
+
+[77 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.71 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0        671947          1        1009  ...        0.0  10028.802734   8302.840549
+1        673310          1        1011  ...        0.0  10028.802734   8302.840549
+2        673910          1        1012  ...        0.0  10028.802734   8302.840549
+3        954805          1        1434  ...        0.0  10028.802734   8302.840549
+4       2014166          1        3025  ...        0.0  10028.802734   8302.840549
+..          ...        ...         ...  ...        ...           ...           ...
+72     35488627          1       53287  ...        0.0  10028.802734   8302.840549
+73     35488738          1       53287  ...        0.0  10028.802734   8302.840549
+74     36153928          1       54286  ...        0.0  10028.802734   8302.840549
+75     36155416          1       54288  ...        0.0  10028.802734   8302.840549
+76     37508947          1       56320  ...        0.0  10028.802734   8302.840549
+
+[77 rows x 6951 columns]
+  -------------------   
+  Events :  77
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-20.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_290.root
+  n events gen.:  66090.1640625
+   Tree weight:    1259.9083567299929
+   Reading n. events in tree:  536
+   Cut applied:  
+   Events passing cuts:  536
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       90608444  ...                                  -1
+1       90609320  ...                                  -1
+2       90609981  ...                                  -1
+3       90610189  ...                                  -1
+4       90610478  ...                                  -1
+..           ...  ...                                 ...
+531    130318026  ...                                  -1
+532    130318160  ...                                  -1
+533    130318212  ...                                  -1
+534    130318274  ...                                  -1
+535    130318508  ...                                  -1
+
+[536 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 7.83 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       90608444          1      136049  ...        0.0  66090.164062   1259.908357
+1       90609320          1      136051  ...        0.0  66090.164062   1259.908357
+2       90609981          1      136052  ...        0.0  66090.164062   1259.908357
+3       90610189          1      136052  ...        0.0  66090.164062   1259.908357
+4       90610478          1      136052  ...        0.0  66090.164062   1259.908357
+..           ...        ...         ...  ...        ...           ...           ...
+531    130318026          1      195673  ...        0.0  66090.164062   1259.908357
+532    130318160          1      195673  ...        0.0  66090.164062   1259.908357
+533    130318212          1      195673  ...        0.0  66090.164062   1259.908357
+534    130318274          1      195674  ...        0.0  66090.164062   1259.908357
+535    130318508          1      195674  ...        0.0  66090.164062   1259.908357
+
+[536 rows x 6951 columns]
+  -------------------   
+  Events :  536
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_290.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-123.root
+  n events gen.:  10986.525390625
+   Tree weight:    7579.0613537428035
+   Reading n. events in tree:  95
+   Cut applied:  
+   Events passing cuts:  95
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     158014628  ...                                  -1
+1     158014930  ...                                  -1
+2     158155043  ...                                  -1
+3     158186198  ...                                  -1
+4     158292591  ...                                  -1
+..          ...  ...                                 ...
+90    164389537  ...                                  -1
+91    175313480  ...                                  -1
+92    175314300  ...                                  -1
+93    175314940  ...                                  -1
+94    177363872  ...                                  -1
+
+[95 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.77 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0     158014628          1      237260  ...        0.0  10986.525391   7579.061354
+1     158014930          1      237260  ...        0.0  10986.525391   7579.061354
+2     158155043          1      237471  ...        0.0  10986.525391   7579.061354
+3     158186198          1      237517  ...        0.0  10986.525391   7579.061354
+4     158292591          1      237677  ...        0.0  10986.525391   7579.061354
+..          ...        ...         ...  ...        ...           ...           ...
+90    164389537          1      246832  ...        0.0  10986.525391   7579.061354
+91    175313480          1      263234  ...        0.0  10986.525391   7579.061354
+92    175314300          1      263235  ...        0.0  10986.525391   7579.061354
+93    175314940          1      263236  ...        0.0  10986.525391   7579.061354
+94    177363872          1      266313  ...        0.0  10986.525391   7579.061354
+
+[95 rows x 6951 columns]
+  -------------------   
+  Events :  95
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-123.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_241.root
+  n events gen.:  45783.6953125
+   Tree weight:    1818.7162358051523
+   Reading n. events in tree:  399
+   Cut applied:  
+   Events passing cuts:  399
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       93397212  ...                                  -1
+1       93397602  ...                                  -1
+2       93398172  ...                                  -1
+3       93398349  ...                                  -1
+4       93399076  ...                                  -1
+..           ...  ...                                 ...
+394    123770596  ...                                  -1
+395    123770758  ...                                  -1
+396    124166626  ...                                  -1
+397    124166556  ...                                  -1
+398    124167100  ...                                  -1
+
+[399 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 6.96 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       93397212          1      140237  ...        0.0  45783.695312   1818.716236
+1       93397602          1      140237  ...        0.0  45783.695312   1818.716236
+2       93398172          1      140238  ...        0.0  45783.695312   1818.716236
+3       93398349          1      140238  ...        0.0  45783.695312   1818.716236
+4       93399076          1      140239  ...        0.0  45783.695312   1818.716236
+..           ...        ...         ...  ...        ...           ...           ...
+394    123770596          1      185842  ...        0.0  45783.695312   1818.716236
+395    123770758          1      185842  ...        0.0  45783.695312   1818.716236
+396    124166626          1      186437  ...        0.0  45783.695312   1818.716236
+397    124166556          1      186437  ...        0.0  45783.695312   1818.716236
+398    124167100          1      186438  ...        0.0  45783.695312   1818.716236
+
+[399 rows x 6951 columns]
+  -------------------   
+  Events :  399
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_241.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-135.root
+  n events gen.:  11162.189453125
+   Tree weight:    7459.786482721646
+   Reading n. events in tree:  114
+   Cut applied:  
+   Events passing cuts:  114
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      157415779  ...                                  -1
+1      157415966  ...                                  -1
+2      157417825  ...                                  -1
+3      158070409  ...                                  -1
+4      158070622  ...                                  -1
+..           ...  ...                                 ...
+109    196941232  ...                                  -1
+110    196516745  ...                                  -1
+111    196517465  ...                                  -1
+112    196517462  ...                                  -1
+113    196517888  ...                                  -1
+
+[114 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.94 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      157415779          1      236361  ...        0.0  11162.189453   7459.786483
+1      157415966          1      236361  ...        0.0  11162.189453   7459.786483
+2      157417825          1      236364  ...        0.0  11162.189453   7459.786483
+3      158070409          1      237343  ...        0.0  11162.189453   7459.786483
+4      158070622          1      237344  ...        0.0  11162.189453   7459.786483
+..           ...        ...         ...  ...        ...           ...           ...
+109    196941232          1      295708  ...        0.0  11162.189453   7459.786483
+110    196516745          1      295071  ...        0.0  11162.189453   7459.786483
+111    196517465          1      295072  ...        0.0  11162.189453   7459.786483
+112    196517462          1      295072  ...        0.0  11162.189453   7459.786483
+113    196517888          1      295072  ...        0.0  11162.189453   7459.786483
+
+[114 rows x 6951 columns]
+  -------------------   
+  Events :  114
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-135.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-7.root
+  n events gen.:  11232.326171875
+   Tree weight:    7413.206198418314
+   Reading n. events in tree:  109
+   Cut applied:  
+   Events passing cuts:  109
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       68780572  ...                                  -1
+1       69060942  ...                                  -1
+2       69061030  ...                                  -1
+3       72402337  ...                                  -1
+4       72404012  ...                                  -1
+..           ...  ...                                 ...
+104     58654751  ...                                  -1
+105     58655598  ...                                  -1
+106     58655750  ...                                  -1
+107     59336007  ...                                  -1
+108     59337156  ...                                  -1
+
+[109 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.86 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       68780572          1      103275  ...        0.0  11232.326172   7413.206198
+1       69060942          1      103696  ...        0.0  11232.326172   7413.206198
+2       69061030          1      103696  ...        0.0  11232.326172   7413.206198
+3       72402337          1      108713  ...        0.0  11232.326172   7413.206198
+4       72404012          1      108715  ...        0.0  11232.326172   7413.206198
+..           ...        ...         ...  ...        ...           ...           ...
+104     58654751          1       88071  ...        0.0  11232.326172   7413.206198
+105     58655598          1       88072  ...        0.0  11232.326172   7413.206198
+106     58655750          1       88072  ...        0.0  11232.326172   7413.206198
+107     59336007          1       89094  ...        0.0  11232.326172   7413.206198
+108     59337156          1       89095  ...        0.0  11232.326172   7413.206198
+
+[109 rows x 6951 columns]
+  -------------------   
+  Events :  109
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-7.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_155.root
+  n events gen.:  44853.47265625
+   Tree weight:    1856.4348548472374
+   Reading n. events in tree:  399
+   Cut applied:  
+   Events passing cuts:  399
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       45914964  ...                                  -1
+1       45915047  ...                                  -1
+2       45915539  ...                                  -1
+3       45915520  ...                                  -1
+4       45916104  ...                                  -1
+..           ...  ...                                 ...
+394     68012085  ...                                  -1
+395     75018145  ...                                  -1
+396     75146928  ...                                  -1
+397     75147545  ...                                  -1
+398     75147895  ...                                  -1
+
+[399 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 6.70 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       45914964          1       68942  ...        0.0  44853.472656   1856.434855
+1       45915047          1       68942  ...        0.0  44853.472656   1856.434855
+2       45915539          1       68943  ...        0.0  44853.472656   1856.434855
+3       45915520          1       68943  ...        0.0  44853.472656   1856.434855
+4       45916104          1       68944  ...        0.0  44853.472656   1856.434855
+..           ...        ...         ...  ...        ...           ...           ...
+394     68012085          1      102121  ...        0.0  44853.472656   1856.434855
+395     75018145          1      112640  ...        0.0  44853.472656   1856.434855
+396     75146928          1      112834  ...        0.0  44853.472656   1856.434855
+397     75147545          1      112835  ...        0.0  44853.472656   1856.434855
+398     75147895          1      112835  ...        0.0  44853.472656   1856.434855
+
+[399 rows x 6951 columns]
+  -------------------   
+  Events :  399
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_155.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-221.root
+  n events gen.:  9840.5888671875
+   Tree weight:    8461.643009764148
+   Reading n. events in tree:  79
+   Cut applied:  
+   Events passing cuts:  79
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     117981900  ...                                  -1
+1     117982077  ...                                  -1
+2     117982334  ...                                  -1
+3     117982414  ...                                  -1
+4     117982452  ...                                  -1
+..          ...  ...                                 ...
+74    185168176  ...                                  -1
+75    185168374  ...                                  -1
+76    185168800  ...                                  -1
+77    185169022  ...                                  -1
+78    185727263  ...                                  -1
+
+[79 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.78 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     117981900          1      177150  ...        0.0  9840.588867    8461.64301
+1     117982077          1      177151  ...        0.0  9840.588867    8461.64301
+2     117982334          1      177151  ...        0.0  9840.588867    8461.64301
+3     117982414          1      177151  ...        0.0  9840.588867    8461.64301
+4     117982452          1      177151  ...        0.0  9840.588867    8461.64301
+..          ...        ...         ...  ...        ...          ...           ...
+74    185168176          1      278031  ...        0.0  9840.588867    8461.64301
+75    185168374          1      278031  ...        0.0  9840.588867    8461.64301
+76    185168800          1      278032  ...        0.0  9840.588867    8461.64301
+77    185169022          1      278032  ...        0.0  9840.588867    8461.64301
+78    185727263          1      278870  ...        0.0  9840.588867    8461.64301
+
+[79 rows x 6951 columns]
+  -------------------   
+  Events :  79
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-221.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_364.root
+  n events gen.:  64963.8125
+   Tree weight:    1281.7528220037887
+   Reading n. events in tree:  591
+   Cut applied:  
+   Events passing cuts:  591
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      142140462  ...                                  -1
+1      142140964  ...                                  -1
+2      142141473  ...                                  -1
+3      144117973  ...                                  -1
+4      144118009  ...                                  -1
+..           ...  ...                                 ...
+586    155989551  ...                                  -1
+587    156212357  ...                                  -1
+588    156212502  ...                                  -1
+589    156212628  ...                                  -1
+590    156213122  ...                                  -1
+
+[591 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.14 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal   c_nEvents  SampleWeight
+0      142140462          1      213425  ...        0.0  64963.8125   1281.752822
+1      142140964          1      213425  ...        0.0  64963.8125   1281.752822
+2      142141473          1      213426  ...        0.0  64963.8125   1281.752822
+3      144117973          1      216394  ...        0.0  64963.8125   1281.752822
+4      144118009          1      216394  ...        0.0  64963.8125   1281.752822
+..           ...        ...         ...  ...        ...         ...           ...
+586    155989551          1      234219  ...        0.0  64963.8125   1281.752822
+587    156212357          1      234554  ...        0.0  64963.8125   1281.752822
+588    156212502          1      234554  ...        0.0  64963.8125   1281.752822
+589    156212628          1      234554  ...        0.0  64963.8125   1281.752822
+590    156213122          1      234555  ...        0.0  64963.8125   1281.752822
+
+[591 rows x 6951 columns]
+  -------------------   
+  Events :  591
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_364.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_297.root
+  n events gen.:  66447.015625
+   Tree weight:    1253.1420593804885
+   Reading n. events in tree:  582
+   Cut applied:  
+   Events passing cuts:  582
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       91857864  ...                                  -1
+1       91858720  ...                                  -1
+2       91859932  ...                                  -1
+3       93477332  ...                                  -1
+4       93477861  ...                                  -1
+..           ...  ...                                 ...
+577    129314442  ...                                  -1
+578    129373946  ...                                  -1
+579    129373974  ...                                  -1
+580    129374288  ...                                  -1
+581    129661223  ...                                  -1
+
+[582 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.11 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       91857864          1      137925  ...        0.0  66447.015625   1253.142059
+1       91858720          1      137927  ...        0.0  66447.015625   1253.142059
+2       91859932          1      137928  ...        0.0  66447.015625   1253.142059
+3       93477332          1      140357  ...        0.0  66447.015625   1253.142059
+4       93477861          1      140358  ...        0.0  66447.015625   1253.142059
+..           ...        ...         ...  ...        ...           ...           ...
+577    129314442          1      194166  ...        0.0  66447.015625   1253.142059
+578    129373946          1      194256  ...        0.0  66447.015625   1253.142059
+579    129373974          1      194256  ...        0.0  66447.015625   1253.142059
+580    129374288          1      194256  ...        0.0  66447.015625   1253.142059
+581    129661223          1      194687  ...        0.0  66447.015625   1253.142059
+
+[582 rows x 6951 columns]
+  -------------------   
+  Events :  582
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_297.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_2-91.root
+  n events gen.:  10932.951171875
+   Tree weight:    7616.200666312829
+   Reading n. events in tree:  103
+   Cut applied:  
+   Events passing cuts:  103
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      132521029  ...                                  -1
+1      132521185  ...                                  -1
+2      132521943  ...                                  -1
+3      132522095  ...                                  -1
+4      132522625  ...                                  -1
+..           ...  ...                                 ...
+98     134873195  ...                                  -1
+99     134873489  ...                                  -1
+100    140510471  ...                                  -1
+101    140512291  ...                                  -1
+102    140512271  ...                                  -1
+
+[103 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.84 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0      132521029          1      198981  ...        0.0  10932.951172   7616.200666
+1      132521185          1      198981  ...        0.0  10932.951172   7616.200666
+2      132521943          1      198982  ...        0.0  10932.951172   7616.200666
+3      132522095          1      198983  ...        0.0  10932.951172   7616.200666
+4      132522625          1      198983  ...        0.0  10932.951172   7616.200666
+..           ...        ...         ...  ...        ...           ...           ...
+98     134873195          1      202513  ...        0.0  10932.951172   7616.200666
+99     134873489          1      202513  ...        0.0  10932.951172   7616.200666
+100    140510471          1      210977  ...        0.0  10932.951172   7616.200666
+101    140512291          1      210980  ...        0.0  10932.951172   7616.200666
+102    140512271          1      210980  ...        0.0  10932.951172   7616.200666
+
+[103 rows x 6951 columns]
+  -------------------   
+  Events :  103
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_2-91.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-251.root
+  n events gen.:  9909.53515625
+   Tree weight:    8402.77053232741
+   Reading n. events in tree:  80
+   Cut applied:  
+   Events passing cuts:  80
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     142162949  ...                                  -1
+1     142163278  ...                                  -1
+2     142163260  ...                                  -1
+3     151372399  ...                                  -1
+4     151372591  ...                                  -1
+..          ...  ...                                 ...
+75    182793207  ...                                  -1
+76    182793222  ...                                  -1
+77    182794315  ...                                  -1
+78    183467359  ...                                  -1
+79    189083014  ...                                  -1
+
+[80 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.79 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     142162949          1      213458  ...        0.0  9909.535156   8402.770532
+1     142163278          1      213459  ...        0.0  9909.535156   8402.770532
+2     142163260          1      213459  ...        0.0  9909.535156   8402.770532
+3     151372399          1      227286  ...        0.0  9909.535156   8402.770532
+4     151372591          1      227287  ...        0.0  9909.535156   8402.770532
+..          ...        ...         ...  ...        ...          ...           ...
+75    182793207          1      274465  ...        0.0  9909.535156   8402.770532
+76    182793222          1      274465  ...        0.0  9909.535156   8402.770532
+77    182794315          1      274466  ...        0.0  9909.535156   8402.770532
+78    183467359          1      275477  ...        0.0  9909.535156   8402.770532
+79    189083014          1      283909  ...        0.0  9909.535156   8402.770532
+
+[80 rows x 6951 columns]
+  -------------------   
+  Events :  80
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-251.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-163.root
+  n events gen.:  9793.59765625
+   Tree weight:    8502.243294307786
+   Reading n. events in tree:  85
+   Cut applied:  
+   Events passing cuts:  85
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      98742581  ...                                  -1
+1      98742943  ...                                  -1
+2      98743280  ...                                  -1
+3      99080303  ...                                  -1
+4      99081383  ...                                  -1
+..          ...  ...                                 ...
+80     98865885  ...                                  -1
+81     99332599  ...                                  -1
+82     99334687  ...                                  -1
+83    114725229  ...                                  -1
+84    114727236  ...                                  -1
+
+[85 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.77 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0      98742581          1      148263  ...        0.0  9793.597656   8502.243294
+1      98742943          1      148263  ...        0.0  9793.597656   8502.243294
+2      98743280          1      148264  ...        0.0  9793.597656   8502.243294
+3      99080303          1      148770  ...        0.0  9793.597656   8502.243294
+4      99081383          1      148771  ...        0.0  9793.597656   8502.243294
+..          ...        ...         ...  ...        ...          ...           ...
+80     98865885          1      148448  ...        0.0  9793.597656   8502.243294
+81     99332599          1      149149  ...        0.0  9793.597656   8502.243294
+82     99334687          1      149152  ...        0.0  9793.597656   8502.243294
+83    114725229          1      172261  ...        0.0  9793.597656   8502.243294
+84    114727236          1      172264  ...        0.0  9793.597656   8502.243294
+
+[85 rows x 6951 columns]
+  -------------------   
+  Events :  85
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-163.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_160.root
+  n events gen.:  48837.4609375
+   Tree weight:    1704.9934292563262
+   Reading n. events in tree:  414
+   Cut applied:  
+   Events passing cuts:  414
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0       46063997  ...                                  -1
+1       46065355  ...                                  -1
+2       46065446  ...                                  -1
+3       46189008  ...                                  -1
+4       46189246  ...                                  -1
+..           ...  ...                                 ...
+409     77880667  ...                                  -1
+410     77881184  ...                                  -1
+411     77881311  ...                                  -1
+412     77983784  ...                                  -1
+413     77984288  ...                                  -1
+
+[414 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 6.75 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0       46063997          1       69166  ...        0.0  48837.460938   1704.993429
+1       46065355          1       69168  ...        0.0  48837.460938   1704.993429
+2       46065446          1       69168  ...        0.0  48837.460938   1704.993429
+3       46189008          1       69353  ...        0.0  48837.460938   1704.993429
+4       46189246          1       69354  ...        0.0  48837.460938   1704.993429
+..           ...        ...         ...  ...        ...           ...           ...
+409     77880667          1      116938  ...        0.0  48837.460938   1704.993429
+410     77881184          1      116939  ...        0.0  48837.460938   1704.993429
+411     77881311          1      116939  ...        0.0  48837.460938   1704.993429
+412     77983784          1      117093  ...        0.0  48837.460938   1704.993429
+413     77984288          1      117094  ...        0.0  48837.460938   1704.993429
+
+[414 rows x 6951 columns]
+  -------------------   
+  Events :  414
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_160.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_367.root
+  n events gen.:  66221.96875
+   Tree weight:    1257.4007020895162
+   Reading n. events in tree:  605
+   Cut applied:  
+   Events passing cuts:  605
+
+
+     EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0      142760857  ...                                  -1
+1      142760904  ...                                  -1
+2      199741257  ...                                  -1
+3      199741271  ...                                  -1
+4      194208012  ...                                  -1
+..           ...  ...                                 ...
+600    194427384  ...                                  -1
+601    194427440  ...                                  -1
+602    194427856  ...                                  -1
+603    194428709  ...                                  -1
+604    194428823  ...                                  -1
+
+[605 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 8.23 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+     EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0      142760857          1      214356  ...        0.0  66221.96875   1257.400702
+1      142760904          1      214356  ...        0.0  66221.96875   1257.400702
+2      199741257          1      299912  ...        0.0  66221.96875   1257.400702
+3      199741271          1      299912  ...        0.0  66221.96875   1257.400702
+4      194208012          1      291604  ...        0.0  66221.96875   1257.400702
+..           ...        ...         ...  ...        ...          ...           ...
+600    194427384          1      291934  ...        0.0  66221.96875   1257.400702
+601    194427440          1      291934  ...        0.0  66221.96875   1257.400702
+602    194427856          1      291934  ...        0.0  66221.96875   1257.400702
+603    194428709          1      291935  ...        0.0  66221.96875   1257.400702
+604    194428823          1      291936  ...        0.0  66221.96875   1257.400702
+
+[605 rows x 6951 columns]
+  -------------------   
+  Events :  605
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_367.h5 stored
+  -------------------   
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1/
+
+
+
+
+   Initialized df for sample:  output_3-353.root
+  n events gen.:  9898.5302734375
+   Tree weight:    8412.112475267842
+   Reading n. events in tree:  96
+   Cut applied:  
+   Events passing cuts:  96
+
+
+    EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0     192655917  ...                                  -1
+1     193670928  ...                                  -1
+2     193671529  ...                                  -1
+3     193671793  ...                                  -1
+4     193672377  ...                                  -1
+..          ...  ...                                 ...
+91    191260460  ...                                  -1
+92    191261576  ...                                  -1
+93    191261751  ...                                  -1
+94    191274342  ...                                  -1
+95    191275179  ...                                  -1
+
+[96 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 4.92 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    EventNumber  RunNumber  LumiNumber  ...  is_signal    c_nEvents  SampleWeight
+0     192655917          1      289274  ...        0.0  9898.530273   8412.112475
+1     193670928          1      290798  ...        0.0  9898.530273   8412.112475
+2     193671529          1      290799  ...        0.0  9898.530273   8412.112475
+3     193671793          1      290799  ...        0.0  9898.530273   8412.112475
+4     193672377          1      290800  ...        0.0  9898.530273   8412.112475
+..          ...        ...         ...  ...        ...          ...           ...
+91    191260460          1      287178  ...        0.0  9898.530273   8412.112475
+92    191261576          1      287180  ...        0.0  9898.530273   8412.112475
+93    191261751          1      287180  ...        0.0  9898.530273   8412.112475
+94    191274342          1      287199  ...        0.0  9898.530273   8412.112475
+95    191275179          1      287200  ...        0.0  9898.530273   8412.112475
+
+[96 rows x 6951 columns]
+  -------------------   
+  Events :  96
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8-v1//output_3-353.h5 stored
+  -------------------   

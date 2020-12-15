@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_partnet/n3n2-n1-hbb-hbb_mh300_pl1000/write_macro_0.py", line 13, in <module>
+    write_h5_v4(IN,OUT,"output_1.root",xs,LUMI,cols,tree_name="skim",counter_hist="c_nEvents",sel_cut ="") 
+  File "/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/write_pd_v4.py", line 105, in write_h5_v4
+    df.to_hdf(output_folder+'/'+file_name+'.h5', 'df', format='table' if (len(cols)<=2000) else 'fixed')
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/pandas/core/generic.py", line 2505, in to_hdf
+    encoding=encoding,
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/pandas/io/pytables.py", line 282, in to_hdf
+    f(store)
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/pandas/io/pytables.py", line 274, in <lambda>
+    encoding=encoding,
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/pandas/io/pytables.py", line 1042, in put
+    errors=errors,
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/pandas/io/pytables.py", line 1657, in _write_to_group
+    self._handle.remove_node(group, recursive=True)
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/tables/file.py", line 1806, in remove_node
+    obj._f_remove(recursive)
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/tables/node.py", line 543, in _f_remove
+    file_._check_writable()
+  File "/nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet/lib/python3.7/site-packages/tables/file.py", line 2167, in _check_writable
+    raise FileModeError("the file is not writable")
+tables.exceptions.FileModeError: the file is not writable

@@ -1,0 +1,45 @@
+000 (6945727.000.000) 2020-08-28 11:34:53 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+001 (6945727.000.000) 2020-08-28 11:37:52 Job executing on host: <131.169.163.122:37070?addrs=131.169.163.122-37070&alias=bird683.desy.de>
+...
+006 (6945727.000.000) 2020-08-28 11:38:01 Image size of job updated: 325400
+	240  -  MemoryUsage of job (MB)
+	245748  -  ResidentSetSize of job (KB)
+...
+006 (6945727.000.000) 2020-08-28 11:43:02 Image size of job updated: 1123464
+	1020  -  MemoryUsage of job (MB)
+	1043468  -  ResidentSetSize of job (KB)
+...
+006 (6945727.000.000) 2020-08-28 11:58:03 Image size of job updated: 1127300
+	1023  -  MemoryUsage of job (MB)
+	1047304  -  ResidentSetSize of job (KB)
+...
+006 (6945727.000.000) 2020-08-28 12:03:03 Image size of job updated: 1128788
+	1025  -  MemoryUsage of job (MB)
+	1048792  -  ResidentSetSize of job (KB)
+...
+006 (6945727.000.000) 2020-08-28 12:08:03 Image size of job updated: 1135636
+	1031  -  MemoryUsage of job (MB)
+	1055640  -  ResidentSetSize of job (KB)
+...
+006 (6945727.000.000) 2020-08-28 12:18:05 Image size of job updated: 2016028
+	1882  -  MemoryUsage of job (MB)
+	1927004  -  ResidentSetSize of job (KB)
+...
+005 (6945727.000.000) 2020-08-28 12:48:43 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:08:26, Sys 0 00:01:43  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:08:26, Sys 0 00:01:43  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   3980058 
+	   Memory (MB)          :  1882        1536      1536 
+
+	Job terminated of its own accord at 2020-08-28T10:48:43Z.
+...

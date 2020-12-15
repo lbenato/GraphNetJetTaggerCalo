@@ -1,0 +1,45 @@
+000 (10383316.000.000) 2020-10-08 09:23:27 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_3943631_6d64_3>
+...
+001 (10383316.000.000) 2020-10-08 09:23:56 Job executing on host: <131.169.77.162:39140?addrs=131.169.77.162-39140&alias=bird642.desy.de>
+...
+006 (10383316.000.000) 2020-10-08 09:24:05 Image size of job updated: 416424
+	293  -  MemoryUsage of job (MB)
+	299920  -  ResidentSetSize of job (KB)
+...
+006 (10383316.000.000) 2020-10-08 09:29:06 Image size of job updated: 1324228
+	940  -  MemoryUsage of job (MB)
+	962492  -  ResidentSetSize of job (KB)
+...
+006 (10383316.000.000) 2020-10-08 09:34:07 Image size of job updated: 1324228
+	940  -  MemoryUsage of job (MB)
+	962496  -  ResidentSetSize of job (KB)
+...
+006 (10383316.000.000) 2020-10-08 09:49:09 Image size of job updated: 1426028
+	1308  -  MemoryUsage of job (MB)
+	1338456  -  ResidentSetSize of job (KB)
+...
+006 (10383316.000.000) 2020-10-08 09:54:09 Image size of job updated: 1426028
+	1311  -  MemoryUsage of job (MB)
+	1341556  -  ResidentSetSize of job (KB)
+...
+006 (10383316.000.000) 2020-10-08 10:09:11 Image size of job updated: 1896436
+	1720  -  MemoryUsage of job (MB)
+	1760552  -  ResidentSetSize of job (KB)
+...
+005 (10383316.000.000) 2020-10-08 10:43:45 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:10:38, Sys 0 00:01:51  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:10:38, Sys 0 00:01:51  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   3845583 
+	   Memory (MB)          :  1720        1536      1536 
+
+	Job terminated of its own accord at 2020-10-08T08:43:45Z.
+...

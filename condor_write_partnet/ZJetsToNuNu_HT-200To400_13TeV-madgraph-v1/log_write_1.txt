@@ -1,0 +1,45 @@
+000 (6945716.000.000) 2020-08-28 11:34:49 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+001 (6945716.000.000) 2020-08-28 11:37:53 Job executing on host: <131.169.164.44:40726?addrs=131.169.164.44-40726&alias=bird844.desy.de>
+...
+006 (6945716.000.000) 2020-08-28 11:38:02 Image size of job updated: 287364
+	148  -  MemoryUsage of job (MB)
+	150796  -  ResidentSetSize of job (KB)
+...
+006 (6945716.000.000) 2020-08-28 11:43:03 Image size of job updated: 892424
+	737  -  MemoryUsage of job (MB)
+	753944  -  ResidentSetSize of job (KB)
+...
+006 (6945716.000.000) 2020-08-28 11:48:03 Image size of job updated: 1027496
+	869  -  MemoryUsage of job (MB)
+	889016  -  ResidentSetSize of job (KB)
+...
+006 (6945716.000.000) 2020-08-28 11:53:03 Image size of job updated: 1186504
+	1024  -  MemoryUsage of job (MB)
+	1048024  -  ResidentSetSize of job (KB)
+...
+006 (6945716.000.000) 2020-08-28 11:58:04 Image size of job updated: 1191840
+	1029  -  MemoryUsage of job (MB)
+	1053360  -  ResidentSetSize of job (KB)
+...
+006 (6945716.000.000) 2020-08-28 12:33:40 Image size of job updated: 1754132
+	1029  -  MemoryUsage of job (MB)
+	1053360  -  ResidentSetSize of job (KB)
+...
+005 (6945716.000.000) 2020-08-28 12:33:40 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:53:13, Sys 0 00:01:48  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:53:13, Sys 0 00:01:48  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   3799331 
+	   Memory (MB)          :  1029        1536      1536 
+
+	Job terminated of its own accord at 2020-08-28T10:33:40Z.
+...

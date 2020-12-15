@@ -14,23 +14,23 @@ gROOT.ProcessLine('.L Objects.h' )
 from ROOT import JetType, CaloJetType, MEtType, CandidateType, DT4DSegmentType, CSCSegmentType, PFCandidateType#, TrackType
 
 # storage folder of the original root files
-in_folder  = '/nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/'
-out_folder = '/nfs/dust/cms/group/cms-llp/dataframes/v3_calo_AOD_2018/'#out dir for write_
+in_folder  = '/nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_skimAccept_unmerged/'
+out_folder = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018/'#out dir for write_
 
-in_convert = '/nfs/dust/cms/group/cms-llp/dataframes/v3_calo_AOD_2018_partnet/'
-out_convert = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_partnet/'
+in_convert = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018/'
+out_convert = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/'
 
-sgn = ['ggH_MH1000_MS150_ctau1000']
-sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
+sgn = ['SUSY_mh400_pl1000_XL']
+#sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
 #sgn = []
 #bkg = ['ZJetsToNuNu']
-bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD','TTbar']
+#bkg = ['ZJetsToNuNu','WJetsToLNu','VV','QCD','TTbar']
 #bkg = ['ZJetsToNuNu']
 #bkg = ['QCD']
 #bkg = ['TTbar']
 #bkg = ['WJetsToLNu']
 #bkg = ['VV']
-#bkg = []
+bkg = []
 
 from samplesAOD2018 import *
 from prepare_v2 import *
@@ -110,6 +110,11 @@ jdict = {
 'timeRMSRecHitsEB' : -1.,
 'energyRecHitsEB' : -1.,
 'energyErrorRecHitsEB' : -1.,
+'nRecHitsHB' : -1,
+'timeRecHitsHB' : -100.,
+'timeRMSRecHitsHB' : -1.,
+'energyRecHitsHB' : -1.,
+'energyErrorRecHitsHB' : -1.,    
 'ptAllTracks' : -1.,
 'ptAllPVTracks' : -1.,
 'ptPVTracksMax' : -1.,
@@ -132,6 +137,9 @@ jdict = {
 'isGenMatchedCaloCorr' : 0,
 'isGenMatchedLLPAccept' : 0,
 'isGenMatchedCaloCorrLLPAccept' : 0,
+#for gen matching
+'radiusLLP' : -1000.,
+'zLLP' : -1000.,    
 }
 
 ## Per-jet PF candidates variables
@@ -336,8 +344,8 @@ def do_write(in_folder, out_folder, cols=var_list_tree):
             root_files = [x for x in os.listdir(IN) if os.path.isfile(os.path.join(IN, x))]
         
             print("Prepare condor submission scripts")
-            if not(os.path.exists('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)):
-                os.mkdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)
+            if not(os.path.exists('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)):
+                os.mkdir('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)
 
             max_n = 20000
             print("Max number of root files considered: ", max_n)
@@ -345,7 +353,7 @@ def do_write(in_folder, out_folder, cols=var_list_tree):
             #for n, f in enumerate(root_files):
             max_loop = min(max_n,len(root_files))
             for n in range(max_loop):
-                os.chdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/')
+                os.chdir('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/')
                 print("Loop n. ", n)
                 print(root_files[n])
                 #for local test:
@@ -357,7 +365,7 @@ def do_write(in_folder, out_folder, cols=var_list_tree):
                     fout.write('import os \n')
                     fout.write('import ROOT as ROOT \n')
                     fout.write('import sys \n')
-                    fout.write('sys.path.insert(0, "/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/") \n')
+                    fout.write('sys.path.insert(0, "/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/") \n')
                     fout.write('from write_pd_v2 import * \n')
                     fout.write('IN  = "'+IN+'" \n')
                     fout.write('OUT = "'+OUT+'" \n')
@@ -371,19 +379,19 @@ def do_write(in_folder, out_folder, cols=var_list_tree):
                 with open('job_write_'+str(n)+'.sh', 'w') as fout:
                     fout.write('#!/bin/sh \n')
                     fout.write('source /etc/profile.d/modules.sh \n')
-                    fout.write('export PATH=/nfs/dust/cms/user/lbenato/anaconda2/bin:$PATH \n')
-                    fout.write('cd /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/ \n')
-                    fout.write('source activate /nfs/dust/cms/user/lbenato/anaconda2/envs/particlenet \n')
-                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/write_macro_'+str(n)+'.py'  +' \n')
+                    fout.write('export PATH=/nfs/dust/cms/user/heikenju/anaconda2/bin:$PATH \n')
+                    fout.write('cd /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/ \n')
+                    fout.write('source activate /nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet \n')
+                    fout.write('python /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/write_macro_'+str(n)+'.py'  +' \n')
                 os.system('chmod 755 job_write_'+str(n)+'.sh')
                 ###os.system('sh job_skim_'+str(n)+'.sh')
         
                 #write submit config
                 with open('submit_write_'+str(n)+'.submit', 'w') as fout:
-                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/job_write_'+ str(n) + '.sh \n')
-                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/out_write_'+ str(n) + '.txt \n')
-                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/error_write_'+ str(n) + '.txt \n')
-                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/log_write_'+ str(n) + '.txt \n')
+                    fout.write('executable   = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/job_write_'+ str(n) + '.sh \n')
+                    fout.write('output       = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/out_write_'+ str(n) + '.txt \n')
+                    fout.write('error        = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/error_write_'+ str(n) + '.txt \n')
+                    fout.write('log          = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/log_write_'+ str(n) + '.txt \n')
                     fout.write(' \n')
                     fout.write('#Requirements = OpSysAndVer == "CentOS7" \n')
                     fout.write('##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" \n')
@@ -401,7 +409,7 @@ def do_write(in_folder, out_folder, cols=var_list_tree):
                
                 ##submit condor
                 os.chdir('../../.')
-                os.system('condor_submit /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/submit_write_'+str(n)+'.submit' + ' \n')
+                os.system('condor_submit /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/submit_write_'+str(n)+'.submit' + ' \n')
 
 
 def do_convert(inp,out,nj,npf,cols):
@@ -416,8 +424,8 @@ def do_convert(inp,out,nj,npf,cols):
             all_files = [x for x in os.listdir(IN) if os.path.isfile(os.path.join(IN, x))]
         
             print("Prepare condor submission scripts")
-            if not(os.path.exists('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s)):
-                os.mkdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s)
+            if not(os.path.exists('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s)):
+                os.mkdir('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s)
             
             ##print("Pre root files: ", all_files)
             skim_list = []
@@ -431,7 +439,7 @@ def do_convert(inp,out,nj,npf,cols):
             for n, f in enumerate(skim_list):
             #for n, f in enumerate([skim_list[0]]):
                 ###convert_dataset_condor(IN,OUT,f)
-                os.chdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/')
+                os.chdir('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/')
                 print("Loop n. ", n)
                 print(f)
                 
@@ -444,7 +452,7 @@ def do_convert(inp,out,nj,npf,cols):
                     fout.write('import os \n')
                     #fout.write('import ROOT as ROOT \n')
                     fout.write('import sys \n')
-                    fout.write('sys.path.insert(0, "/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/") \n')
+                    fout.write('sys.path.insert(0, "/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/") \n')
                     fout.write('from prepare_v2 import * \n')
                     fout.write('IN  = "'+IN+'" \n')
                     fout.write('OUT = "'+OUT+'" \n')
@@ -459,19 +467,19 @@ def do_convert(inp,out,nj,npf,cols):
                 with open('job_convert_'+str(n)+'.sh', 'w') as fout:
                     fout.write('#!/bin/sh \n')
                     fout.write('source /etc/profile.d/modules.sh \n')
-                    fout.write('export PATH=/nfs/dust/cms/user/lbenato/anaconda2/bin:$PATH \n')
-                    fout.write('cd /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/ \n')
-                    fout.write('source activate /nfs/dust/cms/user/lbenato/anaconda2/envs/particlenet \n')
-                    fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/convert_macro_'+str(n)+'.py'  +' \n')
+                    fout.write('export PATH=/nfs/dust/cms/user/heikenju/anaconda2/bin:$PATH \n')
+                    fout.write('cd /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/ \n')
+                    fout.write('source activate /nfs/dust/cms/user/heikenju/anaconda2/envs/particlenet \n')
+                    fout.write('python /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/convert_macro_'+str(n)+'.py'  +' \n')
                 os.system('chmod 755 job_convert_'+str(n)+'.sh')
                 ###os.system('sh job_convert_'+str(n)+'.sh')
     
                 #write submit config
                 with open('submit_convert_'+str(n)+'.submit', 'w') as fout:
-                    fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/job_convert_'+ str(n) + '.sh \n')
-                    fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/out_convert_'+ str(n) + '.txt \n')
-                    fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/error_convert_'+ str(n) + '.txt \n')
-                    fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/log_convert_'+ str(n) + '.txt \n')
+                    fout.write('executable   = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/job_convert_'+ str(n) + '.sh \n')
+                    fout.write('output       = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/out_convert_'+ str(n) + '.txt \n')
+                    fout.write('error        = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/error_convert_'+ str(n) + '.txt \n')
+                    fout.write('log          = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v2/'+s+'/log_convert_'+ str(n) + '.txt \n')
                     fout.write(' \n')
                     fout.write('#Requirements = OpSysAndVer == "CentOS7" \n')
                     fout.write('##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" \n')
@@ -699,7 +707,7 @@ def do_mix_background(type_dataset,folder,features):
     del df_b
     del df_list
 
-def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=10,fraction_of_background=1):
+def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=5,fraction_of_background=0.25):
     #for a in bkg+sgn:
     IN  = folder+ '/'
     OUT = folder+'/'
@@ -765,14 +773,14 @@ def do_mix_s_b(type_dataset,folder,features,upsample_signal_factor=10,fraction_o
 
 #do_write(in_folder, out_folder, cols=var_list_tree)
 #do_convert(in_convert,out_convert,nj,npf,cols=convert_var_list_tree)
-#do_merge(in_convert,out_convert,cols=convert_var_list_tree)
-
+#do_merge(out_convert,out_convert,cols=convert_var_list_tree)
+#exit()
 pf_list = []
 jet_list = []
 event_list = []
 for i,c in enumerate(convert_var_list_tree):
     if not isinstance(c, tuple):
-       event_list.append(c.replace('.','_'))
+        event_list.append(c.replace('.','_'))
 for a in jdict.keys():
     jet_list.append("Jet_"+a)
 if "Jet_index" not in jet_list:
@@ -786,134 +794,11 @@ for n in range(npf):
 #for a in ["train","test","val"]:
     #do_mix_background(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
 #for a in ["test","val","train"]:
-#    do_mix_signal(a,out_convert,event_list+jet_list+pf_list,upsample_factor=0)
+ #   do_mix_signal(a,out_convert,event_list+jet_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"],upsample_factor=0)
 for a in ["test","val","train"]:
-    do_mix_s_b(a,out_convert,event_list+pf_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
+    do_mix_s_b(a,out_convert,event_list+pf_list+jet_list+["Jet_pt","Jet_eta","Jet_phi","Jet_index","Jet_isGenMatchedCaloCorrLLPAccept"])
     
 ## mix considers feature names as a list!
 
 
 
-#######################################################
-
-### This was working when using directly as input the original trees, without rearranging pf candidates. Unfortunately it's too complicated to handle with h5.
-
-'''
-def do_write(in_folder, out_folder, cols=var_list_tree):
-    for a in sgn+bkg:
-        for i, s in enumerate(samples[a]['files']):
-            #calculate CMS weight
-            if 'GluGluH2_H2ToSSTobbbb' in s:
-                xs = 1
-            else:
-                xs = sample[s]['xsec']
-            LUMI = 59690#2018 lumi with normtag, from pdvm2018 twiki
-            print(s, "xsec: ",xs)
-            print("Being read in root file: ")
-            #print(cols)
-            #to be used in write_condor_h5
-            print(in_folder)
-            print(s)
-            subdirs = [x for x in os.listdir(in_folder) if os.path.isdir(os.path.join(in_folder, x))]
-            os.chdir(in_folder)
-            subdir_timestamp = []
-            for l in subdirs:
-                if a in bkg and l==s[:-8]:
-                    IN = in_folder + l + '/' + 'crab_' + s + '/'
-                    timestamp  = os.listdir(IN)[0]
-                    IN += timestamp+'/'
-                    subdir_timestamp += [x for x in os.listdir(IN) if os.path.isdir(os.path.join(IN, x))]
-                elif a in sgn and l==s:
-                    IN = in_folder + l + '/' + 'crab_' + s + '/'
-                    timestamp  = os.listdir(IN)[0]
-                    IN += timestamp+'/'
-                    subdir_timestamp += [x for x in os.listdir(IN) if os.path.isdir(os.path.join(IN, x))]
-            print(IN)
-            print(subdir_timestamp)
-            OUT = out_folder+s+'/'
-            if not(os.path.exists(OUT)):
-                os.mkdir(OUT)
-
-            root_files = []
-
-            print("Prepare condor submission scripts")
-            if not(os.path.exists('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)):
-                os.mkdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s)
-
-            for sub in subdir_timestamp:
-                IN_tmp = IN+sub+'/'
-                root_files = [x for x in os.listdir(IN_tmp) if os.path.isfile(os.path.join(IN_tmp, x))]
-                print(root_files)
-                max_n = 20000
-                print("Max number of root files considered: ", max_n)
-                #for n,f in enumerate([root_files[0]]):
-                #for n, f in enumerate(root_files):
-                max_loop = min(max_n,len(root_files))
-                for n in range(max_loop):
-                    os.chdir('/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/')
-                    print("Loop n. ", n)
-                    print(root_files[n])
-
-                    #write python macro
-                    with open('write_macro_'+str(n)+'.py', 'w') as fout:
-                        fout.write('#!/usr/bin/env python \n')
-                        fout.write('import os \n')
-                        fout.write('import ROOT as ROOT \n')
-                        fout.write('import sys \n')
-                        fout.write('sys.path.insert(0, "/nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/") \n')
-                        fout.write('from write_pd_v2 import * \n')
-                        fout.write('IN  = "'+IN_tmp+'" \n')
-                        fout.write('OUT = "'+OUT+'" \n')
-                        fout.write('xs = '+str(xs)+' \n')
-                        fout.write('LUMI = '+str(LUMI)+' \n')
-                        fout.write('cols = '+str(cols)+' \n')
-                        fout.write(' \n')
-                        fout.write('write_h5_v2(IN,OUT,"'+root_files[n]+'",xs,LUMI,cols,tree_name="ntuple/tree",counter_hist="counter/c_nEvents",sel_cut ="") \n')
-
-                    #From here now, to be fixed
-                    with open('job_write_'+str(n)+'.sh', 'w') as fout:
-                        fout.write('#!/bin/sh \n')
-                        fout.write('source /etc/profile.d/modules.sh \n')
-                        fout.write('export PATH=/nfs/dust/cms/user/lbenato/anaconda2/bin:$PATH \n')
-                        fout.write('cd /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/ \n')
-                        fout.write('source activate /nfs/dust/cms/user/lbenato/anaconda2/envs/particlenet \n')
-                        fout.write('python /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/write_macro_'+str(n)+'.py'  +' \n')
-                    os.system('chmod 755 job_write_'+str(n)+'.sh')
-                    ###os.system('sh job_skim_'+str(n)+'.sh')
-        
-                    #write submit config
-                    with open('submit_write_'+str(n)+'.submit', 'w') as fout:
-                        fout.write('executable   = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/job_write_'+ str(n) + '.sh \n')
-                        fout.write('output       = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/out_write_'+ str(n) + '.txt \n')
-                        fout.write('error        = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/error_write_'+ str(n) + '.txt \n')
-                        fout.write('log          = /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/log_write_'+ str(n) + '.txt \n')
-                        fout.write(' \n')
-                        fout.write('#Requirements = OpSysAndVer == "CentOS7" \n')
-                        fout.write('##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" \n')
-                        fout.write('#Request_GPUs = 1 \n')
-                        fout.write(' \n')
-                        fout.write('## uncomment this if you want to use the job specific variables $CLUSTER and $PROCESS inside your batchjob \n')
-                        fout.write('##environment = "CLUSTER=$(Cluster) PROCESS=$(Process)" \n')
-                        fout.write(' \n')
-                        fout.write('## uncomment this to specify a runtime longer than 3 hours (time in seconds) \n')
-                        fout.write('Request_Cpus = ' + str(NCPUS) + ' \n')
-                        fout.write('Request_Memory = ' + str(MEMORY) + ' \n')
-                        fout.write('+RequestRuntime = ' + str(RUNTIME) + ' \n')
-                        fout.write('batch_name = w_'+s[:2]+str(n)+' \n')
-                        fout.write('queue 1 \n')
-                
-                    ##submit condor
-                    os.chdir('../../.')
-                    os.system('condor_submit /nfs/dust/cms/user/lbenato/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/'+s+'/submit_write_'+str(n)+'.submit' + ' \n')
-
-                    #for local test:
-                    #write_h5_v2(IN_tmp,OUT,root_files[n],xs,LUMI,cols,tree_name="ntuple/tree",counter_hist="counter/c_nEvents",sel_cut="")
-'''
-
-
-'''
-
-'''
-
-#do_write(in_folder, out_folder, cols=var_list_tree)
-#do_convert(in_convert,out_convert,nj,npf,cols=convert_var_list_tree,pf_dict=pfdict)

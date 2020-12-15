@@ -1,0 +1,18 @@
+executable   = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1/job_write_104.sh 
+output       = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1/out_write_104.txt 
+error        = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1/error_write_104.txt 
+log          = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_write_v2/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8-v1/log_write_104.txt 
+ 
+#Requirements = OpSysAndVer == "CentOS7" 
+##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" 
+#Request_GPUs = 1 
+ 
+## uncomment this if you want to use the job specific variables $CLUSTER and $PROCESS inside your batchjob 
+##environment = "CLUSTER=$(Cluster) PROCESS=$(Process)" 
+ 
+## uncomment this to specify a runtime longer than 3 hours (time in seconds) 
+Request_Cpus = 1 
+Request_Memory = 1500 
++RequestRuntime = 14400 
+batch_name = w_WJ104 
+queue 1 

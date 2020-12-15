@@ -1,0 +1,54 @@
+2020-05-22 17:57:33.631915: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-05-22 17:57:33.643746: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties: 
+pciBusID: 0000:65:00.0 name: GeForce GTX 1080 Ti computeCapability: 6.1
+coreClock: 1.582GHz coreCount: 28 deviceMemorySize: 10.92GiB deviceMemoryBandwidth: 451.17GiB/s
+2020-05-22 17:57:33.644980: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-05-22 17:57:33.653085: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-05-22 17:57:33.659539: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-05-22 17:57:33.660933: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-05-22 17:57:33.667981: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-05-22 17:57:33.671795: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-05-22 17:57:33.684685: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-05-22 17:57:33.687570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 0
+2020-05-22 17:58:13.052798: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2020-05-22 17:58:13.061564: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2200000000 Hz
+2020-05-22 17:58:13.062606: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x561fca8b5870 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-05-22 17:58:13.062664: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-05-22 17:58:13.063868: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties: 
+pciBusID: 0000:65:00.0 name: GeForce GTX 1080 Ti computeCapability: 6.1
+coreClock: 1.582GHz coreCount: 28 deviceMemorySize: 10.92GiB deviceMemoryBandwidth: 451.17GiB/s
+2020-05-22 17:58:13.063952: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-05-22 17:58:13.063971: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-05-22 17:58:13.063988: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-05-22 17:58:13.064005: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-05-22 17:58:13.064021: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-05-22 17:58:13.064038: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-05-22 17:58:13.064054: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-05-22 17:58:13.065464: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 0
+2020-05-22 17:58:13.065512: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-05-22 17:58:13.165311: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-05-22 17:58:13.165347: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      0 
+2020-05-22 17:58:13.165361: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 0:   N 
+2020-05-22 17:58:13.167255: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10481 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:65:00.0, compute capability: 6.1)
+2020-05-22 17:58:13.169579: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x561fcb14d920 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-05-22 17:58:13.169604: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): GeForce GTX 1080 Ti, Compute Capability 6.1
+2020-05-22 17:58:20.100387: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 568112800 exceeds 10% of system memory.
+2020-05-22 17:58:22.502918: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 1988394800 exceeds 10% of system memory.
+2020-05-22 17:58:24.155583: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 284056400 exceeds 10% of system memory.
+Using TensorFlow backend.
+WARNING:tensorflow:sample_weight modes were coerced from
+  ...
+    to  
+  ['...']
+2020-05-22 17:58:24.877159: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 172422400 exceeds 10% of system memory.
+2020-05-22 17:58:25.693078: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 603478400 exceeds 10% of system memory.
+WARNING:tensorflow:sample_weight modes were coerced from
+  ...
+    to  
+  ['...']
+2020-05-22 17:58:28.708398: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-05-22 17:58:29.055825: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-05-22 17:58:32.275457: W tensorflow/stream_executor/gpu/asm_compiler.cc:120] *** WARNING *** You are using ptxas 9.1.121, which is older than 9.2.88. ptxas 9.x before 9.2.88 is known to miscompile XLA code, leading to incorrect results or invalid-address errors.
+
+You do not need to update to CUDA 9.2.88; cherry-picking the ptxas binary is sufficient.
+Closing remaining open files:/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/val.h5...done/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/test.h5...done/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/train.h5...done

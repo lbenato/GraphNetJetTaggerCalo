@@ -1,0 +1,52 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_skimAccept_unmerged/TChiHH_mass400_pl1000/
+
+
+  n events gen.:  53323.0
+   Tree weight:    99.32754955647657
+
+
+   Initialized df for sample:  output_12.root
+   Reading n. events in tree:  15404
+   Cut applied:  
+   Events passing cuts:  15404
+
+
+       EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0          1651503  ...                                  -1
+1          1651502  ...                                  -1
+2          1651513  ...                                  -1
+3          1651526  ...                                  -1
+4          1651516  ...                                  -1
+...            ...  ...                                 ...
+15399      1759787  ...                                  -1
+15400      1759775  ...                                  -1
+15401      1759798  ...                                  -1
+15402      1759799  ...                                  -1
+15403      1759797  ...                                  -1
+
+[15404 rows x 6888 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 118.30 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+       EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0          1651503          1       16516  ...        1.0    53323.0      99.32755
+1          1651502          1       16516  ...        1.0    53323.0      99.32755
+2          1651513          1       16516  ...        1.0    53323.0      99.32755
+3          1651526          1       16516  ...        1.0    53323.0      99.32755
+4          1651516          1       16516  ...        1.0    53323.0      99.32755
+...            ...        ...         ...  ...        ...        ...           ...
+15399      1759787          1       17598  ...        1.0    53323.0      99.32755
+15400      1759775          1       17598  ...        1.0    53323.0      99.32755
+15401      1759798          1       17598  ...        1.0    53323.0      99.32755
+15402      1759799          1       17598  ...        1.0    53323.0      99.32755
+15403      1759797          1       17598  ...        1.0    53323.0      99.32755
+
+[15404 rows x 6891 columns]
+  -------------------   
+  Events :  15404
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018/TChiHH_mass400_pl1000//output_12.h5 stored
+  -------------------   

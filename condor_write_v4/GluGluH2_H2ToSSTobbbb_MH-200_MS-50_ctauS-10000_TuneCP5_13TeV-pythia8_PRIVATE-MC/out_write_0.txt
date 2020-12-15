@@ -1,0 +1,52 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_skimAccept_unmerged/GluGluH2_H2ToSSTobbbb_MH-200_MS-50_ctauS-10000_TuneCP5_13TeV-pythia8_PRIVATE-MC/
+
+
+
+
+   Initialized df for sample:  output_1.root
+  n events gen.:  49997.40234375
+   Tree weight:    1.1938620248630105
+   Reading n. events in tree:  2258
+   Cut applied:  
+   Events passing cuts:  2258
+
+
+      EventNumber  ...  Jet_9_PFCandidate_49_lostInnerHits
+0               5  ...                                  -1
+1               2  ...                                  -1
+2              21  ...                                  -1
+3              27  ...                                  -1
+4             115  ...                                  -1
+...           ...  ...                                 ...
+2253        49948  ...                                  -1
+2254        49947  ...                                  -1
+2255        49962  ...                                  -1
+2256        49967  ...                                  -1
+2257        49986  ...                                  -1
+
+[2258 rows x 11485 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 43.26 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+      EventNumber  RunNumber  LumiNumber  ...  is_signal     c_nEvents  SampleWeight
+0               5          1           1  ...        1.0  49997.402344      1.193862
+1               2          1           1  ...        1.0  49997.402344      1.193862
+2              21          1           1  ...        1.0  49997.402344      1.193862
+3              27          1           1  ...        1.0  49997.402344      1.193862
+4             115          1           2  ...        1.0  49997.402344      1.193862
+...           ...        ...         ...  ...        ...           ...           ...
+2253        49948          1         500  ...        1.0  49997.402344      1.193862
+2254        49947          1         500  ...        1.0  49997.402344      1.193862
+2255        49962          1         500  ...        1.0  49997.402344      1.193862
+2256        49967          1         500  ...        1.0  49997.402344      1.193862
+2257        49986          1         500  ...        1.0  49997.402344      1.193862
+
+[2258 rows x 11488 columns]
+  -------------------   
+  Events :  2258
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_v4_resolved/GluGluH2_H2ToSSTobbbb_MH-200_MS-50_ctauS-10000_TuneCP5_13TeV-pythia8_PRIVATE-MC//output_1.h5 stored
+  -------------------   

@@ -1,0 +1,45 @@
+000 (10579932.000.000) 2020-10-12 11:50:07 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_3943631_6d64_3>
+...
+001 (10579932.000.000) 2020-10-12 13:20:23 Job executing on host: <131.169.164.6:38918?addrs=131.169.164.6-38918&alias=bird806.desy.de>
+...
+006 (10579932.000.000) 2020-10-12 13:20:31 Image size of job updated: 76008
+	37  -  MemoryUsage of job (MB)
+	37744  -  ResidentSetSize of job (KB)
+...
+006 (10579932.000.000) 2020-10-12 13:25:31 Image size of job updated: 976872
+	811  -  MemoryUsage of job (MB)
+	829444  -  ResidentSetSize of job (KB)
+...
+006 (10579932.000.000) 2020-10-12 13:30:31 Image size of job updated: 1202884
+	1031  -  MemoryUsage of job (MB)
+	1055456  -  ResidentSetSize of job (KB)
+...
+006 (10579932.000.000) 2020-10-12 13:50:32 Image size of job updated: 1202884
+	1076  -  MemoryUsage of job (MB)
+	1101808  -  ResidentSetSize of job (KB)
+...
+006 (10579932.000.000) 2020-10-12 13:55:33 Image size of job updated: 1205668
+	1128  -  MemoryUsage of job (MB)
+	1155056  -  ResidentSetSize of job (KB)
+...
+006 (10579932.000.000) 2020-10-12 14:00:34 Image size of job updated: 1205668
+	1131  -  MemoryUsage of job (MB)
+	1157424  -  ResidentSetSize of job (KB)
+...
+005 (10579932.000.000) 2020-10-12 15:05:57 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:08:47, Sys 0 00:35:40  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:08:47, Sys 0 00:35:40  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.96        1         1 
+	   Disk (KB)            :     1     3072000   3804455 
+	   Memory (MB)          :  1131        1536      1536 
+
+	Job terminated of its own accord at 2020-10-12T13:05:57Z.
+...

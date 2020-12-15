@@ -17,6 +17,11 @@ from dnn_functions import *
 from samplesAOD2018 import *
 from tf_keras_model import *
 
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx, array[idx]
+
 def _col_list(prefix,npf):
     return ['%s_%d'%(prefix,i) for i in range(npf)]
 
@@ -38,7 +43,7 @@ def get_FCN_jets_dataset(dataframe,features,weight,is_signal="is_signal",ignore_
         
     return X, y, w
 
-def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signal="is_signal",ignore_empty_jets=True):
+def get_FCN_constituents_dataset(dataframe,n_points,features_var,jet_var,weight,is_signal="is_signal",ignore_empty_jets=True):
 
     if ignore_empty_jets:
         #print("\n")
@@ -46,19 +51,20 @@ def get_FCN_constituents_dataset(dataframe,n_points,features_var,weight,is_signa
         #print("\n")
         dataframe = dataframe[ dataframe["Jet_pt"]>-1 ]
     
-    #points_arr = []
-    #features_arr = []
-
+    print("before:", features_var)
+    print("\n")
     features_list = []
     for n in range(n_points):
         for f_var in features_var:
-            features_list.append(f_var+"_"+str(n))
+            features_list.append(f_var+"_"+str(n))        
     #L: do not stack!#features = np.stack(features_arr,axis=-1)
     #L: the _col_list was not doing what I thought. Beter a simpler loop
     #for p_var in points_var:
      #   points_arr.append(dataframe[_col_list(p_var,n_points)].values)
     #points = np.stack(points_arr,axis=-1)
-
+    for j_var in jet_var:
+        features_list.append(str(j_var))
+            
     print("\n")
     print("Here features_list", features_list)
     print("Here the dataset")
@@ -529,9 +535,9 @@ def fit_test(model_def,n_class,sign,back,folder,result_folder,n_points,points,fe
 def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,mask,jvars,is_signal,weight,use_weight,n_epochs,n_batch_size,patience_val,val_split,model_label="",ignore_empty_jets_train=True):
 
     ##Read train/validation sample
-    store_train = pd.HDFStore(folder+"train_rel.h5")
+    store_train = pd.HDFStore(folder+"AK4jets_train_rel.h5")
     df_train = store_train.select("df")
-    store_val = pd.HDFStore(folder+"val_rel.h5")
+    store_val = pd.HDFStore(folder+"AK4jets_val_rel.h5")
     df_val = store_val.select("df")
 
     if(model_def=="FCN"):
@@ -539,8 +545,8 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_val,   y_val,   w_val   = get_FCN_jets_dataset(df_val,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_jets(num_classes=n_class, input_shapes=X_train.shape[1:])
     elif(model_def=="FCN_constituents"):
-        X_train, y_train, w_train = get_FCN_constituents_dataset(df_train,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
-        X_val,   y_val,   w_val   = get_FCN_constituents_dataset(df_val,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_train, y_train, w_train = get_FCN_constituents_dataset(df_train,n_points,features+points,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_val,   y_val,   w_val   = get_FCN_constituents_dataset(df_val,n_points,features+points,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_FCN_constituents(num_classes=n_class, input_shapes=X_train.shape[1:])    
     elif(model_def=="particle_net_lite"):
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -551,6 +557,7 @@ def fit_model(model_def,n_class,folder,result_folder,n_points,points,features,ma
         X_train, y_train, w_train, input_shapes = get_particle_net_dataset(df_train,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         X_val,   y_val,   w_val, _   = get_particle_net_dataset(df_val,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
         model = get_particle_net(n_class, input_shapes, contains_angle = True if 'phi' in points else False) 
+       # model = keras.models.load_model('/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_v5/model_particle_net_PartNet/best_model_PartNet.h5')
     elif(model_def=="particle_net_jet"):#TBC
         print("L: here go to particle net jet")
         X_train, y_train, w_train, input_shapes = get_particle_net_jet_dataset(df_train,n_points,points,features,mask,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
@@ -689,7 +696,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     print("    Evaluating performances of the model.....   ")
 
     ##Read test sample
-    store = pd.HDFStore(folder+"test_rel.h5")
+    store = pd.HDFStore(folder+"AK4jets_test_rel.h5")
     df_test = store.select("df")
 
     print("    Remove negative weights at testing!!!!!!")
@@ -720,7 +727,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
         X_test, y_test, w_test = get_FCN_jets_dataset(df_test,features,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="FCN_constituents"):
         #Lisa: here you also need features+points
-        X_test, y_test, w_test = get_FCN_constituents_dataset(df_test,n_points,features+points,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
+        X_test, y_test, w_test = get_FCN_constituents_dataset(df_test,n_points,features+points,jvars,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_lite" or model_def=="particle_net"):
         X_test, y_test, w_test, input_shapes = get_particle_net_dataset(df_test,n_points,points,features,mask,weight=weight,is_signal="is_signal",ignore_empty_jets=True)
     elif(model_def=="particle_net_jet"):
@@ -744,6 +751,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
 
     print("    Loading model... ", result_folder+output_file+'.h5')
     print("\n")
+    #print(result_folder+output_file+'.h5')
     model = keras.models.load_model(result_folder+output_file+'.h5')
     model.summary()
     print("\n")
@@ -818,6 +826,11 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     else:
         fpr, tpr, _ = roc_curve(df_test[is_signal], df_test["sigprob"], sample_weight=w_test)
 
+    #filter fpr values that are 0
+    #mask=fpr>0
+    #fpr = fpr[mask]
+    #tpr = tpr[mask]
+    
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     plt.plot(fpr, tpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
@@ -837,6 +850,7 @@ def evaluate_model(model_def,n_class,folder,result_folder,n_points,points,featur
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     plt.plot(tpr, 1/fpr, color='crimson', lw=2, label='AUC = {0:.4f}'.format(AUC))
+    plt.plot(0.636040507008249, 1/0.00040904540701505433,'ro',color='blue',label="cut based")
     #plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     #plt.ylim([0.0, 1.05])
     plt.ylabel('inverse False Positive Rate')
@@ -1011,7 +1025,7 @@ def evaluate_BDT(model_def,n_class,folder,result_folder,n_points,points,features
 
 
 
-def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,model_labels,signal_match_test,ignore_empty_jets_test):
+def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,model_labels,plot_labels,signal_match_test,ignore_empty_jets_test,jets="AK4"):
 
     sigprob = {}
     target = {}
@@ -1019,13 +1033,21 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     AUC = {}
     fpr = {}
     tpr = {}
+    thresholds = {}
+    idx = {}
     add_string = ""
+
+    cut_fpr = 0.00040904540701505433
+
 
     #if ignore_empty_jets_test:
     #    add_string+="_ignore_empty_jets"
 
     if signal_match_test:
-        add_string+="_signal_matched"
+        if jets=="AK4":
+            add_string+="_signal_matched_Jet_isGenMatchedCaloCorrLLPAccept"
+        else:
+            add_string+="_signal_matched_FatJet_isGenMatchedCaloCorrLLPAccept"
 
     orig_result = result_folder
     for i,m in enumerate(model_list):
@@ -1045,25 +1067,32 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
         weight[i] = df[weight_list[i]].values
         if use_weight:
             AUC[i] = roc_auc_score(target[i], sigprob[i], sample_weight=weight[i])        
-            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i], sample_weight=weight[i])
+            fpr[i], tpr[i], thresholds[i] = roc_curve(target[i], sigprob[i], sample_weight=weight[i])
+            idx[i], _ = find_nearest(fpr[i],cut_fpr)
         else:
             AUC[i] = roc_auc_score(target[i], sigprob[i])
-            fpr[i], tpr[i], _ = roc_curve(target[i], sigprob[i])
+            fpr[i], tpr[i], thresholds[i] = roc_curve(target[i], sigprob[i])
+            idx[i], _ = find_nearest(fpr[i],cut_fpr)
 
         del df
         store.close()
         del store
 
-    colors = ['crimson','green','skyblue','chocolate','orange']
-    linestyles = ['-', '--', '-.', ':']
-
+    colors = ['crimson','green','skyblue','orange','gray','magenta','chocolate','yellow','black','olive']
+    linestyles = ['-', '--', '-.', ':','-','--','-.',':']
+    linestyles = ['-', '--', '-.', '-','--','-.',':','-', '--', '-.',]
+    
     plt.figure(figsize=(8,7))
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
-        lab = m if not m=="LEADER" else "FCN"
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        #lab = m if not m=="LEADER" else "FCN"
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i],label="w.p. {0:.4f}".format(thresholds[i][idx[i]]))
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.00040904540701505433,0.636040507008249,'ro',color='blue',label="cut based")
+
     plt.xlim([0.0, 1.05])
     plt.ylim([0.0, 1.05])
     plt.ylabel('True Positive Rate')
@@ -1080,22 +1109,69 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     plt.rcParams.update({'font.size': 15}) #Larger font size
     for i,m in enumerate(model_list):
         lab = m if not m=="LEADER" else "FCN"
-        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i])
         #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.00040904540701505433,0.636040507008249,'ro',color='blue',label="cut based")
     plt.ylim([0.0, 1.05])
+
+    print('\n')
+    print('Example: take the first entry')
+    print(tpr.keys())
+    print(tpr[0])
+    print(fpr[0])
+    print(thresholds[0])
+    idx, val = find_nearest(fpr[0],cut_fpr)
+    print('closest?')
+    print(idx, val, fpr[0][idx], tpr[0][idx], thresholds[0][idx], cut_fpr, 0.22)
+    
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
-    plt.legend(loc="lower right")
+    plt.legend(loc="center right")
     plt.grid(True)
     plt.xlim([0.0001, 1.05])
     plt.xscale('log')
     plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.pdf')
     plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.png')
+    
+    '''
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 12}) #Larger font size
+    for i,m in enumerate(model_list):
+        lab = m if not m=="LEADER" else "FCN"
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(tpr[i], 1/fpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+       # plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i])
+       # plt.plot(tpr[i][idx[i]], 1/fpr[i][idx[i]],'ro',color=colors[i],label="w.p. {0:.4f}".format(thresholds[i][idx[i]]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+    #plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    #plt.plot(0.22, 0.0006325845,'ro',color='blue',label="cut based")
+    #plt.ylim([0.0, 1.05])
+
+    print('\n')
+    print('Example: take the first entry')
+    print(tpr.keys())
+    print(tpr[0])
+    print(fpr[0])
+    print(thresholds[0])
+    idx, val = find_nearest(fpr[0],cut_fpr)
+    print('closest?')
+    print(idx, val, fpr[0][idx], tpr[0][idx], thresholds[0][idx], cut_fpr, 0.22)
+    
+    plt.xlabel('True Positive Rate')
+    plt.ylabel('inverse False Positive Rate')
+    plt.legend(loc="lower left")
+    plt.grid(True)
+    #plt.xlim([0.0001, 1.05])
+    plt.yscale('log')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.pdf')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'_logx.png')
     #plt.show()
 
 
-    '''
+    
     back = np.array(df_test["sigprob"].loc[df_test[is_signal]==0].values)
     sign = np.array(df_test["sigprob"].loc[df_test[is_signal]==1].values)
     back_w = np.array(df_test["EventWeightNormalized"].loc[df_test[is_signal]==0].values)
@@ -1125,7 +1201,30 @@ def compare_models(model_list,result_folder,is_signal,weight_list,use_weight,mod
     plt.savefig(result_folder+'probability_'+output_file+add_string+'.pdf')
     '''
 
+"""
+    plt.figure(figsize=(8,7))
+    plt.rcParams.update({'font.size': 15}) #Larger font size
+    for i,m in enumerate(model_list):
+        #lab = m if not m=="LEADER" else "FCN"
+        #plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=lab+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i], tpr[i], color=colors[i], linestyle=linestyles[i], lw=2, label=plot_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+        plt.plot(fpr[i][idx[i]], tpr[i][idx[i]],'ro',color=colors[i],label="w.p. {0:.4f}".format(thresholds[i][idx[i]]))
+        #plt.plot(fpr[i], tpr[i], color=colors[i], lw=2, label=m+model_labels[i]+' (AUC = {0:.4f})'.format(AUC[i]))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(0.0006325845,0.22,'ro',color='blue',label="cut based")
 
+    plt.xlim([0.0, 1.05])
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'.pdf')
+    plt.savefig(orig_result+'Compare_ROC_'+add_string+'.png')
+    #plt.show()
+    print("    Plots printed in "+orig_result)
+    print("\n")
+"""
 
 # # # # # # # # # #
 # These functions must be tested for graphnet:

@@ -1,0 +1,106 @@
+000 (6755456.000.000) 2020-08-27 10:20:43 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+001 (6755456.000.000) 2020-08-27 11:12:34 Job executing on host: <131.169.160.151:34926?addrs=131.169.160.151-34926&alias=batch1051.desy.de>
+...
+006 (6755456.000.000) 2020-08-27 11:12:42 Image size of job updated: 126452
+	124  -  MemoryUsage of job (MB)
+	126452  -  ResidentSetSize of job (KB)
+...
+006 (6755456.000.000) 2020-08-27 11:13:33 Image size of job updated: 1008908
+	124  -  MemoryUsage of job (MB)
+	126692  -  ResidentSetSize of job (KB)
+...
+005 (6755456.000.000) 2020-08-27 11:13:33 Job terminated.
+	(1) Normal termination (return value 1)
+		Usr 0 00:00:47, Sys 0 00:00:06  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:47, Sys 0 00:00:06  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   4386964 
+	   Memory (MB)          :   124        1536      1536 
+
+	Job terminated of its own accord at 2020-08-27T09:13:33Z.
+...
+000 (6777018.000.000) 2020-08-27 17:00:50 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+001 (6777018.000.000) 2020-08-27 17:08:21 Job executing on host: <131.169.162.167:42438?addrs=131.169.162.167-42438&alias=batch1167.desy.de>
+...
+006 (6777018.000.000) 2020-08-27 17:08:30 Image size of job updated: 625004
+	611  -  MemoryUsage of job (MB)
+	625004  -  ResidentSetSize of job (KB)
+...
+006 (6777018.000.000) 2020-08-27 17:13:31 Image size of job updated: 1022052
+	999  -  MemoryUsage of job (MB)
+	1022052  -  ResidentSetSize of job (KB)
+...
+006 (6777018.000.000) 2020-08-27 17:18:32 Image size of job updated: 1321496
+	1265  -  MemoryUsage of job (MB)
+	1295044  -  ResidentSetSize of job (KB)
+...
+005 (6777018.000.000) 2020-08-27 17:35:21 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:23:42, Sys 0 00:02:19  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:23:42, Sys 0 00:02:19  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.94        1         1 
+	   Disk (KB)            :     1     3072000   4428791 
+	   Memory (MB)          :  1265        1536      1536 
+
+	Job terminated of its own accord at 2020-08-27T15:35:21Z.
+...
+000 (6984568.000.000) 2020-08-28 13:14:24 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+009 (6984568.000.000) 2020-08-28 22:03:08 Job was aborted by the user.
+	via condor_rm (by user heikenju)
+...
+000 (7096127.000.000) 2020-08-28 22:04:57 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1884_d884_3>
+...
+001 (7096127.000.000) 2020-08-28 23:12:15 Job executing on host: <131.169.164.54:45986?addrs=131.169.164.54-45986>
+...
+006 (7096127.000.000) 2020-08-28 23:12:23 Image size of job updated: 14156
+	11  -  MemoryUsage of job (MB)
+	10432  -  ResidentSetSize of job (KB)
+...
+006 (7096127.000.000) 2020-08-28 23:17:23 Image size of job updated: 1155296
+	1038  -  MemoryUsage of job (MB)
+	1062172  -  ResidentSetSize of job (KB)
+...
+006 (7096127.000.000) 2020-08-28 23:22:24 Image size of job updated: 1510520
+	1385  -  MemoryUsage of job (MB)
+	1417396  -  ResidentSetSize of job (KB)
+...
+006 (7096127.000.000) 2020-08-28 23:27:25 Image size of job updated: 1510520
+	1386  -  MemoryUsage of job (MB)
+	1419132  -  ResidentSetSize of job (KB)
+...
+006 (7096127.000.000) 2020-08-28 23:59:15 Image size of job updated: 1528600
+	1386  -  MemoryUsage of job (MB)
+	1419132  -  ResidentSetSize of job (KB)
+...
+005 (7096127.000.000) 2020-08-28 23:59:15 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:42:14, Sys 0 00:03:15  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:42:14, Sys 0 00:03:15  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   3870501 
+	   Memory (MB)          :  1386        1536      1536 
+...

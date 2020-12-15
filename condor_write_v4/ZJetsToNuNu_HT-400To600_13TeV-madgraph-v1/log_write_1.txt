@@ -1,0 +1,45 @@
+000 (10335139.000.000) 2020-10-07 19:44:45 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_3943631_6d64_3>
+...
+001 (10335139.000.000) 2020-10-07 22:53:20 Job executing on host: <131.169.160.115:33418?addrs=131.169.160.115-33418&alias=batch1076.desy.de>
+...
+006 (10335139.000.000) 2020-10-07 22:53:29 Image size of job updated: 81536
+	40  -  MemoryUsage of job (MB)
+	40072  -  ResidentSetSize of job (KB)
+...
+006 (10335139.000.000) 2020-10-07 22:58:30 Image size of job updated: 1667700
+	1474  -  MemoryUsage of job (MB)
+	1509200  -  ResidentSetSize of job (KB)
+...
+006 (10335139.000.000) 2020-10-07 23:03:30 Image size of job updated: 1675504
+	1482  -  MemoryUsage of job (MB)
+	1517004  -  ResidentSetSize of job (KB)
+...
+006 (10335139.000.000) 2020-10-07 23:13:31 Image size of job updated: 1675504
+	1483  -  MemoryUsage of job (MB)
+	1518208  -  ResidentSetSize of job (KB)
+...
+006 (10335139.000.000) 2020-10-07 23:18:31 Image size of job updated: 1685776
+	1494  -  MemoryUsage of job (MB)
+	1529368  -  ResidentSetSize of job (KB)
+...
+006 (10335139.000.000) 2020-10-08 01:11:04 Image size of job updated: 2028256
+	1494  -  MemoryUsage of job (MB)
+	1529368  -  ResidentSetSize of job (KB)
+...
+005 (10335139.000.000) 2020-10-08 01:11:04 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 02:11:49, Sys 0 00:03:18  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 02:11:49, Sys 0 00:03:18  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   4429373 
+	   Memory (MB)          :  1494        1536      1536 
+
+	Job terminated of its own accord at 2020-10-07T23:11:04Z.
+...

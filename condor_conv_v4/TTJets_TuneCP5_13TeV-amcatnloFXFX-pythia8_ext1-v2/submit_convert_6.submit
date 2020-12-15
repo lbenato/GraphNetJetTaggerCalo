@@ -1,0 +1,18 @@
+executable   = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v4/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8_ext1-v2/job_convert_6.sh 
+output       = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v4/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8_ext1-v2/out_convert_6.txt 
+error        = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v4/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8_ext1-v2/error_convert_6.txt 
+log          = /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/condor_conv_v4/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8_ext1-v2/log_convert_6.txt 
+ 
+#Requirements = OpSysAndVer == "CentOS7" 
+##Requirements = OpSysAndVer == "CentOS7" && CUDADeviceName == "GeForce GTX 1080 Ti" 
+#Request_GPUs = 1 
+ 
+## uncomment this if you want to use the job specific variables $CLUSTER and $PROCESS inside your batchjob 
+##environment = "CLUSTER=$(Cluster) PROCESS=$(Process)" 
+ 
+## uncomment this to specify a runtime longer than 3 hours (time in seconds) 
+Request_Cpus = 1 
+Request_Memory = 1500 
++RequestRuntime = 43200 
+batch_name = TTJets_TuneCP5_6 
+queue 1 

@@ -1,0 +1,37 @@
+000 (10072480.000.000) 2020-10-04 09:39:35 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_1707_7041_3>
+...
+022 (10072480.000.000) 2020-10-04 09:39:58 Job disconnected, attempting to reconnect
+    Socket between submit and execute hosts closed unexpectedly
+    Trying to reconnect to slot2_8@bird555.desy.de <131.169.77.37:44241?addrs=131.169.77.37-44241&alias=bird555.desy.de>
+...
+024 (10072480.000.000) 2020-10-04 09:39:58 Job reconnection failed
+    Job not found at execution machine
+    Can not reconnect to slot2_8@bird555.desy.de, rescheduling job
+...
+001 (10072480.000.000) 2020-10-04 09:41:05 Job executing on host: <131.169.164.17:43046?addrs=131.169.164.17-43046&alias=bird817.desy.de>
+...
+006 (10072480.000.000) 2020-10-04 09:41:13 Image size of job updated: 382820
+	221  -  MemoryUsage of job (MB)
+	225996  -  ResidentSetSize of job (KB)
+...
+006 (10072480.000.000) 2020-10-04 09:44:01 Image size of job updated: 2758052
+	221  -  MemoryUsage of job (MB)
+	226212  -  ResidentSetSize of job (KB)
+...
+005 (10072480.000.000) 2020-10-04 09:44:01 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:02:38, Sys 0 00:00:08  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:02:38, Sys 0 00:00:08  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   3800290 
+	   Memory (MB)          :   221        1536      1536 
+
+	Job terminated of its own accord at 2020-10-04T07:44:01Z.
+...

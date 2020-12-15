@@ -1,0 +1,73 @@
+000 (10335160.000.000) 2020-10-07 19:44:47 Job submitted from host: <131.169.223.42:9618?addrs=131.169.223.42-9618+[2001-638-700-10df--1-2a]-9618&alias=bird-htc-sched14.desy.de&noUDP&sock=schedd_3943631_6d64_3>
+...
+001 (10335160.000.000) 2020-10-07 22:53:20 Job executing on host: <131.169.162.167:42438?addrs=131.169.162.167-42438&alias=batch1167.desy.de>
+...
+006 (10335160.000.000) 2020-10-07 22:53:29 Image size of job updated: 78572
+	38  -  MemoryUsage of job (MB)
+	38500  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 22:58:30 Image size of job updated: 2112724
+	1911  -  MemoryUsage of job (MB)
+	1956112  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:03:31 Image size of job updated: 2214056
+	2008  -  MemoryUsage of job (MB)
+	2055496  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:08:31 Image size of job updated: 2216184
+	2010  -  MemoryUsage of job (MB)
+	2057624  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:13:32 Image size of job updated: 2216452
+	2010  -  MemoryUsage of job (MB)
+	2057892  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:28:34 Image size of job updated: 2219068
+	2013  -  MemoryUsage of job (MB)
+	2060508  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:43:35 Image size of job updated: 2225480
+	2019  -  MemoryUsage of job (MB)
+	2066920  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:53:37 Image size of job updated: 2226296
+	2020  -  MemoryUsage of job (MB)
+	2067736  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-07 23:58:37 Image size of job updated: 2229576
+	2023  -  MemoryUsage of job (MB)
+	2071016  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-08 00:23:40 Image size of job updated: 2234048
+	2027  -  MemoryUsage of job (MB)
+	2075488  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-08 00:38:42 Image size of job updated: 2234500
+	2028  -  MemoryUsage of job (MB)
+	2075940  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-08 01:03:44 Image size of job updated: 2241940
+	2035  -  MemoryUsage of job (MB)
+	2083380  -  ResidentSetSize of job (KB)
+...
+006 (10335160.000.000) 2020-10-08 02:41:07 Image size of job updated: 4696356
+	2035  -  MemoryUsage of job (MB)
+	2083380  -  ResidentSetSize of job (KB)
+...
+005 (10335160.000.000) 2020-10-08 02:41:07 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 03:41:45, Sys 0 00:04:26  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 03:41:45, Sys 0 00:04:26  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     1     3072000   4428791 
+	   Memory (MB)          :  2035        1536      1536 
+
+	Job terminated of its own accord at 2020-10-08T00:41:07Z.
+...

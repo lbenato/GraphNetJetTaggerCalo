@@ -37,7 +37,7 @@ def plotLearningCurves(*histObjs):
     plt.title('model loss')
     plt.ylabel('loss')
     plt.xlabel('epoch')
-    plt.legend(names, loc='upper right')
+    plt.legend(names, loc='center right')
     
 
     #accuracy plot

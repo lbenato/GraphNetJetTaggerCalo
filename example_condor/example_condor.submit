@@ -11,7 +11,7 @@ Request_GPUs = 1
  
 ## uncomment this to specify a runtime longer than 3 hours (time in seconds) 
 #Request_Cpus = 1 
-Request_Memory = 200000 
-+RequestRuntime = 200000 
+Request_Memory = 120000 
++RequestRuntime = 50000 
 batch_name = particlenet_job 
 queue 1 

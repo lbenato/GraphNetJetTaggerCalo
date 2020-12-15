@@ -1,0 +1,51 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/n3n2-n1-hbb-hbb_mh200_pl1000/
+
+
+
+
+   Initialized df for sample:  output_1.root
+  n events gen.:  55819.0
+   Tree weight:    1428.2441068453393
+   Reading n. events in tree:  6235
+   Cut applied:  
+   Events passing cuts:  6235
+
+
+      EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0              11  ...                                  -1
+1              28  ...                                  -1
+2              43  ...                                  -1
+3              57  ...                                  -1
+4              70  ...                                  -1
+...           ...  ...                                 ...
+6230        99941  ...                                  -1
+6231        99935  ...                                  -1
+6232        99972  ...                                  -1
+6233        99995  ...                                  -1
+6234        99994  ...                                  -1
+
+[6235 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 44.57 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+      EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0              11          1           1  ...        1.0    55819.0   1428.244107
+1              28          1           1  ...        1.0    55819.0   1428.244107
+2              43          1           1  ...        1.0    55819.0   1428.244107
+3              57          1           1  ...        1.0    55819.0   1428.244107
+4              70          1           1  ...        1.0    55819.0   1428.244107
+...           ...        ...         ...  ...        ...        ...           ...
+6230        99941          1        1000  ...        1.0    55819.0   1428.244107
+6231        99935          1        1000  ...        1.0    55819.0   1428.244107
+6232        99972          1        1000  ...        1.0    55819.0   1428.244107
+6233        99995          1        1000  ...        1.0    55819.0   1428.244107
+6234        99994          1        1000  ...        1.0    55819.0   1428.244107
+
+[6235 rows x 6951 columns]
+  -------------------   
+  Events :  6235
+Opening /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/n3n2-n1-hbb-hbb_mh200_pl1000//output_1.h5 in read-only mode

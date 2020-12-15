@@ -1,0 +1,52 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_skimAccept_unmerged/TChiHH_mass400_pl1000/
+
+
+  n events gen.:  11534.0
+   Tree weight:    459.202611843246
+
+
+   Initialized df for sample:  output_1-12.root
+   Reading n. events in tree:  3343
+   Cut applied:  
+   Events passing cuts:  3343
+
+
+      EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0         1465124  ...                                  -1
+1         1465137  ...                                  -1
+2         1465149  ...                                  -1
+3         1465151  ...                                  -1
+4         1465152  ...                                  -1
+...           ...  ...                                 ...
+3338      1488371  ...                                  -1
+3339      1488374  ...                                  -1
+3340      1488400  ...                                  -1
+3341      1488399  ...                                  -1
+3342      1488398  ...                                  -1
+
+[3343 rows x 6888 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 38.78 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+      EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0         1465124          1       14652  ...        1.0    11534.0    459.202612
+1         1465137          1       14652  ...        1.0    11534.0    459.202612
+2         1465149          1       14652  ...        1.0    11534.0    459.202612
+3         1465151          1       14652  ...        1.0    11534.0    459.202612
+4         1465152          1       14652  ...        1.0    11534.0    459.202612
+...           ...        ...         ...  ...        ...        ...           ...
+3338      1488371          1       14884  ...        1.0    11534.0    459.202612
+3339      1488374          1       14884  ...        1.0    11534.0    459.202612
+3340      1488400          1       14884  ...        1.0    11534.0    459.202612
+3341      1488399          1       14884  ...        1.0    11534.0    459.202612
+3342      1488398          1       14884  ...        1.0    11534.0    459.202612
+
+[3343 rows x 6891 columns]
+  -------------------   
+  Events :  3343
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018/TChiHH_mass400_pl1000//output_1-12.h5 stored
+  -------------------   

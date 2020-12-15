@@ -1,0 +1,51 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_unmerged/n3n2-n1-hbb-hbb_mh175_pl1000/
+
+
+
+
+   Initialized df for sample:  output_1.root
+  n events gen.:  53338.0
+   Tree weight:    2891.6883057107502
+   Reading n. events in tree:  4830
+   Cut applied:  
+   Events passing cuts:  4830
+
+
+      EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0              22  ...                                  -1
+1              19  ...                                  -1
+2              53  ...                                  -1
+3              47  ...                                  -1
+4              96  ...                                  -1
+...           ...  ...                                 ...
+4825        93609  ...                                  -1
+4826        93635  ...                                  -1
+4827        93645  ...                                  -1
+4828        93655  ...                                  -1
+4829        93685  ...                                  -1
+
+[4830 rows x 6948 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 76.14 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+      EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0              22          1           1  ...        1.0    53338.0   2891.688306
+1              19          1           1  ...        1.0    53338.0   2891.688306
+2              53          1           1  ...        1.0    53338.0   2891.688306
+3              47          1           1  ...        1.0    53338.0   2891.688306
+4              96          1           1  ...        1.0    53338.0   2891.688306
+...           ...        ...         ...  ...        ...        ...           ...
+4825        93609          1         937  ...        1.0    53338.0   2891.688306
+4826        93635          1         937  ...        1.0    53338.0   2891.688306
+4827        93645          1         937  ...        1.0    53338.0   2891.688306
+4828        93655          1         937  ...        1.0    53338.0   2891.688306
+4829        93685          1         937  ...        1.0    53338.0   2891.688306
+
+[4830 rows x 6951 columns]
+  -------------------   
+  Events :  4830
+Opening /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/n3n2-n1-hbb-hbb_mh175_pl1000//output_1.h5 in read-only mode

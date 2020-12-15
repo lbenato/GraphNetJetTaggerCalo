@@ -1,0 +1,703 @@
++ '[' -htcpart2 '!=' -htcpart2 ']'
++ shift
++ checkexist keyctl aklog cut flock
++ for prog in '"$@"'
++ hash keyctl
++ for prog in '"$@"'
++ hash aklog
++ for prog in '"$@"'
++ hash cut
++ for prog in '"$@"'
++ hash flock
+++ cut '-d;' -f2
+++ keyctl rdescribe @s
++ session_uid=36344
++ '[' 36344 '!=' 36344 ']'
++ keyctl link @s @u
+++ keyctl search @s keyring htcondor_uid36344
++ export uid_ring_id=803347679
++ uid_ring_id=803347679
++ lockfile=/var/lib/condor/execute/dir_11777/heikenju.cc
++ '[' FILE:/var/lib/condor/execute/dir_11777/heikenju.cc '!=' /var/lib/condor/execute/dir_11777/heikenju.cc -a FILE '!=' FILE ']'
++ keyctl search @s afs_pag _pag
++ flock -x -w 20 200
++ keyctl setperm 803347679 0x3f3f0000
++ keyctl setperm @s 0x1f3f0000
++ keyctl search @s afs_pag _pag
++ pagsh /bin/bash -c 'keyctl link @s 803347679'
++ aklog
++ echo aklog_real_exit_code 0
++ '[' -htcpart2 '!=' -htcpart2 ']'
++ shift
++ checkexist keyctl aklog cut flock
++ for prog in '"$@"'
++ hash keyctl
++ for prog in '"$@"'
++ hash aklog
++ for prog in '"$@"'
++ hash cut
++ for prog in '"$@"'
++ hash flock
+++ cut '-d;' -f2
+++ keyctl rdescribe @s
++ session_uid=36344
++ '[' 36344 '!=' 36344 ']'
++ keyctl link @s @u
+++ keyctl search @s keyring htcondor_uid36344
++ export uid_ring_id=803347679
++ uid_ring_id=803347679
++ lockfile=/var/lib/condor/execute/dir_11777/heikenju.cc
++ '[' FILE:/var/lib/condor/execute/dir_11777/heikenju.cc '!=' /var/lib/condor/execute/dir_11777/heikenju.cc -a FILE '!=' FILE ']'
++ keyctl search @s afs_pag _pag
++ aklog
++ echo aklog_real_exit_code 0
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_250.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.42 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_250.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_227.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.54 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_227.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_306.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.97 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_306.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_3-14.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 28.88 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_3-14.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_9.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 62.81 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_9.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_78.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 66.86 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_78.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_322.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 58.90 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_322.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_377.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 57.62 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_377.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_196.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 64.48 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_196.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_41.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.07 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_41.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_1.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.62 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_1.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_112.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.80 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_112.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_329.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.54 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_329.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_29.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.66 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_29.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_35.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.14 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_35.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_312.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.85 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_312.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_305.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 57.18 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_305.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_23.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 57.70 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_23.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_124.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.45 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_124.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_3-4.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 25.31 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_3-4.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_265.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 57.31 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_265.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_3.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 57.77 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_3.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_3-12.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 25.64 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_3-12.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_224.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 58.18 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_224.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_204.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.50 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_204.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_155.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.78 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_155.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_104.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.32 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_104.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_165.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.31 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_165.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_95.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.36 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_95.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_241.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.91 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_241.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_54.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.85 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_54.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_121.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 54.67 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_121.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_131.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.10 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_131.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_238.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.55 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_238.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_288.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 54.86 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_288.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_283.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.42 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_283.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_64.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.40 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_64.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_3-33.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 25.78 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_3-33.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_388.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 13.03 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_388.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_253.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 54.80 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_253.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_286.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.52 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_286.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_101.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 55.92 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_101.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_197.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.01 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_197.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_363.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 54.76 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_363.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_56.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.48 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_56.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_219.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.27 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_219.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_80.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.20 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_80.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_4.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.09 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_4.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_258.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.31 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_258.h5 stored
+  -------------------   
+  Transform per-event into per-jet dataframes...
+
+
+going to open:  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1/output_53.h5
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to convert: 56.26 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/ZJetsToNuNu_HT-400To600_13TeV-madgraph-v1//output_53.h5 stored
+  -------------------   

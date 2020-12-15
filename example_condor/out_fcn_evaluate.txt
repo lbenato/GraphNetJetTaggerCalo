@@ -1,0 +1,112 @@
+Number of available GPUs: 1
+[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+
+
+using single GPU setup
+Time: 22Oct2020_11_27_39
+
+
+Number of available GPUs: 1
+[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+
+
+GeForce GTX 1080 Ti
+using single GPU setup
+
+
+   Training FCN_cons on constituent features (FCN)    
+
+
+['energy', 'pt', 'isTrack', 'nHits', 'nPixelHits']
+5  training features!
+
+
+['etarel', 'phirel']
+2  points coordinates
+
+
+['Jet_nSelectedTracks', 'Jet_timeRecHitsEB', 'Jet_timeRecHitsHB', 'Jet_energyRecHitsEB', 'Jet_energyRecHitsHB', 'Jet_nRecHitsEB', 'Jet_nRecHitsHB', 'Jet_ptAllTracks', 'Jet_ptPVTracksMax', 'Jet_betaMax', 'Jet_gammaMaxET', 'Jet_minDeltaRAllTracks', 'Jet_minDeltaRPVTracks']
+13  jet features
+
+
+
+
+    Evaluating performances of the model.....   
+    Remove negative weights at testing!!!!!!
+before: ['energy', 'pt', 'isTrack', 'nHits', 'nPixelHits', 'etarel', 'phirel']
+
+
+
+
+Here features_list ['energy_0', 'pt_0', 'isTrack_0', 'nHits_0', 'nPixelHits_0', 'etarel_0', 'phirel_0', 'energy_1', 'pt_1', 'isTrack_1', 'nHits_1', 'nPixelHits_1', 'etarel_1', 'phirel_1', 'energy_2', 'pt_2', 'isTrack_2', 'nHits_2', 'nPixelHits_2', 'etarel_2', 'phirel_2', 'energy_3', 'pt_3', 'isTrack_3', 'nHits_3', 'nPixelHits_3', 'etarel_3', 'phirel_3', 'energy_4', 'pt_4', 'isTrack_4', 'nHits_4', 'nPixelHits_4', 'etarel_4', 'phirel_4', 'energy_5', 'pt_5', 'isTrack_5', 'nHits_5', 'nPixelHits_5', 'etarel_5', 'phirel_5', 'energy_6', 'pt_6', 'isTrack_6', 'nHits_6', 'nPixelHits_6', 'etarel_6', 'phirel_6', 'energy_7', 'pt_7', 'isTrack_7', 'nHits_7', 'nPixelHits_7', 'etarel_7', 'phirel_7', 'energy_8', 'pt_8', 'isTrack_8', 'nHits_8', 'nPixelHits_8', 'etarel_8', 'phirel_8', 'energy_9', 'pt_9', 'isTrack_9', 'nHits_9', 'nPixelHits_9', 'etarel_9', 'phirel_9', 'energy_10', 'pt_10', 'isTrack_10', 'nHits_10', 'nPixelHits_10', 'etarel_10', 'phirel_10', 'energy_11', 'pt_11', 'isTrack_11', 'nHits_11', 'nPixelHits_11', 'etarel_11', 'phirel_11', 'energy_12', 'pt_12', 'isTrack_12', 'nHits_12', 'nPixelHits_12', 'etarel_12', 'phirel_12', 'energy_13', 'pt_13', 'isTrack_13', 'nHits_13', 'nPixelHits_13', 'etarel_13', 'phirel_13', 'energy_14', 'pt_14', 'isTrack_14', 'nHits_14', 'nPixelHits_14', 'etarel_14', 'phirel_14', 'energy_15', 'pt_15', 'isTrack_15', 'nHits_15', 'nPixelHits_15', 'etarel_15', 'phirel_15', 'energy_16', 'pt_16', 'isTrack_16', 'nHits_16', 'nPixelHits_16', 'etarel_16', 'phirel_16', 'energy_17', 'pt_17', 'isTrack_17', 'nHits_17', 'nPixelHits_17', 'etarel_17', 'phirel_17', 'energy_18', 'pt_18', 'isTrack_18', 'nHits_18', 'nPixelHits_18', 'etarel_18', 'phirel_18', 'energy_19', 'pt_19', 'isTrack_19', 'nHits_19', 'nPixelHits_19', 'etarel_19', 'phirel_19', 'energy_20', 'pt_20', 'isTrack_20', 'nHits_20', 'nPixelHits_20', 'etarel_20', 'phirel_20', 'energy_21', 'pt_21', 'isTrack_21', 'nHits_21', 'nPixelHits_21', 'etarel_21', 'phirel_21', 'energy_22', 'pt_22', 'isTrack_22', 'nHits_22', 'nPixelHits_22', 'etarel_22', 'phirel_22', 'energy_23', 'pt_23', 'isTrack_23', 'nHits_23', 'nPixelHits_23', 'etarel_23', 'phirel_23', 'energy_24', 'pt_24', 'isTrack_24', 'nHits_24', 'nPixelHits_24', 'etarel_24', 'phirel_24', 'Jet_nSelectedTracks', 'Jet_timeRecHitsEB', 'Jet_timeRecHitsHB', 'Jet_energyRecHitsEB', 'Jet_energyRecHitsHB', 'Jet_nRecHitsEB', 'Jet_nRecHitsHB', 'Jet_ptAllTracks', 'Jet_ptPVTracksMax', 'Jet_betaMax', 'Jet_gammaMaxET', 'Jet_minDeltaRAllTracks', 'Jet_minDeltaRPVTracks']
+Here the dataset
+           energy_0       pt_0  ...  Jet_minDeltaRAllTracks  Jet_minDeltaRPVTracks
+0        130.070404  118.31250  ...                0.020336               0.020336
+1         27.587589   27.56250  ...                0.008464               0.008464
+2        132.405045  116.56250  ...                0.016269               0.016269
+3        145.689651   90.68750  ...                0.016156               0.047313
+4        234.034164  111.93750  ...                0.005070               0.005070
+...             ...        ...  ...                     ...                    ...
+2315050  150.365784  135.75000  ...                0.031191               0.377864
+2315052  160.734650   76.25000  ...                0.031911               0.213398
+2315068   84.349693   83.93750  ...                0.133103               0.133103
+2315083   39.336414   38.34375  ...                0.215455               0.215455
+2315095  223.118317  137.37500  ...                0.086863               0.086863
+
+[2315110 rows x 188 columns]
+    Loading model...  /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_v5/model_FCN_constituents_FCN_PF+jet/best_model_FCN_PF+jet.h5
+
+
+Model: "FCN_constituents"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 210)               39690     
+_________________________________________________________________
+dropout (Dropout)            (None, 210)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 20)                4220      
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 20)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 2)                 42        
+=================================================================
+Total params: 43,952
+Trainable params: 43,952
+Non-trainable params: 0
+_________________________________________________________________
+
+
+    Running on test sample. This may take a moment. . .
+
+
+    Test Area under Curve = 0.9977777403783041
+
+
+ ... x-check, probs size: 
+ 0          9.053577e-04
+1          6.091144e-02
+2          2.192159e-05
+3          1.111144e-03
+4          2.085137e-08
+               ...     
+2315050    1.000000e+00
+2315052    9.996474e-01
+2315068    9.999996e-01
+2315083    9.999998e-01
+2315095    1.000000e+00
+Name: sigprob, Length: 2315110, dtype: float32
+    /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_v5/model_FCN_constituents_FCN_PF+jet/test_score_FCN_PF+jet_signal_matched_Jet_isGenMatchedCaloCorrLLPAccept.h5 stored
+ ... x-check, back size:  2016891
+ ... x-check, sign size:  298219
+ ... x-check, back naive integral:  39735.28298388247
+ ... x-check, sign naive integral:  291690.41492358665
+ ... x-check, back weight integral:  0.999999999999095
+ ... x-check, sign weight integral:  0.9999967960154851
+ ... x-check, back comb integral:  0.021574414029342247
+ ... x-check, sign comb integral:  0.977988593614266
+Integral S:  0.020408097877834503
+Integral B:  0.02040816326530711
+    Plots printed in /nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_v5/model_FCN_constituents_FCN_PF+jet/
+
+

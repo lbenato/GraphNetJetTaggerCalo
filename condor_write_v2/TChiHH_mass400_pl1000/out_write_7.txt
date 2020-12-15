@@ -1,0 +1,52 @@
+    Opening  /nfs/dust/cms/group/cms-llp/v3_calo_AOD_2018_skimAccept_unmerged/TChiHH_mass400_pl1000/
+
+
+  n events gen.:  11492.0
+   Tree weight:    460.88086712495647
+
+
+   Initialized df for sample:  output_1-1.root
+   Reading n. events in tree:  3377
+   Cut applied:  
+   Events passing cuts:  3377
+
+
+      EventNumber  ...  Jet_9_PFCandidate_29_lostInnerHits
+0          140203  ...                                  -1
+1          140207  ...                                  -1
+2          140211  ...                                  -1
+3          140213  ...                                  -1
+4          140214  ...                                  -1
+...           ...  ...                                 ...
+3372       292357  ...                                  -1
+3373       292355  ...                                  -1
+3374       292362  ...                                  -1
+3375       292386  ...                                  -1
+3376       292377  ...                                  -1
+
+[3377 rows x 6888 columns]
+
+
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed root2array: 34.59 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+
+
+      EventNumber  RunNumber  LumiNumber  ...  is_signal  c_nEvents  SampleWeight
+0          140203          1        1403  ...        1.0    11492.0    460.880867
+1          140207          1        1403  ...        1.0    11492.0    460.880867
+2          140211          1        1403  ...        1.0    11492.0    460.880867
+3          140213          1        1403  ...        1.0    11492.0    460.880867
+4          140214          1        1403  ...        1.0    11492.0    460.880867
+...           ...        ...         ...  ...        ...        ...           ...
+3372       292357          1        2924  ...        1.0    11492.0    460.880867
+3373       292355          1        2924  ...        1.0    11492.0    460.880867
+3374       292362          1        2924  ...        1.0    11492.0    460.880867
+3375       292386          1        2924  ...        1.0    11492.0    460.880867
+3376       292377          1        2924  ...        1.0    11492.0    460.880867
+
+[3377 rows x 6891 columns]
+  -------------------   
+  Events :  3377
+  /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018/TChiHH_mass400_pl1000//output_1-1.h5 stored
+  -------------------   

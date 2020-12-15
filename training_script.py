@@ -60,11 +60,11 @@ tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ### Folders ###
 #~~~~~~~~~~~~~~~~~~~~~~~~~
-#graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
-#graphnet_result_folder = 'model_weights_graphnet/v2_calo_AOD_2017_condor_SMALL/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
+graphnet_pd_folder = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'dataframes_graphnet/v2_calo_AOD_2017_test/'
+graphnet_result_folder = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v2_calo_AOD_2017_condor_partnet_JJ_presel/'#'model_weights_graphnet/v2_calo_AOD_2017_test/'
 
 
-#compare_folder = 'model_weights_graphnet/compare_folder/'
+compare_folder = 'model_weights_graphnet/v3_calo_AOD_2018_v5/'
 #compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
 #exit()
 
@@ -76,10 +76,13 @@ tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
 graphnet_pd_partnet = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_partnet/'
 graphnet_result_partnet = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_partnet/'
 
-fcn_result_folder = 'model_weights_graphnet/v3_calo_AOD_2018_fcn/'
+fcn_result_folder = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_fcn/'
 
 folder_test = '/nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_jh_dnn_partnet/'
 result_test = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_dnn_partnet/'
+
+in_folder = '/nfs/dust/cms/group/cms-llp/dataframes_final_Julia/v3_calo_AOD_2018_dnn__v5_SUSY/'
+result_folder = '/nfs/dust/cms/user/heikenju/ML_LLP/GraphNetJetTaggerCalo/model_weights_graphnet/v3_calo_AOD_2018_v5/'
 
 
 #graphnet_pd_JJ_MET = '/nfs/dust/cms/group/cms-llp/dataframes_graphnet/v2_calo_AOD_2017_condor_JJ_MET/'
@@ -210,7 +213,7 @@ pf_features = [
     #'lostInnerHits',
 ]
 pf_points = [
-    'eta','phi',
+    'etarel','phirel',
 ]
 pf_mask = [
     'pt',
@@ -241,12 +244,19 @@ print("\n")
 n_class=2
 
 
+compare_models(
+    ["particle_net","FCN_constituents","particle_net","FCN_constituents"],
+    compare_folder,
+    "is_signal",
+    ["EventWeightNormalized","EventWeightNormalized","EventWeightNormalized","EventWeightNormalized"],
+    use_weight=True,
+    model_labels=["PartNet","FCN_PF","jet_jet_PF","FCN_PF_jet"],
+    plot_labels=["ParticleNet on PF","FCN on PF","ParticleNet on PF+jet","FCN on PF+jet"],
+    signal_match_test=True,
+    ignore_empty_jets_test=True
+)
 
-
-#compare_folder = 'model_weights_graphnet/compare_folder/'
-#compare_models(["BDT","LEADER","particle_net_lite"],compare_folder,"is_signal",["SampleWeight","SampleWeight","SampleWeight"],use_weight=True,model_labels=["SampleWeight","1_SampleWeight","test"],signal_match_test=False,ignore_empty_jets_test=True)
-#exit()
-
+exit()
 
 folder_dnn_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_dnn/'
 folder_BDT_v3 = '/nfs/dust/cms/group/cms-llp/dataframes_lisa/v3_calo_AOD_2018_BDT/'
@@ -256,8 +266,8 @@ result_v3 = 'model_weights/v3_calo_AOD_2018_dnn_balance_val_train/'
 #~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Signal and background samples, defined in samplesAOD201X.py
 #~~~~~~~~~~~~~~~~~~~~~~~~~
-sgn = ['SUSY_mh400_pl1000','SUSY_mh300_pl1000','SUSY_mh250_pl1000','SUSY_mh200_pl1000','SUSY_mh175_pl1000','SUSY_mh150_pl1000','SUSY_mh127_pl1000']
-bkg = ['VV','WJetsToLNu','ZJetsToNuNu','WJetsToLNu','QCD','TTbar']
+sgn = ['SUSY_mh400_pl1000_XL']
+bkg = ['VV','WJetsToLNu','ZJetsToNuNu','QCD','TTbar']
 #bkg = ['WJetsToLNu']
 
 ##############################################################
@@ -266,8 +276,8 @@ bkg = ['VV','WJetsToLNu','ZJetsToNuNu','WJetsToLNu','QCD','TTbar']
 #TRAIN_MODEL = "FCN"
 #TRAIN_MODEL = "FCN_constituents"
 #TRAIN_MODEL = "particle_net_lite"
-#TRAIN_MODEL = "particle_net"
-TRAIN_MODEL = "particle_net_jet"
+TRAIN_MODEL = "particle_net"
+#TRAIN_MODEL = "particle_net_jet"
 
 
 if TRAIN_MODEL != "BDT":
@@ -369,14 +379,17 @@ elif TRAIN_MODEL == "FCN_constituents":
     print(pf_points)
     print(len(pf_points)," points coordinates")
     print("\n")
-    
-    name = "17_EWN_rel"
+    print(jet_features_list)
+    print(len(jet_features_list)," jet features")
+    print("\n")
+
+    name = "FCN_PF"
 
     #fit function
-    fit_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=100,n_batch_size=1000,patience_val=100,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+   # fit_model("FCN_constituents", n_class, in_folder, result_folder, npf, pf_points, pf_features,[],[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=100,n_batch_size=1000,patience_val=100,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
     #evaluate performances
-    evaluate_model("FCN_constituents", n_class, graphnet_pd_partnet, fcn_result_folder, npf, pf_points, pf_features,[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=1000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("FCN_constituents", n_class, in_folder, result_folder, npf, pf_points, pf_features,[],[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=1000,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
     #evaluate_model("FCN", n_class, graphnet_pd_JJ_MET, graphnet_result_folder,0,[],jet_features_list,[],"is_signal","EventWeightNormalized",use_weight=True,n_batch_size=2000,model_label=name,signal_match_test=False,ignore_empty_jets_test=True) 
     
@@ -435,11 +448,11 @@ elif TRAIN_MODEL == "particle_net":
     print(len(pf_mask)," mask")
     print("\n")
 
-    name = "08-23"
+    name = "PartNet"
 
-    fit_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points, pf_features, pf_mask,"is_signal","SampleWeight",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=14,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+    fit_model("particle_net", n_class, in_folder, result_folder, npf, pf_points, pf_features, pf_mask,[],"is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=40,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
-    evaluate_model("particle_net", n_class, graphnet_pd_partnet, graphnet_result_partnet, npf, pf_points,pf_features, pf_mask,"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("particle_net", n_class, in_folder, result_folder, npf, pf_points,pf_features, pf_mask,[],"is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
 
 elif TRAIN_MODEL == "particle_net_jet":
@@ -460,11 +473,11 @@ elif TRAIN_MODEL == "particle_net_jet":
     print(len(jet_features_list)," jet features")
     print("\n")
 
-    name = "09-27"
+    name = "PF_jet"
 
-    #fit_model("particle_net_jet", n_class, folder_test, result_test, npf, pf_points, pf_features, pf_mask, jet_features_list, "is_signal","EventWeightNormalized",use_weight=True,n_epochs=50,n_batch_size=500,patience_val=50,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
+   # fit_model("particle_net_jet", n_class, in_folder, result_folder, npf, pf_points, pf_features, pf_mask, jet_features_list, "is_signal","EventWeightNormalized",use_weight=True,n_epochs=100,n_batch_size=500,patience_val=60,val_split=0.0,model_label=name,ignore_empty_jets_train=True)
 
-    evaluate_model("particle_net_jet", n_class, folder_test, result_test, npf, pf_points,pf_features, pf_mask, jet_features_list, "is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
+    evaluate_model("particle_net_jet", n_class, in_folder, result_folder, npf, pf_points,pf_features, pf_mask, jet_features_list, "is_signal","Jet_isGenMatchedCaloCorrLLPAccept","EventWeightNormalized",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=True,ignore_empty_jets_test=True)
 
     #evaluate_model("particle_net_jet", n_class, folder_test, result_test, npf, pf_points,pf_features, pf_mask, jet_features_list, "is_signal","SampleWeight",use_weight=True,n_batch_size=500,model_label=name,signal_match_test=False,ignore_empty_jets_test=True)
 

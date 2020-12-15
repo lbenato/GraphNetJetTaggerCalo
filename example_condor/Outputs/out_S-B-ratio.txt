@@ -1,0 +1,35 @@
+   Preparing signal validation; 20% of training sample
+   -> Train:  72895
+   -> Val:  18224
+
+
+   Upsample signal by a factor:  5
+   --> before, train:  72895
+   --> after, train:  364475
+   --> before, val:  18224
+   --> after, val:  91120
+   Using only this amount of bkg:  25.0 %
+
+
+   Preparing background validation; 20% of training sample
+   -> Train:  2847788
+   -> Val:  711947
+   ---- Ratio nB/nS train:  7.813397352356128
+   ---- Ratio nB/nS val:  7.813290166812994
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to concatenate: 509.02 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Saving mixed dataset: /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_v4//AK4jets_train.h5 stored
+
+
+   Upsample signal by a factor:  5
+   --> before, train:  90093
+   --> after, train:  450465
+   Using only this amount of bkg:  25.0 %
+
+
+   ---- Ratio nB/nS test:  7.905970497152942
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Time needed to concatenate: 386.95 seconds
+  * * * * * * * * * * * * * * * * * * * * * * *
+  Saving mixed dataset: /nfs/dust/cms/group/cms-llp/dataframes_jh/v3_calo_AOD_2018_v4//AK4jets_test.h5 stored
